@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>유미의 세포들</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="site-header" aria-label="주요 메뉴">
+        <a class="brand" href="#" aria-label="유미의 세포들 홈">
+          <img src="./assets/images/logo/yumi-cells-logo.png" alt="유미의 세포들" />
+          <img class="brand-heart" src="./assets/images/decor/logo-heart.png" alt="" aria-hidden="true" />
+        </a>
+
+        <nav class="main-nav" aria-label="페이지 메뉴">
+          <a class="is-active" href="#">Home</a>
+          <a href="#">Yumi</a>
+          <a href="#">Cells</a>
+          <a href="#">Story</a>
+          <a href="#">Gallery</a>
+          <a href="#">News</a>
+          <a href="#">Event</a>
+        </nav>
+
+        <div class="header-actions" aria-label="소셜 메뉴">
+          <a href="#" aria-label="Instagram">
+            <span class="icon-instagram"></span>
+          </a>
+          <a href="#" aria-label="YouTube">
+            <span class="icon-youtube"></span>
+          </a>
+          <button class="menu-button" type="button" aria-label="메뉴 열기">
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="hero-bg" aria-hidden="true"></div>
+          <div class="hero-glow hero-glow-blue" aria-hidden="true"></div>
+          <div class="hero-glow hero-glow-pink" aria-hidden="true"></div>
+
+          <div class="sparkles" aria-hidden="true">
+            <span style="--x: 20%; --y: 19%; --d: 0s; --s: 1.2"></span>
+            <span style="--x: 40%; --y: 32%; --d: 1.2s; --s: .85"></span>
+            <span style="--x: 54%; --y: 16%; --d: .35s; --s: 1"></span>
+            <span style="--x: 65%; --y: 36%; --d: 1.8s; --s: .7"></span>
+            <span style="--x: 78%; --y: 24%; --d: .7s; --s: 1.1"></span>
+          </div>
+
+          <div class="bubbles" aria-hidden="true">
+            <span style="--x: 35%; --size: 58px; --delay: 0s; --duration: 8s"></span>
+            <span style="--x: 48%; --size: 34px; --delay: 1.5s; --duration: 9s"></span>
+            <span style="--x: 60%; --size: 72px; --delay: .4s; --duration: 10s"></span>
+            <span style="--x: 73%; --size: 44px; --delay: 2s; --duration: 7s"></span>
+            <span style="--x: 88%; --size: 62px; --delay: .9s; --duration: 11s"></span>
+          </div>
+
+          <div class="hero-copy">
+            <p class="eyebrow">세포들과 함께하는</p>
+            <h1 id="hero-title">
+              <span>유미의</span>
+              <span>모든 <strong>순간</strong></span>
+            </h1>
+            <p class="hero-description">
+              사랑하고, 고민하고, 성장하는<br />
+              유미와 세포들의 이야기를 함께해요!
+            </p>
+
+            <div class="hero-cta">
+              <a class="primary-button" href="#">
+                <span>세포들 보러가기</span>
+                <span class="play-icon" aria-hidden="true"></span>
+              </a>
+              <a class="secondary-button" href="#">유미의 이야기</a>
+            </div>
+          </div>
+
+          <div class="hero-stage" aria-hidden="true">
+            <img class="yumi-main motion-layer" data-depth="24" src="./assets/images/hero/yumi-main.png" alt="" />
+            <img class="cell cell-love motion-layer" data-depth="36" src="./assets/images/cells/cell-love.png" alt="" />
+            <img class="cell cell-angry motion-layer" data-depth="28" src="./assets/images/cells/cell-angry.png" alt="" />
+            <img class="cell cell-reading motion-layer" data-depth="18" src="./assets/images/cells/cell-reading.png" alt="" />
+            <img class="cell cell-chill motion-layer" data-depth="30" src="./assets/images/cells/cell-chill.png" alt="" />
+            <img class="cell cell-artist motion-layer" data-depth="22" src="./assets/images/cells/cell-artist.png" alt="" />
+            <img class="cell-panels motion-layer" data-depth="14" src="./assets/images/hero/cell-panels.png" alt="" />
+          </div>
+
+          <div class="scroll-hint" aria-hidden="true">
+            <span class="mouse-dot"></span>
+            <small>Scroll Down</small>
+          </div>
+
+          <img class="hero-table" src="./assets/images/hero/hero-table.png" alt="" aria-hidden="true" />
+        </section>
+
+        <section class="relationship" id="relationship" aria-labelledby="relationship-title">
+          <div class="relationship-bg" aria-hidden="true">
+            <span class="rel-star rel-star-one"></span>
+            <span class="rel-star rel-star-two"></span>
+            <span class="rel-star rel-star-three"></span>
+            <span class="rel-heart rel-heart-one"></span>
+            <span class="rel-heart rel-heart-two"></span>
+          </div>
+
+          <div class="section-heading">
+            <span>Character Relationship</span>
+            <h2 id="relationship-title">캐릭터 관계도</h2>
+          </div>
+
+          <div class="relationship-map">
+            <article class="rel-card rel-card-cells">
+              <h3>유미의 세포들</h3>
+              <div class="mini-grid">
+                <div class="mini-profile">
+                  <img src="./assets/images/relationship/love-cell.png" alt="사랑 세포" />
+                  <strong>사랑 세포</strong>
+                  <p>사랑을 꿈꾸는 로맨티스트</p>
+                </div>
+                <div class="mini-profile">
+                  <img src="./assets/images/relationship/logic-cell.png" alt="이성 세포" />
+                  <strong>이성 세포</strong>
+                  <p>냉철한 판단 담당</p>
+                </div>
+                <div class="mini-profile">
+                  <img src="./assets/images/relationship/passion-cell.png" alt="열정 세포" />
+                  <strong>열정 세포</strong>
+                  <p>뜨겁게 밀어붙이는 추진력</p>
+                </div>
+                <div class="mini-profile">
+                  <img src="./assets/images/relationship/food-cell.png" alt="먹방 세포" />
+                  <strong>먹방 세포</strong>
+                  <p>맛있는 순간을 책임져요</p>
+                </div>
+                <div class="mini-profile">
+                  <img src="./assets/images/relationship/anxiety-cell.png" alt="걱정 세포" />
+                  <strong>걱정 세포</strong>
+                  <p>작은 일도 먼저 대비해요</p>
+                </div>
+                <div class="mini-profile">
+                  <img src="./assets/images/relationship/sense-cell.png" alt="센스 세포" />
+                  <strong>센스 세포</strong>
+                  <p>유미의 감각을 담당해요</p>
+                </div>
+              </div>
+            </article>
+
+            <div class="rel-center">
+              <div class="connection-line line-love"></div>
+              <div class="connection-line line-friend"></div>
+              <div class="connection-line line-family"></div>
+              <div class="yumi-orbit">
+                <img src="./assets/images/relationship/yumi-profile.png" alt="유미" />
+              </div>
+              <strong>유미</strong>
+              <p>평범한 일상을 살아가는<br />우리들의 이야기</p>
+            </div>
+
+            <div class="rel-side">
+              <article class="rel-card rel-card-people">
+                <h3>유미의 주변 인물</h3>
+                <div class="people-row">
+                  <div class="mini-profile">
+                    <img src="./assets/images/relationship/gu-woong.png" alt="구웅" />
+                    <strong>구웅</strong>
+                    <p>웹툰 작가이자 유미의 인연</p>
+                  </div>
+                  <div class="mini-profile">
+                    <img src="./assets/images/relationship/control-z.png" alt="컨트롤 Z" />
+                    <strong>컨트롤 Z</strong>
+                    <p>감각적인 그림 작가</p>
+                  </div>
+                  <div class="mini-profile">
+                    <img src="./assets/images/relationship/yoo-babi.png" alt="유바비" />
+                    <strong>유바비</strong>
+                    <p>다정한 매력의 동료</p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="rel-card rel-card-town">
+                <h3>세포 마을</h3>
+                <div class="people-row">
+                  <div class="mini-profile">
+                    <img src="./assets/images/relationship/heart-wish-cell.png" alt="마음 의상 세포" />
+                    <strong>마음 의상 세포</strong>
+                    <p>마음의 옷을 고르는 세포</p>
+                  </div>
+                  <div class="mini-profile">
+                    <img src="./assets/images/relationship/memory-cell.png" alt="기억 저장 세포" />
+                    <strong>기억 저장 세포</strong>
+                    <p>모든 기억을 차곡차곡 저장</p>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <div class="relationship-legend" aria-label="관계 범례">
+            <span><i class="legend-love"></i>연인</span>
+            <span><i class="legend-friend"></i>우정</span>
+            <span><i class="legend-family"></i>가족</span>
+            <span><i class="legend-cell"></i>세포 관계</span>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
