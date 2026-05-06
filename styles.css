@@ -394,6 +394,24 @@ button {
   will-change: transform, translate;
 }
 
+.gsap-ready .site-header,
+.gsap-ready .eyebrow,
+.gsap-ready .hero h1,
+.gsap-ready .hero-description,
+.gsap-ready .hero-cta,
+.gsap-ready .yumi-main,
+.gsap-ready .cell,
+.gsap-ready .cell-panels,
+.gsap-ready .rel-card,
+.gsap-ready .yumi-orbit,
+.gsap-ready .season-card,
+.gsap-ready .webtoon-phone,
+.gsap-ready .webtoon-panels,
+.gsap-ready .support-cells-left,
+.gsap-ready .support-cells-right {
+  animation: none;
+}
+
 .yumi-main {
   position: absolute;
   z-index: 1;
