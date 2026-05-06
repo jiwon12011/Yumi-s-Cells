@@ -59,17 +59,18 @@ if (window.gsap && canAnimate) {
   const heroTl = gsap.timeline({ defaults: { ease: softEase } });
 
   heroTl
-    .fromTo(".hero-bg", { scale: 1.08, filter: "blur(5px)" }, { scale: 1.02, filter: "blur(0px)", duration: 1.6 })
-    .fromTo(".site-header", { y: -26 }, { y: 0, autoAlpha: 1, duration: .8 }, "-=1.25")
-    .fromTo(".eyebrow", { y: 22 }, { y: 0, autoAlpha: 1, duration: .65 }, "-=.45")
-    .fromTo(".hero h1 span", { y: 58, rotateX: 22 }, { y: 0, rotateX: 0, autoAlpha: 1, duration: .9, stagger: .12 }, "-=.25")
-    .fromTo(".title-heart", { scale: 0, rotate: -28 }, { scale: 1, rotate: 8, duration: .55, ease: springEase }, "-=.28")
-    .fromTo(".hero-description", { y: 22 }, { y: 0, autoAlpha: 1, duration: .65 }, "-=.3")
-    .fromTo(".hero-cta", { y: 24, scale: .96 }, { y: 0, scale: 1, autoAlpha: 1, duration: .65 }, "-=.35")
-    .fromTo(".yumi-main", { y: 70, scale: .9, rotate: -2 }, { y: 0, scale: 1, rotate: 0, autoAlpha: 1, duration: 1, ease: springEase }, "-=.35")
-    .fromTo(".cell", { y: 46, scale: .55, rotate: -18 }, { y: 0, scale: 1, rotate: 0, autoAlpha: 1, duration: .72, stagger: .08, ease: springEase }, "-=.62")
-    .fromTo(".cell-panels", { x: 42, y: -22, scale: .82 }, { x: 0, y: 0, scale: 1, autoAlpha: 1, duration: .8, ease: springEase }, "-=.52")
-    .fromTo(".scroll-hint", { y: 18 }, { y: 0, autoAlpha: 1, duration: .55 }, "-=.2");
+    .add("start", 0)
+    .fromTo(".hero-bg", { scale: 1.055, filter: "blur(3px)" }, { scale: 1.02, filter: "blur(0px)", duration: .62 }, "start")
+    .fromTo(".site-header", { y: -14 }, { y: 0, autoAlpha: 1, duration: .34 }, "start+=.04")
+    .fromTo(".eyebrow", { y: 10 }, { y: 0, autoAlpha: 1, duration: .3 }, "start+=.08")
+    .fromTo(".hero h1 span", { y: 24, rotateX: 8 }, { y: 0, rotateX: 0, autoAlpha: 1, duration: .42, stagger: .045 }, "start+=.14")
+    .fromTo(".title-heart", { scale: 0, rotate: -14 }, { scale: 1, rotate: 8, duration: .28, ease: springEase }, "start+=.32")
+    .fromTo(".hero-description", { y: 10 }, { y: 0, autoAlpha: 1, duration: .32 }, "start+=.28")
+    .fromTo(".hero-cta", { y: 12, scale: .98 }, { y: 0, scale: 1, autoAlpha: 1, duration: .34 }, "start+=.36")
+    .fromTo(".yumi-main", { y: 30, scale: .96, rotate: -.8 }, { y: 0, scale: 1, rotate: 0, autoAlpha: 1, duration: .5, ease: springEase }, "start+=.22")
+    .fromTo(".cell", { y: 20, scale: .78, rotate: -8 }, { y: 0, scale: 1, rotate: 0, autoAlpha: 1, duration: .38, stagger: .032, ease: springEase }, "start+=.34")
+    .fromTo(".cell-panels", { x: 18, y: -8, scale: .92 }, { x: 0, y: 0, scale: 1, autoAlpha: 1, duration: .38, ease: springEase }, "start+=.38")
+    .fromTo(".scroll-hint", { y: 10 }, { y: 0, autoAlpha: 1, duration: .3 }, "start+=.48");
 
   gsap.to(".hero-bg", {
     scale: 1.06,
@@ -83,16 +84,16 @@ if (window.gsap && canAnimate) {
 
   gsap.to(".hero-glow-blue", { x: 38, y: 20, scale: 1.12, duration: 5.5, ease: "sine.inOut", repeat: -1, yoyo: true });
   gsap.to(".hero-glow-pink", { x: -32, y: 28, scale: 1.18, duration: 6.4, ease: "sine.inOut", repeat: -1, yoyo: true });
-  gsap.to(".title-heart", { y: -5, rotate: -8, scale: 1.08, duration: 1.4, ease: "sine.inOut", repeat: -1, yoyo: true });
-  gsap.to(".yumi-main", { y: -16, rotate: .6, duration: 3.8, ease: "sine.inOut", repeat: -1, yoyo: true });
+  gsap.to(".title-heart", { y: -3, rotate: -6, scale: 1.05, duration: 1.7, ease: "sine.inOut", repeat: -1, yoyo: true });
+  gsap.to(".yumi-main", { y: -8, rotate: .35, duration: 4.6, ease: "sine.inOut", repeat: -1, yoyo: true });
   gsap.to(".hero-wave", { y: 9, scaleX: 1.035, duration: 4.2, ease: "sine.inOut", repeat: -1, yoyo: true, transformOrigin: "50% 100%" });
 
   document.querySelectorAll(".cell").forEach((cell, index) => {
     gsap.to(cell, {
-      y: [-8, -20, -8],
-      x: index % 2 ? 8 : -8,
-      rotate: index % 2 ? 5 : -5,
-      duration: 2.6 + index * .28,
+      y: [-3, -9, -3],
+      x: index % 2 ? 4 : -4,
+      rotate: index % 2 ? 2.5 : -2.5,
+      duration: 3.8 + index * .2,
       delay: index * .14,
       ease: "sine.inOut",
       repeat: -1,
@@ -100,14 +101,14 @@ if (window.gsap && canAnimate) {
     });
   });
 
-  gsap.to(".cell-panels", { y: -15, rotate: -1.5, duration: 3.6, ease: "sine.inOut", repeat: -1, yoyo: true });
+  gsap.to(".cell-panels", { y: -7, rotate: -.8, duration: 4.2, ease: "sine.inOut", repeat: -1, yoyo: true });
   gsap.to(".bubbles span", {
-    y: "-105vh",
-    x: "random(-28, 36)",
-    scale: "random(.8, 1.25)",
+    y: "-72vh",
+    x: "random(-18, 22)",
+    scale: "random(.82, 1.12)",
     opacity: 0,
-    duration: "random(6, 10)",
-    stagger: { each: .8, repeat: -1 },
+    duration: "random(8, 13)",
+    stagger: { each: 1.05, repeat: -1 },
     ease: "none"
   });
   gsap.to(".sparkles span, .rel-star, .watch-spark", {
@@ -188,12 +189,12 @@ if (window.gsap && canAnimate) {
 
   gsap.from(".season-card", {
     scrollTrigger: { trigger: ".season-grid", start: "top 78%" },
-    y: (index) => index === 1 ? -54 : 66,
-    rotateY: (index) => index === 1 ? 14 : -14,
-    clipPath: "inset(8% 6% 8% 6% round 8px)",
+    y: 22,
+    rotateY: (index) => index % 2 ? 5 : -5,
+    clipPath: "inset(3% 3% 3% 3% round 8px)",
     autoAlpha: 0,
-    duration: .85,
-    stagger: .14,
+    duration: .62,
+    stagger: .09,
     ease: springEase
   });
 
@@ -267,11 +268,11 @@ if (window.gsap && canAnimate) {
 
   gsap.from(".gallery-strip img", {
     scrollTrigger: { trigger: ".news-gallery-panel", start: "top 70%" },
-    rotate: (index) => index % 2 ? 4 : -4,
-    scale: .82,
+    y: 18,
+    scale: .92,
     autoAlpha: 0,
-    duration: .58,
-    stagger: .055,
+    duration: .48,
+    stagger: .045,
     ease: springEase
   });
 

@@ -261,6 +261,36 @@ button {
   padding: clamp(145px, 16vh, 190px) 0 0 clamp(28px, 5.8vw, 104px);
 }
 
+.hero-copy::before,
+.hero-copy::after {
+  position: absolute;
+  z-index: -1;
+  content: "";
+  border: 1px solid rgba(255, 255, 255, .7);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, .78) 0 11%, transparent 17%),
+    radial-gradient(circle at 72% 76%, rgba(255, 104, 161, .14), transparent 48%),
+    rgba(176, 224, 255, .16);
+  box-shadow: inset 0 0 34px rgba(255, 255, 255, .58), 0 18px 46px rgba(122, 184, 255, .13);
+  pointer-events: none;
+}
+
+.hero-copy::before {
+  top: clamp(128px, 13vh, 168px);
+  left: clamp(18px, 3vw, 58px);
+  width: clamp(108px, 12vw, 210px);
+  aspect-ratio: 1;
+}
+
+.hero-copy::after {
+  right: clamp(44px, 8vw, 124px);
+  top: clamp(235px, 28vh, 330px);
+  width: clamp(54px, 6.5vw, 116px);
+  aspect-ratio: 1;
+  opacity: .74;
+}
+
 .eyebrow {
   margin: 0 0 14px;
   color: var(--pink);
@@ -1000,12 +1030,17 @@ button {
 
 .season-replay {
   position: relative;
-  padding: clamp(76px, 7vw, 112px) clamp(18px, 5vw, 72px) 54px;
+  padding: clamp(88px, 7.6vw, 122px) clamp(18px, 5vw, 72px) 66px;
   background:
     radial-gradient(circle at 16% 20%, rgba(255, 155, 202, .25), transparent 28%),
     radial-gradient(circle at 80% 18%, rgba(135, 186, 255, .23), transparent 28%),
     linear-gradient(rgba(248, 230, 255, .58), rgba(222, 240, 255, .7)),
     url("./assets/images/seasons/season-cloud-bg.png") center / cover no-repeat;
+}
+
+.section-heading-season {
+  z-index: 5;
+  margin-bottom: clamp(36px, 4vw, 58px);
 }
 
 .season-replay::after {
@@ -1043,12 +1078,13 @@ button {
 
 .season-grid {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(18px, 2vw, 28px);
   width: min(100%, 1160px);
-  margin: 28px auto 38px;
+  margin: 0 auto 34px;
+  align-items: start;
 }
 
 .season-card {
@@ -1063,7 +1099,7 @@ button {
 }
 
 .season-card:hover {
-  transform: translateY(-9px);
+  transform: translateY(-6px);
   box-shadow: 0 34px 68px rgba(69, 68, 140, .22);
 }
 
@@ -1123,7 +1159,7 @@ button {
   gap: 12px;
   width: fit-content;
   min-height: 52px;
-  margin: 10px auto 0;
+  margin: 18px auto 0;
   padding: 0 34px;
   border-radius: 999px;
   color: #7262cc;
@@ -1154,14 +1190,14 @@ button {
 
 .season-float-love {
   left: max(8px, 3vw);
-  bottom: 34px;
+  bottom: 58px;
   width: clamp(110px, 13vw, 210px);
   animation: floatOne 3.5s ease-in-out infinite;
 }
 
 .season-float-happy {
   right: max(10px, 4vw);
-  bottom: 46px;
+  bottom: 62px;
   width: clamp(96px, 10vw, 170px);
   animation: chairDrift 3.8s ease-in-out infinite;
 }
@@ -1183,8 +1219,8 @@ button {
   grid-template-columns: minmax(230px, 330px) minmax(0, 1fr);
   align-items: center;
   gap: clamp(26px, 5vw, 72px);
-  min-height: 360px;
-  padding: clamp(48px, 6vw, 80px) clamp(18px, 9vw, 150px) clamp(42px, 6vw, 80px);
+  min-height: 430px;
+  padding: clamp(62px, 7vw, 96px) clamp(18px, 9vw, 150px) clamp(62px, 7vw, 92px);
   background:
     radial-gradient(circle at 5% 70%, rgba(255, 255, 255, .64), transparent 16%),
     radial-gradient(circle at 88% 28%, rgba(255, 255, 255, .78), transparent 20%),
@@ -1194,6 +1230,7 @@ button {
 .webtoon-copy {
   position: relative;
   z-index: 3;
+  align-self: center;
 }
 
 .webtoon-copy span {
@@ -1225,6 +1262,7 @@ button {
   align-items: center;
   justify-content: center;
   gap: 13px;
+  width: fit-content;
   min-height: 58px;
   padding: 0 32px;
   border-radius: 999px;
@@ -1236,6 +1274,14 @@ button {
   transition: transform .25s ease, box-shadow .25s ease;
 }
 
+.webtoon-button span {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  line-height: 1;
+}
+
 .webtoon-button:hover {
   transform: translateY(-4px);
   box-shadow: 0 25px 48px rgba(23, 171, 127, .34);
@@ -1243,14 +1289,14 @@ button {
 
 .webtoon-art {
   position: relative;
-  min-height: 340px;
+  min-height: 360px;
 }
 
 .webtoon-phone {
   position: absolute;
   z-index: 3;
   left: 0;
-  bottom: -74px;
+  bottom: -48px;
   width: clamp(190px, 22vw, 330px);
   filter: drop-shadow(0 28px 34px rgba(32, 45, 82, .25));
   transform: rotate(-7deg);
@@ -1261,7 +1307,7 @@ button {
   position: absolute;
   z-index: 2;
   right: 0;
-  bottom: 4px;
+  bottom: 22px;
   width: min(78%, 780px);
   border: 2px solid rgba(26, 80, 80, .52);
   box-shadow: 0 20px 46px rgba(31, 108, 94, .16);
@@ -1432,7 +1478,7 @@ button {
 .gallery-strip {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 18px;
+  gap: 16px;
   align-items: stretch;
 }
 
@@ -1443,18 +1489,18 @@ button {
   object-fit: cover;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, .72);
-  box-shadow: 0 18px 36px rgba(60, 45, 72, .13);
+  box-shadow: 0 14px 30px rgba(60, 45, 72, .1);
   transition: transform .3s ease, box-shadow .3s ease, filter .3s ease;
 }
 
 .gallery-strip img:nth-child(even) {
-  transform: translateY(18px);
+  transform: none;
 }
 
 .gallery-strip img:hover {
-  transform: translateY(-7px) scale(1.035);
+  transform: translateY(-5px) scale(1.02);
   filter: saturate(1.08);
-  box-shadow: 0 26px 48px rgba(60, 45, 72, .16);
+  box-shadow: 0 20px 38px rgba(60, 45, 72, .14);
 }
 
 .support-banner {
@@ -1682,7 +1728,7 @@ button {
 .bubbles span {
   position: absolute;
   left: var(--x);
-  bottom: -90px;
+  bottom: 11%;
   width: var(--size);
   height: var(--size);
   border: 1px solid rgba(255, 255, 255, .68);
@@ -1693,6 +1739,12 @@ button {
     rgba(167, 220, 255, .18);
   box-shadow: inset 0 0 24px rgba(255, 255, 255, .56), 0 10px 28px rgba(255, 117, 170, .14);
   animation: bubbleRise var(--duration) var(--delay) linear infinite;
+}
+
+.bubbles .bubble-large {
+  bottom: 34%;
+  opacity: .55;
+  animation-name: bubbleDrift;
 }
 
 .sparkles span {
@@ -1844,14 +1896,26 @@ button {
 @keyframes bubbleRise {
   from {
     opacity: 0;
-    transform: translate3d(0, 0, 0) scale(.72);
+    transform: translate3d(0, 28px, 0) scale(.78);
   }
   18% {
-    opacity: .9;
+    opacity: .66;
   }
   to {
     opacity: 0;
-    transform: translate3d(34px, -104vh, 0) scale(1.08);
+    transform: translate3d(24px, -72vh, 0) scale(1.04);
+  }
+}
+
+@keyframes bubbleDrift {
+  0%,
+  100% {
+    opacity: .34;
+    transform: translate3d(0, 10px, 0) scale(.96);
+  }
+  50% {
+    opacity: .68;
+    transform: translate3d(16px, -18px, 0) scale(1.03);
   }
 }
 
