@@ -85,6 +85,7 @@ if (window.gsap && canAnimate) {
   gsap.to(".hero-glow-pink", { x: -32, y: 28, scale: 1.18, duration: 6.4, ease: "sine.inOut", repeat: -1, yoyo: true });
   gsap.to(".title-heart", { y: -5, rotate: -8, scale: 1.08, duration: 1.4, ease: "sine.inOut", repeat: -1, yoyo: true });
   gsap.to(".yumi-main", { y: -16, rotate: .6, duration: 3.8, ease: "sine.inOut", repeat: -1, yoyo: true });
+  gsap.to(".hero-wave", { y: 9, scaleX: 1.035, duration: 4.2, ease: "sine.inOut", repeat: -1, yoyo: true, transformOrigin: "50% 100%" });
 
   document.querySelectorAll(".cell").forEach((cell, index) => {
     gsap.to(cell, {
@@ -143,20 +144,30 @@ if (window.gsap && canAnimate) {
     ease: springEase
   });
 
-  gsap.from(".rel-card", {
+  gsap.from(".rel-card-cells", {
     scrollTrigger: { trigger: ".relationship-map", start: "top 78%" },
-    y: 60,
-    rotate: (index) => index % 2 ? 2 : -2,
+    x: -80,
+    rotate: -2,
     autoAlpha: 0,
     duration: .8,
-    stagger: .16,
+    ease: softEase
+  });
+
+  gsap.from(".rel-card-people, .rel-card-town", {
+    scrollTrigger: { trigger: ".relationship-map", start: "top 78%" },
+    x: 80,
+    clipPath: "inset(0 0 0 18% round 8px)",
+    autoAlpha: 0,
+    duration: .78,
+    stagger: .14,
     ease: softEase
   });
 
   gsap.from(".mini-profile", {
     scrollTrigger: { trigger: ".relationship-map", start: "top 70%" },
-    y: 26,
-    scale: .86,
+    y: (index) => index % 2 ? 30 : -18,
+    scale: .82,
+    rotate: (index) => index % 3 === 0 ? -7 : 5,
     autoAlpha: 0,
     duration: .55,
     stagger: .045,
@@ -166,18 +177,20 @@ if (window.gsap && canAnimate) {
   gsap.from(".connection-line", {
     scrollTrigger: { trigger: ".relationship-map", start: "top 72%" },
     scaleX: 0,
-    transformOrigin: "center",
-    duration: .75,
-    stagger: .12,
+    transformOrigin: (index) => index === 0 ? "right center" : "left center",
+    duration: .85,
+    stagger: .16,
     ease: softEase
   });
 
-  gsap.to(".yumi-orbit", { y: -9, scale: 1.03, duration: 2.8, ease: "sine.inOut", repeat: -1, yoyo: true });
+  gsap.to(".yumi-orbit", { y: -9, scale: 1.025, duration: 2.8, ease: "sine.inOut", repeat: -1, yoyo: true });
+  gsap.to(".rel-center strong", { y: -5, duration: 1.8, ease: "sine.inOut", repeat: -1, yoyo: true });
 
   gsap.from(".season-card", {
     scrollTrigger: { trigger: ".season-grid", start: "top 78%" },
-    y: 66,
-    rotateY: -12,
+    y: (index) => index === 1 ? -54 : 66,
+    rotateY: (index) => index === 1 ? 14 : -14,
+    clipPath: "inset(8% 6% 8% 6% round 8px)",
     autoAlpha: 0,
     duration: .85,
     stagger: .14,
@@ -217,28 +230,65 @@ if (window.gsap && canAnimate) {
 
   gsap.to(".webtoon-phone", { y: -14, rotate: -3, duration: 3.8, ease: "sine.inOut", repeat: -1, yoyo: true });
 
-  gsap.from(".news-block, .gallery-block", {
+  gsap.from(".news-gallery-panel", {
     scrollTrigger: { trigger: ".news-gallery-panel", start: "top 78%" },
-    y: 52,
+    clipPath: "inset(8% 0 8% 0 round 8px)",
+    scale: .97,
     autoAlpha: 0,
-    duration: .75,
-    stagger: .16,
+    duration: .8,
     ease: softEase
   });
 
-  gsap.from(".news-list a, .gallery-strip img", {
+  gsap.from(".news-block", {
+    scrollTrigger: { trigger: ".news-gallery-panel", start: "top 75%" },
+    x: -50,
+    autoAlpha: 0,
+    duration: .65,
+    ease: softEase
+  });
+
+  gsap.from(".gallery-block", {
+    scrollTrigger: { trigger: ".news-gallery-panel", start: "top 75%" },
+    x: 50,
+    autoAlpha: 0,
+    duration: .65,
+    ease: softEase
+  });
+
+  gsap.from(".news-list a", {
     scrollTrigger: { trigger: ".news-gallery-panel", start: "top 70%" },
-    y: 24,
-    scale: .92,
+    x: -24,
+    scale: .96,
     autoAlpha: 0,
     duration: .5,
-    stagger: .045,
+    stagger: .06,
     ease: springEase
+  });
+
+  gsap.from(".gallery-strip img", {
+    scrollTrigger: { trigger: ".news-gallery-panel", start: "top 70%" },
+    rotate: (index) => index % 2 ? 4 : -4,
+    scale: .82,
+    autoAlpha: 0,
+    duration: .58,
+    stagger: .055,
+    ease: springEase
+  });
+
+  gsap.to(".news-decor", {
+    y: -12,
+    rotate: "+=10",
+    duration: 3.4,
+    stagger: .25,
+    ease: "sine.inOut",
+    repeat: -1,
+    yoyo: true
   });
 
   gsap.from(".support-copy > *", {
     scrollTrigger: { trigger: ".support-banner", start: "top 82%" },
     y: 28,
+    scale: .94,
     autoAlpha: 0,
     duration: .65,
     stagger: .1,
@@ -267,6 +317,15 @@ if (window.gsap && canAnimate) {
     y: -12,
     duration: 3,
     stagger: .35,
+    ease: "sine.inOut",
+    repeat: -1,
+    yoyo: true
+  });
+
+  gsap.to(".support-buttons a", {
+    y: -4,
+    duration: 1.6,
+    stagger: .18,
     ease: "sine.inOut",
     repeat: -1,
     yoyo: true
