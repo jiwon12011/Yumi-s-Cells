@@ -999,7 +999,8 @@ button {
   background:
     radial-gradient(circle at 16% 20%, rgba(255, 155, 202, .25), transparent 28%),
     radial-gradient(circle at 80% 18%, rgba(135, 186, 255, .23), transparent 28%),
-    linear-gradient(135deg, #f8e3ff 0%, #dceeff 50%, #f5e1ff 100%);
+    linear-gradient(rgba(248, 230, 255, .58), rgba(222, 240, 255, .7)),
+    url("./assets/images/seasons/season-cloud-bg.png") center / cover no-repeat;
 }
 
 .season-replay::after {
@@ -1149,6 +1150,17 @@ button {
   bottom: 46px;
   width: clamp(96px, 10vw, 170px);
   animation: chairDrift 3.8s ease-in-out infinite;
+}
+
+.season-cell-group {
+  position: absolute;
+  right: clamp(90px, 11vw, 180px);
+  bottom: 12px;
+  z-index: 1;
+  width: clamp(190px, 20vw, 330px);
+  opacity: .28;
+  pointer-events: none;
+  filter: drop-shadow(0 20px 24px rgba(115, 90, 180, .18));
 }
 
 .webtoon-meet {
@@ -1577,7 +1589,8 @@ button {
   }
 
   .season-float-love,
-  .season-float-happy {
+  .season-float-happy,
+  .season-cell-group {
     opacity: .72;
   }
 
@@ -1706,6 +1719,10 @@ button {
   .season-float-happy {
     right: -24px;
     bottom: 90px;
+  }
+
+  .season-cell-group {
+    display: none;
   }
 
   .webtoon-meet {
