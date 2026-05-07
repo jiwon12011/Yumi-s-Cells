@@ -89,7 +89,7 @@ if (window.gsap && canAnimate) {
   gsap.to(".hero-wave", { y: 9, scaleX: 1.035, duration: 4.2, ease: "sine.inOut", repeat: -1, yoyo: true, transformOrigin: "50% 100%" });
 
   gsap.to(".cell-love", { y: [-3, -12, -3], x: 5, rotate: 4, duration: 3.5, ease: "sine.inOut", repeat: -1, yoyo: true });
-  gsap.to(".cell-angry", { y: -5, rotate: 1.4, duration: 2.7, ease: "sine.inOut", repeat: -1, yoyo: true });
+  gsap.to(".cell-angry", { y: -3, x: 1.5, rotate: .8, duration: 3.4, ease: "sine.inOut", repeat: -1, yoyo: true });
   gsap.to(".cell-reading", { y: [-1, -6, -1], x: -3, rotate: -1.4, duration: 4.5, ease: "sine.inOut", repeat: -1, yoyo: true });
   gsap.to(".cell-chill", { y: [-2, -7, -2], x: 4, rotate: 1.2, duration: 4.9, ease: "sine.inOut", repeat: -1, yoyo: true });
   gsap.to(".cell-artist", { y: [-1, -5, -1], x: 2, rotate: -1.1, duration: 3.9, ease: "sine.inOut", repeat: -1, yoyo: true });
