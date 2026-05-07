@@ -88,20 +88,23 @@ if (window.gsap && canAnimate) {
   gsap.to(".yumi-main", { y: -8, rotate: .35, duration: 4.6, ease: "sine.inOut", repeat: -1, yoyo: true });
   gsap.to(".hero-wave", { y: 9, scaleX: 1.035, duration: 4.2, ease: "sine.inOut", repeat: -1, yoyo: true, transformOrigin: "50% 100%" });
 
-  document.querySelectorAll(".cell").forEach((cell, index) => {
-    gsap.to(cell, {
-      y: [-3, -9, -3],
-      x: index % 2 ? 4 : -4,
-      rotate: index % 2 ? 2.5 : -2.5,
-      duration: 3.8 + index * .2,
-      delay: index * .14,
-      ease: "sine.inOut",
-      repeat: -1,
-      yoyo: true
-    });
-  });
+  gsap.to(".cell-love", { y: [-3, -12, -3], x: 5, rotate: 4, duration: 3.5, ease: "sine.inOut", repeat: -1, yoyo: true });
+  gsap.to(".cell-angry", { y: [0, -5, 0], scale: 1.025, duration: 1.8, ease: "power1.inOut", repeat: -1, yoyo: true });
+  gsap.to(".cell-reading", { y: [-1, -6, -1], x: -3, rotate: -1.4, duration: 4.5, ease: "sine.inOut", repeat: -1, yoyo: true });
+  gsap.to(".cell-chill", { y: [-2, -7, -2], x: 4, rotate: 1.2, duration: 4.9, ease: "sine.inOut", repeat: -1, yoyo: true });
+  gsap.to(".cell-artist", { y: [-1, -5, -1], x: 2, rotate: -1.1, duration: 3.9, ease: "sine.inOut", repeat: -1, yoyo: true });
 
-  gsap.to(".cell-panels", { y: -7, rotate: -.8, duration: 4.2, ease: "sine.inOut", repeat: -1, yoyo: true });
+  gsap.to(".cell-panels", {
+    y: -14,
+    x: 8,
+    rotate: -1.8,
+    scale: 1.025,
+    duration: 3.4,
+    ease: "sine.inOut",
+    repeat: -1,
+    yoyo: true,
+    transformOrigin: "72% 44%"
+  });
   gsap.to(".bubbles span", {
     y: "-72vh",
     x: "random(-18, 22)",
@@ -299,13 +302,11 @@ if (window.gsap && canAnimate) {
   gsap.fromTo(".support-cells-left", {
     x: -90,
     rotate: -8,
-    scaleX: -1,
     autoAlpha: 0
   }, {
     scrollTrigger: { trigger: ".support-banner", start: "top 82%" },
     x: 0,
     rotate: 0,
-    scaleX: -1,
     autoAlpha: 1,
     duration: .85,
     ease: springEase

@@ -72,7 +72,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: clamp(24px, 4vw, 64px);
+  gap: clamp(34px, 4.6vw, 78px);
   font-size: 14px;
   font-weight: 900;
   text-transform: uppercase;
@@ -460,8 +460,8 @@ button {
 }
 
 .cell-love {
-  left: 34.2%;
-  top: 37%;
+  left: 36%;
+  top: 39%;
   width: clamp(86px, 10vw, 185px);
   animation: popIn .7s .85s both, floatOne 3.2s 1.4s ease-in-out infinite;
 }
@@ -475,7 +475,7 @@ button {
 
 .cell-reading {
   right: 31%;
-  bottom: 7%;
+  bottom: 5.4%;
   width: clamp(104px, 12vw, 215px);
   animation: popIn .72s 1.05s both, floatTwo 3.8s 1.65s ease-in-out infinite;
 }
@@ -489,7 +489,7 @@ button {
 
 .cell-artist {
   right: 2.2%;
-  bottom: 18%;
+  bottom: 10.6%;
   width: clamp(132px, 16vw, 300px);
   animation: popIn .72s 1.28s both, paintWiggle 3.2s 1.9s ease-in-out infinite;
 }
@@ -745,7 +745,7 @@ button {
 
 .rel-center strong {
   position: relative;
-  z-index: 3;
+  z-index: 8;
   display: inline-flex;
   order: -1;
   margin: 0 0 -8px;
@@ -1192,15 +1192,17 @@ button {
 }
 
 .season-float-love {
-  left: clamp(20px, 5.2vw, 90px);
-  top: 52%;
+  left: clamp(26px, 7vw, 128px);
+  top: clamp(88px, 14%, 132px);
+  bottom: auto;
   width: clamp(104px, 11.5vw, 188px);
   animation: floatOne 3.5s ease-in-out infinite;
 }
 
 .season-float-happy {
-  right: clamp(20px, 5.4vw, 96px);
-  top: 50%;
+  right: clamp(28px, 6vw, 118px);
+  top: auto;
+  bottom: clamp(2px, 1.8vw, 28px);
   width: clamp(100px, 10.2vw, 168px);
   animation: chairDrift 3.8s ease-in-out infinite;
 }
@@ -1241,7 +1243,7 @@ button {
   display: grid;
   justify-items: center;
   align-self: center;
-  justify-self: start;
+  justify-self: center;
   text-align: center;
 }
 
@@ -1364,7 +1366,7 @@ button {
   gap: clamp(36px, 5vw, 70px);
   width: min(100%, 1260px);
   margin: 0 auto;
-  padding: clamp(36px, 4vw, 58px) clamp(28px, 5vw, 68px);
+  padding: clamp(34px, 3.6vw, 52px) clamp(28px, 5vw, 68px);
   border-radius: 8px;
   border: 1px solid rgba(255, 190, 208, .34);
   background:
@@ -1427,13 +1429,19 @@ button {
 .news-layout {
   display: grid;
   grid-template-columns: 150px 1fr;
+  align-items: stretch;
   gap: 22px;
+}
+
+.featured-news {
+  min-height: 100%;
 }
 
 .featured-news img {
   display: block;
   width: 100%;
-  aspect-ratio: 1 / 1.34;
+  height: 100%;
+  min-height: 218px;
   object-fit: cover;
   border-radius: 8px;
   border: 1px solid rgba(255, 151, 179, .24);
@@ -1442,6 +1450,7 @@ button {
 
 .news-list {
   display: grid;
+  grid-template-rows: repeat(3, minmax(0, 1fr));
   gap: 10px;
 }
 
@@ -1490,8 +1499,9 @@ button {
 
 .gallery-strip {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: min(100%, 420px);
+  gap: 15px;
   align-items: start;
 }
 
@@ -1624,12 +1634,12 @@ button {
   position: relative;
   z-index: 3;
   justify-self: center;
-  max-width: min(32vw, 390px);
+  max-width: min(31vw, 380px);
   filter: drop-shadow(0 24px 30px rgba(35, 25, 113, .2));
 }
 
 .support-cells-left {
-  transform: translateY(14px) scaleX(-1);
+  transform: translateY(14px);
 }
 
 .support-cells-right {
@@ -2140,8 +2150,8 @@ button {
   }
 
   .cell-love {
-    left: 6%;
-    top: 70px;
+    left: 8%;
+    top: 78px;
     width: clamp(80px, 22vw, 120px);
   }
 
@@ -2153,7 +2163,7 @@ button {
 
   .cell-reading {
     right: 37%;
-    bottom: 12px;
+    bottom: 22px;
     width: clamp(92px, 25vw, 132px);
   }
 
@@ -2190,13 +2200,15 @@ button {
   }
 
   .season-float-love {
-    left: -42px;
-    top: 58%;
+    left: -28px;
+    top: 72px;
+    bottom: auto;
   }
 
   .season-float-happy {
     right: -24px;
-    top: 57%;
+    top: auto;
+    bottom: 18px;
   }
 
   .season-decor-heart {
@@ -2242,6 +2254,8 @@ button {
 
   .featured-news img {
     aspect-ratio: 16 / 9;
+    height: auto;
+    min-height: 0;
   }
 
   .gallery-strip {
@@ -2324,8 +2338,8 @@ button {
   }
 
   .cell-love {
-    top: 42px;
-    left: 4%;
+    top: 54px;
+    left: 7%;
     width: 78px;
   }
 
@@ -2337,7 +2351,7 @@ button {
 
   .cell-reading {
     right: 35%;
-    bottom: 4px;
+    bottom: 14px;
     width: 82px;
   }
 
