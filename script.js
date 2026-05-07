@@ -200,7 +200,7 @@ if (window.gsap && canAnimate) {
 
   gsap.to(".season-float-love", { y: -22, x: 10, rotate: 7, duration: 3.2, ease: "sine.inOut", repeat: -1, yoyo: true });
   gsap.to(".season-float-happy", { y: -18, x: -12, rotate: -5, duration: 3.7, ease: "sine.inOut", repeat: -1, yoyo: true });
-  gsap.to(".season-cell-group", { x: -18, y: -8, duration: 5.2, ease: "sine.inOut", repeat: -1, yoyo: true });
+  gsap.to(".season-decor-heart", { y: -10, rotate: 8, duration: 3.4, ease: "sine.inOut", repeat: -1, yoyo: true });
 
   gsap.from(".webtoon-copy > *", {
     scrollTrigger: { trigger: ".webtoon-meet", start: "top 76%" },
@@ -296,11 +296,17 @@ if (window.gsap && canAnimate) {
     ease: softEase
   });
 
-  gsap.from(".support-cells-left", {
-    scrollTrigger: { trigger: ".support-banner", start: "top 82%" },
+  gsap.fromTo(".support-cells-left", {
     x: -90,
     rotate: -8,
-    autoAlpha: 0,
+    scaleX: -1,
+    autoAlpha: 0
+  }, {
+    scrollTrigger: { trigger: ".support-banner", start: "top 82%" },
+    x: 0,
+    rotate: 0,
+    scaleX: -1,
+    autoAlpha: 1,
     duration: .85,
     ease: springEase
   });

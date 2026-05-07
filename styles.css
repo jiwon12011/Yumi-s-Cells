@@ -497,9 +497,9 @@ button {
 .cell-panels {
   position: absolute;
   z-index: 2;
-  right: 9%;
-  top: 12%;
-  width: clamp(250px, 24vw, 442px);
+  right: 7.2%;
+  top: 11%;
+  width: clamp(270px, 27vw, 500px);
   filter: drop-shadow(0 18px 35px rgba(255, 100, 158, .18));
   animation: panelsIn .8s 1.05s cubic-bezier(.2, .9, .2, 1) both, panelsFloat 4.5s 1.85s ease-in-out infinite;
 }
@@ -603,6 +603,7 @@ button {
 
 .relationship-map {
   position: relative;
+  isolation: isolate;
   display: grid;
   grid-template-columns: minmax(330px, 1fr) minmax(210px, 280px) minmax(330px, 1fr);
   align-items: center;
@@ -613,6 +614,7 @@ button {
 
 .rel-card {
   position: relative;
+  z-index: 2;
   border: 1px solid rgba(248, 148, 159, .32);
   border-radius: 8px;
   background: rgba(255, 255, 255, .78);
@@ -699,7 +701,6 @@ button {
 
 .rel-center {
   position: relative;
-  z-index: 4;
   display: grid;
   justify-items: center;
   text-align: center;
@@ -707,7 +708,7 @@ button {
 
 .yumi-orbit {
   position: relative;
-  z-index: 1;
+  z-index: 3;
   display: grid;
   width: clamp(148px, 14vw, 220px);
   aspect-ratio: 1;
@@ -786,10 +787,10 @@ button {
 
 .connection-line {
   position: absolute;
-  z-index: -1;
+  z-index: 1;
   width: clamp(120px, 15vw, 220px);
   border-top: 3px dotted;
-  opacity: .7;
+  opacity: .58;
 }
 
 .line-cell-left {
@@ -1090,6 +1091,7 @@ button {
 .season-card {
   position: relative;
   overflow: hidden;
+  z-index: 3;
   min-height: 0;
   aspect-ratio: 1.72;
   border: 2px solid rgba(255, 255, 255, .72);
@@ -1184,34 +1186,34 @@ button {
 
 .season-float-cell {
   position: absolute;
-  z-index: 3;
+  z-index: 7;
   pointer-events: none;
   filter: drop-shadow(0 24px 28px rgba(80, 76, 152, .18));
 }
 
 .season-float-love {
-  left: max(8px, 3vw);
-  bottom: 58px;
-  width: clamp(110px, 13vw, 210px);
+  left: clamp(20px, 5.2vw, 90px);
+  top: 52%;
+  width: clamp(104px, 11.5vw, 188px);
   animation: floatOne 3.5s ease-in-out infinite;
 }
 
 .season-float-happy {
-  right: max(10px, 4vw);
-  bottom: 62px;
-  width: clamp(96px, 10vw, 170px);
+  right: clamp(20px, 5.4vw, 96px);
+  top: 50%;
+  width: clamp(100px, 10.2vw, 168px);
   animation: chairDrift 3.8s ease-in-out infinite;
 }
 
-.season-cell-group {
+.season-decor-heart {
   position: absolute;
-  right: clamp(90px, 11vw, 180px);
-  bottom: 12px;
-  z-index: 1;
-  width: clamp(190px, 20vw, 330px);
-  opacity: .28;
+  right: clamp(80px, 12vw, 190px);
+  top: clamp(70px, 8vw, 118px);
+  z-index: 2;
+  width: clamp(54px, 6vw, 92px);
+  opacity: .48;
   pointer-events: none;
-  filter: drop-shadow(0 20px 24px rgba(115, 90, 180, .18));
+  filter: drop-shadow(0 14px 18px rgba(255, 94, 151, .16));
 }
 
 .webtoon-meet {
@@ -1236,8 +1238,11 @@ button {
 .webtoon-copy {
   position: relative;
   z-index: 3;
+  display: grid;
+  justify-items: center;
   align-self: center;
   justify-self: start;
+  text-align: center;
 }
 
 .webtoon-copy span {
@@ -1619,12 +1624,12 @@ button {
   position: relative;
   z-index: 3;
   justify-self: center;
-  max-width: min(30vw, 360px);
+  max-width: min(32vw, 390px);
   filter: drop-shadow(0 24px 30px rgba(35, 25, 113, .2));
 }
 
 .support-cells-left {
-  transform: translateY(14px);
+  transform: translateY(14px) scaleX(-1);
 }
 
 .support-cells-right {
@@ -2034,7 +2039,7 @@ button {
 
   .season-float-love,
   .season-float-happy,
-  .season-cell-group {
+  .season-decor-heart {
     opacity: .72;
   }
 
@@ -2186,16 +2191,18 @@ button {
 
   .season-float-love {
     left: -42px;
-    bottom: 88px;
+    top: 58%;
   }
 
   .season-float-happy {
     right: -24px;
-    bottom: 90px;
+    top: 57%;
   }
 
-  .season-cell-group {
-    display: none;
+  .season-decor-heart {
+    right: 28px;
+    top: 82px;
+    width: 58px;
   }
 
   .webtoon-meet {
@@ -2439,6 +2446,10 @@ button {
 
   .season-float-happy {
     width: 86px;
+  }
+
+  .season-decor-heart {
+    width: 46px;
   }
 
   .webtoon-meet {
