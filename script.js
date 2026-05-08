@@ -40,6 +40,7 @@ if (hero && motionLayers.length) {
 if (window.gsap && canAnimate) {
   document.body.classList.add("gsap-ready");
   gsap.registerPlugin(ScrollTrigger);
+  gsap.config({ nullTargetWarn: false });
 
   const softEase = "power3.out";
   const springEase = "back.out(1.5)";
@@ -349,6 +350,57 @@ if (window.gsap && canAnimate) {
     repeat: -1,
     yoyo: true
   });
+
+  if (document.querySelector(".sub-page")) {
+    gsap.from(".sub-kicker, .sub-hero h1, .sub-hero p, .sub-actions", {
+      y: 24,
+      autoAlpha: 0,
+      duration: .58,
+      stagger: .08,
+      ease: softEase
+    });
+
+    gsap.from(".sub-hero-visual img", {
+      y: 28,
+      scale: .88,
+      rotate: (index) => index % 2 ? 5 : -5,
+      autoAlpha: 0,
+      duration: .72,
+      stagger: .08,
+      ease: springEase
+    });
+
+    gsap.to(".sub-hero-visual img", {
+      y: (index) => index % 2 ? -10 : -14,
+      rotate: (index) => index % 2 ? 2 : -2,
+      duration: (index) => 3.4 + index * .35,
+      ease: "sine.inOut",
+      repeat: -1,
+      yoyo: true,
+      stagger: .08
+    });
+
+    gsap.to(".sub-bubbles span", {
+      y: -22,
+      x: (index) => index % 2 ? 12 : -10,
+      scale: 1.05,
+      duration: (index) => 4.2 + index * .5,
+      ease: "sine.inOut",
+      repeat: -1,
+      yoyo: true,
+      stagger: .15
+    });
+
+    gsap.from(".sub-card, .story-timeline article, .sub-gallery-tile, .sub-news-main, .sub-news-items a, .sub-event-card", {
+      scrollTrigger: { trigger: ".sub-section", start: "top 76%" },
+      y: 34,
+      scale: .96,
+      autoAlpha: 0,
+      duration: .62,
+      stagger: .075,
+      ease: springEase
+    });
+  }
 
   gsap.from(".site-footer > *", {
     scrollTrigger: { trigger: ".site-footer", start: "top 90%" },
