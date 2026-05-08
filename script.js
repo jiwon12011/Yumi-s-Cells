@@ -229,8 +229,30 @@ if (window.gsap && canAnimate) {
     scrollTrigger: { trigger: ".webtoon-meet", start: "top 74%" },
     x: 34,
     autoAlpha: 0,
+    clipPath: "inset(0 100% 0 0)",
     duration: .78,
     ease: softEase
+  });
+
+  gsap.from(".webtoon-frame", {
+    scrollTrigger: { trigger: ".webtoon-meet", start: "top 72%" },
+    scaleY: 0,
+    transformOrigin: "top center",
+    duration: .42,
+    stagger: .13,
+    ease: "power2.out"
+  });
+
+  gsap.fromTo(".webtoon-scan-line", {
+    xPercent: 0,
+    autoAlpha: 0
+  }, {
+    scrollTrigger: { trigger: ".webtoon-meet", start: "top 70%" },
+    xPercent: 760,
+    autoAlpha: .72,
+    duration: 1.05,
+    delay: .38,
+    ease: "power2.inOut"
   });
 
   gsap.to(".webtoon-phone", { y: -6, rotate: -5, duration: 5.4, ease: "sine.inOut", repeat: -1, yoyo: true });

@@ -1348,8 +1348,50 @@ button {
   right: 0;
   bottom: 36px;
   width: min(78%, 690px);
+  overflow: hidden;
   border: 2px solid rgba(26, 80, 80, .52);
+  background: rgba(255, 255, 255, .55);
   box-shadow: 0 20px 46px rgba(31, 108, 94, .16);
+}
+
+.webtoon-panel-strip {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.webtoon-frame {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 3;
+  border-left: 2px solid rgba(255, 255, 255, .86);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, .18));
+  pointer-events: none;
+}
+
+.frame-one {
+  left: 25%;
+}
+
+.frame-two {
+  left: 50%;
+}
+
+.frame-three {
+  left: 75%;
+}
+
+.webtoon-scan-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -18%;
+  z-index: 4;
+  width: 15%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .55), transparent);
+  opacity: 0;
+  pointer-events: none;
 }
 
 .news-gallery {
