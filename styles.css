@@ -1334,7 +1334,7 @@ button {
 .webtoon-phone {
   position: absolute;
   z-index: 3;
-  left: 0;
+  left: -28px;
   bottom: -32px;
   width: clamp(190px, 21vw, 312px);
   filter: drop-shadow(0 28px 34px rgba(32, 45, 82, .25));
@@ -2393,7 +2393,7 @@ button {
     left: 50%;
     bottom: 58px;
     width: min(54vw, 232px);
-    transform: translateX(-88%) rotate(-7deg);
+    transform: translateX(-96%) rotate(-7deg);
   }
 
   .webtoon-panels {
@@ -2661,6 +2661,7 @@ button {
   .webtoon-phone {
     bottom: 52px;
     width: min(56vw, 190px);
+    transform: translateX(-102%) rotate(-7deg);
   }
 
   .webtoon-panels {
