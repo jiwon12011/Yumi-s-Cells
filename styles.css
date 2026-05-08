@@ -1647,8 +1647,8 @@ button {
 
 .gallery-strip {
   display: grid;
-  grid-template-columns: 1.12fr 1fr 1fr;
-  grid-auto-rows: clamp(112px, 9.8vw, 148px);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: clamp(128px, 11vw, 176px);
   width: 100%;
   gap: 12px;
   align-items: stretch;
@@ -1672,8 +1672,11 @@ button {
 }
 
 .gallery-strip img:first-child {
-  grid-column: span 2;
   grid-row: span 2;
+}
+
+.gallery-strip img:nth-child(4) {
+  grid-column: span 2;
 }
 
 .gallery-strip img:hover {
@@ -2698,6 +2701,10 @@ button {
   .gallery-strip img:first-child {
     grid-column: 1 / -1;
     grid-row: span 2;
+  }
+
+  .gallery-strip img:nth-child(4) {
+    grid-column: auto;
   }
 
   .support-copy h2 {
