@@ -1334,12 +1334,12 @@ button {
 .webtoon-phone {
   position: absolute;
   z-index: 3;
-  left: -28px;
+  left: -82px;
   bottom: -32px;
   width: clamp(190px, 21vw, 312px);
   filter: drop-shadow(0 28px 34px rgba(32, 45, 82, .25));
   transform: rotate(-7deg);
-  animation: phoneFloat 4s ease-in-out infinite;
+  animation: phoneFloat 5.4s ease-in-out infinite;
 }
 
 .webtoon-panels {
@@ -2987,7 +2987,7 @@ button {
 
 @keyframes phoneFloat {
   50% {
-    transform: rotate(-4deg) translateY(-12px);
+    transform: rotate(-5deg) translateY(-6px);
   }
 }
 
@@ -3273,7 +3273,7 @@ button {
     left: 50%;
     bottom: 58px;
     width: min(54vw, 232px);
-    transform: translateX(-96%) rotate(-7deg);
+    transform: translateX(-112%) rotate(-7deg);
   }
 
   .webtoon-panels {
@@ -3624,7 +3624,7 @@ button {
   .webtoon-phone {
     bottom: 52px;
     width: min(56vw, 190px);
-    transform: translateX(-102%) rotate(-7deg);
+    transform: translateX(-116%) rotate(-7deg);
   }
 
   .webtoon-panels {

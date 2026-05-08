@@ -217,23 +217,23 @@ if (window.gsap && canAnimate) {
 
   gsap.from(".webtoon-phone", {
     scrollTrigger: { trigger: ".webtoon-meet", start: "top 74%" },
-    y: 90,
-    rotate: -16,
-    scale: .86,
+    y: 36,
+    rotate: -10,
+    scale: .94,
     autoAlpha: 0,
-    duration: .95,
-    ease: springEase
+    duration: .78,
+    ease: softEase
   });
 
   gsap.from(".webtoon-panels", {
     scrollTrigger: { trigger: ".webtoon-meet", start: "top 74%" },
-    x: 90,
+    x: 34,
     autoAlpha: 0,
-    duration: .9,
+    duration: .78,
     ease: softEase
   });
 
-  gsap.to(".webtoon-phone", { y: -14, rotate: -3, duration: 3.8, ease: "sine.inOut", repeat: -1, yoyo: true });
+  gsap.to(".webtoon-phone", { y: -6, rotate: -5, duration: 5.4, ease: "sine.inOut", repeat: -1, yoyo: true });
 
   gsap.from(".news-gallery-panel", {
     scrollTrigger: { trigger: ".news-gallery-panel", start: "top 78%" },
