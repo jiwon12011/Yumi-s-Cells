@@ -243,18 +243,6 @@ if (window.gsap && canAnimate) {
     ease: "power2.out"
   });
 
-  gsap.fromTo(".webtoon-scan-line", {
-    xPercent: 0,
-    autoAlpha: 0
-  }, {
-    scrollTrigger: { trigger: ".webtoon-meet", start: "top 70%" },
-    xPercent: 760,
-    autoAlpha: .72,
-    duration: 1.05,
-    delay: .38,
-    ease: "power2.inOut"
-  });
-
   gsap.to(".webtoon-phone", { y: -6, rotate: -5, duration: 5.4, ease: "sine.inOut", repeat: -1, yoyo: true });
 
   gsap.from(".news-gallery-panel", {

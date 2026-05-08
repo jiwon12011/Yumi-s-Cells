@@ -1382,18 +1382,6 @@ button {
   left: 75%;
 }
 
-.webtoon-scan-line {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: -18%;
-  z-index: 4;
-  width: 15%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .55), transparent);
-  opacity: 0;
-  pointer-events: none;
-}
-
 .news-gallery {
   position: relative;
   padding: clamp(58px, 6vw, 92px) clamp(18px, 5vw, 74px) clamp(42px, 5vw, 64px);
