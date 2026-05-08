@@ -201,7 +201,7 @@ if (window.gsap && canAnimate) {
     ease: springEase
   });
 
-  gsap.to(".season-float-love", { y: -22, x: 10, rotate: 7, duration: 3.2, ease: "sine.inOut", repeat: -1, yoyo: true });
+  gsap.to(".season-float-love", { y: -18, x: 12, rotate: 5, scale: 1.035, duration: 3.4, ease: "sine.inOut", repeat: -1, yoyo: true });
   gsap.to(".season-float-happy", { y: -18, x: -12, rotate: -5, duration: 3.7, ease: "sine.inOut", repeat: -1, yoyo: true });
   gsap.to(".season-decor-heart", { y: -10, rotate: 8, duration: 3.4, ease: "sine.inOut", repeat: -1, yoyo: true });
 
@@ -236,16 +236,16 @@ if (window.gsap && canAnimate) {
 
   gsap.from(".news-gallery-panel", {
     scrollTrigger: { trigger: ".news-gallery-panel", start: "top 78%" },
-    clipPath: "inset(8% 0 8% 0 round 8px)",
+    clipPath: "inset(7% 4% 7% 4% round 8px)",
     scale: .97,
     autoAlpha: 0,
-    duration: .8,
+    duration: .72,
     ease: softEase
   });
 
   gsap.from(".news-block", {
     scrollTrigger: { trigger: ".news-gallery-panel", start: "top 75%" },
-    x: -50,
+    x: -38,
     autoAlpha: 0,
     duration: .65,
     ease: softEase
@@ -253,40 +253,52 @@ if (window.gsap && canAnimate) {
 
   gsap.from(".gallery-block", {
     scrollTrigger: { trigger: ".news-gallery-panel", start: "top 75%" },
-    x: 50,
+    x: 38,
     autoAlpha: 0,
     duration: .65,
     ease: softEase
   });
 
+  gsap.from(".featured-news", {
+    scrollTrigger: { trigger: ".news-gallery-panel", start: "top 72%" },
+    y: 26,
+    rotate: -2,
+    scale: .92,
+    autoAlpha: 0,
+    duration: .7,
+    ease: springEase
+  });
+
   gsap.from(".news-list a", {
     scrollTrigger: { trigger: ".news-gallery-panel", start: "top 70%" },
-    x: -24,
-    scale: .96,
+    x: 24,
+    y: 10,
+    rotate: -1,
+    scale: .94,
     autoAlpha: 0,
-    duration: .5,
-    stagger: .06,
+    duration: .55,
+    stagger: .085,
     ease: springEase
   });
 
   gsap.from(".gallery-strip img", {
     scrollTrigger: { trigger: ".news-gallery-panel", start: "top 70%" },
-    y: 18,
-    scale: .92,
+    y: 26,
+    rotate: (index) => index % 2 ? 4 : -4,
+    scale: .86,
     autoAlpha: 0,
-    duration: .48,
-    stagger: .045,
+    duration: .58,
+    stagger: .07,
     ease: springEase
   });
 
-  gsap.to(".news-decor", {
-    y: -12,
-    rotate: "+=10",
-    duration: 3.4,
-    stagger: .25,
+  gsap.to(".gallery-strip img", {
+    y: (index) => index % 2 ? -5 : -8,
+    duration: (index) => 3.5 + index * .25,
     ease: "sine.inOut",
     repeat: -1,
-    yoyo: true
+    yoyo: true,
+    stagger: .12
   });
 
   gsap.from(".support-copy > *", {
