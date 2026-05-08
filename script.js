@@ -391,7 +391,7 @@ if (window.gsap && canAnimate) {
       stagger: .15
     });
 
-    gsap.from(".sub-card, .story-timeline article, .sub-gallery-tile, .sub-news-main, .sub-news-items a, .sub-event-card", {
+    gsap.from(".sub-card, .story-timeline article, .sub-gallery-tile, .sub-news-main, .sub-news-items a, .sub-event-card, .sub-info-grid article", {
       scrollTrigger: { trigger: ".sub-section", start: "top 76%" },
       y: 34,
       scale: .96,
