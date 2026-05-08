@@ -1360,28 +1360,6 @@ button {
   height: auto;
 }
 
-.webtoon-frame {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  z-index: 3;
-  border-left: 2px solid rgba(255, 255, 255, .86);
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, .18));
-  pointer-events: none;
-}
-
-.frame-one {
-  left: 25%;
-}
-
-.frame-two {
-  left: 50%;
-}
-
-.frame-three {
-  left: 75%;
-}
-
 .news-gallery {
   position: relative;
   padding: clamp(58px, 6vw, 92px) clamp(18px, 5vw, 74px) clamp(42px, 5vw, 64px);

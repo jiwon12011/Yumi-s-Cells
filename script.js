@@ -234,15 +234,6 @@ if (window.gsap && canAnimate) {
     ease: softEase
   });
 
-  gsap.from(".webtoon-frame", {
-    scrollTrigger: { trigger: ".webtoon-meet", start: "top 72%" },
-    scaleY: 0,
-    transformOrigin: "top center",
-    duration: .42,
-    stagger: .13,
-    ease: "power2.out"
-  });
-
   gsap.to(".webtoon-phone", { y: -6, rotate: -5, duration: 5.4, ease: "sine.inOut", repeat: -1, yoyo: true });
 
   gsap.from(".news-gallery-panel", {
