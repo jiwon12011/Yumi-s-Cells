@@ -207,7 +207,7 @@ if (window.gsap && canAnimate) {
 
   gsap.from(".webtoon-copy > *", {
     scrollTrigger: { trigger: ".webtoon-meet", start: "top 76%" },
-    x: -45,
+    y: 22,
     autoAlpha: 0,
     duration: .65,
     stagger: .1,
