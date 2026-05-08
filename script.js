@@ -283,18 +283,17 @@ if (window.gsap && canAnimate) {
 
   gsap.from(".gallery-strip img", {
     scrollTrigger: { trigger: ".news-gallery-panel", start: "top 70%" },
-    y: 26,
-    rotate: (index) => index % 2 ? 4 : -4,
-    scale: .86,
+    y: 18,
+    scale: .9,
     autoAlpha: 0,
-    duration: .58,
-    stagger: .07,
+    duration: .5,
+    stagger: .055,
     ease: springEase
   });
 
   gsap.to(".gallery-strip img", {
-    y: (index) => index % 2 ? -5 : -8,
-    duration: (index) => 3.5 + index * .25,
+    y: (index) => index % 2 ? -3 : -5,
+    duration: (index) => 4.2 + index * .2,
     ease: "sine.inOut",
     repeat: -1,
     yoyo: true,
