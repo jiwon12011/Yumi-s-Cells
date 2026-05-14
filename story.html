@@ -205,17 +205,11 @@
         overflow-x: auto;
         padding-bottom: 12px;
         padding-top: 52px;
-        scrollbar-width: thin;
-        scrollbar-color: rgba(255, 99, 151, 0.3) transparent;
+        scrollbar-width: none;
       }
 
       .st-timeline-track::-webkit-scrollbar {
-        height: 4px;
-      }
-
-      .st-timeline-track::-webkit-scrollbar-thumb {
-        background: rgba(255, 99, 151, 0.3);
-        border-radius: 999px;
+        display: none;
       }
 
       .st-timeline-line {
@@ -1166,6 +1160,52 @@
               });
             });
           });
+
+          /* ── Timeline infinite auto-scroll ──────────────────── */
+          (function () {
+            var tlTrack = document.querySelector(".st-timeline-track");
+            if (!tlTrack) return;
+
+            // clone all cards for seamless loop
+            var origCards = Array.from(tlTrack.querySelectorAll(".st-tl-card"));
+            origCards.forEach(function (card) {
+              var clone = card.cloneNode(true);
+              clone.setAttribute("aria-hidden", "true");
+              tlTrack.appendChild(clone);
+            });
+
+            var speed = 0.7;
+            var paused = false;
+            var halfW = 0;
+
+            function getHalf() {
+              halfW = tlTrack.scrollWidth / 2;
+            }
+            getHalf();
+
+            gsap.ticker.add(function () {
+              if (paused) return;
+              tlTrack.scrollLeft += speed;
+              if (tlTrack.scrollLeft >= halfW) {
+                tlTrack.scrollLeft -= halfW;
+              }
+            });
+
+            tlTrack.addEventListener("mouseenter", function () { paused = true; });
+            tlTrack.addEventListener("mouseleave", function () { paused = false; });
+
+            // touch drag support
+            var touchStartX = 0;
+            tlTrack.addEventListener("touchstart", function (e) {
+              touchStartX = e.touches[0].clientX;
+              paused = true;
+            }, { passive: true });
+            tlTrack.addEventListener("touchend", function () {
+              paused = false;
+            }, { passive: true });
+
+            window.addEventListener("resize", getHalf);
+          }());
 
           /* ── Cells carousel ─────────────────────────────────── */
           var track = document.querySelector(".st-cells-track");
