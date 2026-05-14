@@ -51,7 +51,7 @@
         position: relative;
         z-index: 2;
         max-width: 560px;
-        padding: clamp(100px, 12vw, 160px) clamp(24px, 5vw, 80px) clamp(80px, 10vw, 120px);
+        padding: clamp(120px, 14vw, 180px) clamp(24px, 5vw, 80px) clamp(100px, 14vw, 160px);
       }
 
       .st-eyebrow {
@@ -737,16 +737,9 @@
               <span>우리의 이야기</span>
             </h1>
             <p class="st-desc">
-              사랑하고, 흔들리고, 성장하는 유미의 여정.<br />
-              그 모든 감정의 순간들을 함께 돌아봐요.
+              사랑하고, 흔들리고, 성장했던<br />
+              유미와 세포들의 시간을 따라가 보세요.
             </p>
-            <div class="st-cta">
-              <a class="primary-button" href="#st-timeline">
-                <span>감정 타임라인 보기</span>
-                <span class="play-icon" aria-hidden="true"></span>
-              </a>
-              <a class="secondary-button" href="#st-relationship">관계도 보기</a>
-            </div>
           </div>
 
           <svg class="st-wave" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true">
@@ -1029,13 +1022,12 @@
           /* ── Hero ───────────────────────────────────────────── */
           gsap.from(".st-hero-bg img", { scale: 1.12, duration: 1.8, ease: "power2.out" });
 
-          gsap.set([".st-eyebrow", ".st-title span", ".st-desc", ".st-cta"], { autoAlpha: 0 });
+          gsap.set([".st-eyebrow", ".st-title span", ".st-desc"], { autoAlpha: 0 });
           var heroTl = gsap.timeline({ defaults: { ease: "power3.out" } });
           heroTl
-            .to(".st-eyebrow", { autoAlpha: 1, y: 0, duration: 0.4, from: { y: 16 } }, 0.3)
-            .from(".st-title span", { y: 36, autoAlpha: 0, duration: 0.55, stagger: 0.14 }, 0.45)
-            .to(".st-desc", { autoAlpha: 1, y: 0, duration: 0.4, from: { y: 14 } }, 0.82)
-            .from(".st-cta a", { scale: 0.82, autoAlpha: 0, duration: 0.55, stagger: 0.1, ease: "elastic.out(1, 0.55)" }, 1.0);
+            .fromTo(".st-eyebrow", { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.4 }, 0.3)
+            .fromTo(".st-title span", { y: 36, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.55, stagger: 0.14 }, 0.45)
+            .fromTo(".st-desc", { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.4 }, 0.82);
 
           /* ── Timeline line draw ─────────────────────────────── */
           gsap.from(".st-timeline-line", {
