@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
+    <div class="scroll-progress" aria-hidden="true"></div>
     <div class="site-shell">
       <header class="site-header" aria-label="주요 메뉴">
         <a class="brand" href="./index.html" aria-label="유미의 세포들 홈">
@@ -81,11 +82,11 @@
 
           <div class="hero-stage" aria-hidden="true">
             <img class="yumi-main motion-layer" data-depth="24" src="./assets/images/hero/yumi-main.png" alt="" />
-            <img class="cell cell-love motion-layer" data-depth="36" src="./assets/images/cells/cell-love.png" alt="" />
-            <img class="cell cell-angry motion-layer" data-depth="28" src="./assets/images/cells/cell-angry.png" alt="" />
-            <img class="cell cell-reading motion-layer" data-depth="18" src="./assets/images/cells/cell-reading.png" alt="" />
-            <img class="cell cell-chill motion-layer" data-depth="30" src="./assets/images/cells/cell-chill.png" alt="" />
-            <img class="cell cell-artist motion-layer" data-depth="22" src="./assets/images/cells/cell-artist.png" alt="" />
+            <img class="cell cell-love motion-layer" data-depth="36" data-speech="사랑해요! 💕" src="./assets/images/cells/cell-love.png" alt="" />
+            <img class="cell cell-angry motion-layer" data-depth="28" data-speech="참을 수 없어! 😤" src="./assets/images/cells/cell-angry.png" alt="" />
+            <img class="cell cell-reading motion-layer" data-depth="18" data-speech="공부 중이에요 📖" src="./assets/images/cells/cell-reading.png" alt="" />
+            <img class="cell cell-chill motion-layer" data-depth="30" data-speech="여유롭게~ 😌" src="./assets/images/cells/cell-chill.png" alt="" />
+            <img class="cell cell-artist motion-layer" data-depth="22" data-speech="예술혼 폭발✨" src="./assets/images/cells/cell-artist.png" alt="" />
             <img class="cell-panels motion-layer" data-depth="14" src="./assets/images/hero/cell-info-panels.png" alt="" />
           </div>
 
@@ -320,10 +321,22 @@
               </div>
 
               <div class="gallery-strip">
-                <img src="./assets/images/gallery/bedtime-cells.png" alt="침대 위 유미와 세포들" />
-                <img src="./assets/images/gallery/family-evening.png" alt="유미와 세포의 따뜻한 저녁" />
-                <img src="./assets/images/gallery/cafe-date-cells.png" alt="카페에 모인 캐릭터들" />
-                <img src="./assets/images/gallery/yumi-blue-cardigan.png" alt="파란 가디건을 입은 유미" />
+                <figure class="gallery-card">
+                  <img src="./assets/images/gallery/bedtime-cells.png" alt="침대 위 유미와 세포들" />
+                  <figcaption>침대 위 유미와 세포들 🌙</figcaption>
+                </figure>
+                <figure class="gallery-card">
+                  <img src="./assets/images/gallery/family-evening.png" alt="유미와 세포의 따뜻한 저녁" />
+                  <figcaption>유미와 세포의 따뜻한 저녁 ✨</figcaption>
+                </figure>
+                <figure class="gallery-card">
+                  <img src="./assets/images/gallery/cafe-date-cells.png" alt="카페에 모인 캐릭터들" />
+                  <figcaption>카페에 모인 캐릭터들 ☕</figcaption>
+                </figure>
+                <figure class="gallery-card">
+                  <img src="./assets/images/gallery/yumi-blue-cardigan.png" alt="파란 가디건을 입은 유미" />
+                  <figcaption>파란 가디건을 입은 유미 💙</figcaption>
+                </figure>
               </div>
             </section>
           </div>

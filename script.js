@@ -283,23 +283,14 @@ if (window.gsap && canAnimate) {
     ease: springEase
   });
 
-  gsap.from(".gallery-strip img", {
+  gsap.from(".gallery-card", {
     scrollTrigger: { trigger: ".news-gallery-panel", start: "top 70%" },
     y: 18,
-    scale: .9,
+    scale: .94,
     autoAlpha: 0,
     duration: .5,
-    stagger: .055,
+    stagger: .07,
     ease: springEase
-  });
-
-  gsap.to(".gallery-strip img", {
-    y: (index) => index % 2 ? -3 : -5,
-    duration: (index) => 4.2 + index * .2,
-    ease: "sine.inOut",
-    repeat: -1,
-    yoyo: true,
-    stagger: .12
   });
 
   gsap.from(".support-copy > *", {
@@ -350,6 +341,70 @@ if (window.gsap && canAnimate) {
     ease: "sine.inOut",
     repeat: -1,
     yoyo: true
+  });
+
+  // ── 1. Scroll progress bar ────────────────────────
+  gsap.to(".scroll-progress", {
+    width: "100%",
+    ease: "none",
+    scrollTrigger: {
+      trigger: "body",
+      start: "top top",
+      end: "bottom bottom",
+      scrub: 0.3
+    }
+  });
+
+  // ── 3. Cell click elastic pop ────────────────────
+  document.querySelectorAll(".cell").forEach((cell) => {
+    cell.addEventListener("click", () => {
+      gsap.timeline()
+        .to(cell, { scale: 1.38, duration: 0.12, ease: "power2.out" })
+        .to(cell, { scale: 1, duration: 0.55, ease: "elastic.out(1, 0.38)" });
+    });
+  });
+
+  // ── 5. Random idle wiggle ────────────────────────
+  const heroCells = gsap.utils.toArray(".cell");
+  const scheduleWiggle = () => {
+    const cell = heroCells[Math.floor(Math.random() * heroCells.length)];
+    gsap.timeline()
+      .to(cell, { rotate: 13,  duration: 0.07, ease: "power2.out" })
+      .to(cell, { rotate: -11, duration: 0.07 })
+      .to(cell, { rotate: 8,   duration: 0.06 })
+      .to(cell, { rotate: 0,   duration: 0.45, ease: "elastic.out(1, 0.45)" })
+      .then(() => gsap.delayedCall(Math.random() * 2.5 + 1.5, scheduleWiggle));
+  };
+  gsap.delayedCall(2.2, scheduleWiggle);
+
+  // ── 6. Season card 3D hover tilt ─────────────────
+  document.querySelectorAll(".season-card").forEach((card) => {
+    card.addEventListener("mousemove", (e) => {
+      const r = card.getBoundingClientRect();
+      const cx = (e.clientX - r.left) / r.width  - 0.5;
+      const cy = (e.clientY - r.top)  / r.height - 0.5;
+      gsap.to(card, {
+        rotateY: cx * 16,
+        rotateX: -cy * 11,
+        scale: 1.045,
+        duration: 0.35,
+        ease: "power2.out",
+        transformPerspective: 700
+      });
+    });
+    card.addEventListener("mouseleave", () => {
+      gsap.to(card, { rotateY: 0, rotateX: 0, scale: 1, duration: 0.6, ease: "back.out(1.5)" });
+    });
+  });
+
+  // ── 7. Mini-profile hover bounce ─────────────────
+  document.querySelectorAll(".mini-profile").forEach((profile) => {
+    profile.addEventListener("mouseenter", () => {
+      gsap.to(profile, { y: -6, scale: 1.07, duration: 0.25, ease: "back.out(2.5)" });
+    });
+    profile.addEventListener("mouseleave", () => {
+      gsap.to(profile, { y: 0, scale: 1, duration: 0.35, ease: "back.out(1.5)" });
+    });
   });
 
   if (document.querySelector(".sub-page")) {

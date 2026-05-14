@@ -212,7 +212,7 @@ button {
 
 .hero {
   position: relative;
-  min-height: clamp(760px, 100svh, 980px);
+  min-height: clamp(680px, 90svh, 880px);
   isolation: isolate;
   overflow: hidden;
   background: #fff;
@@ -545,7 +545,7 @@ button {
   position: relative;
   z-index: 8;
   margin-top: -1px;
-  padding: clamp(86px, 9vw, 136px) clamp(18px, 5vw, 72px) clamp(72px, 8vw, 118px);
+  padding: clamp(56px, 6vw, 96px) clamp(18px, 5vw, 72px) clamp(56px, 6vw, 96px);
   overflow: hidden;
   background:
     radial-gradient(circle at 18% 12%, rgba(255, 227, 150, .2), transparent 28%),
@@ -1031,7 +1031,7 @@ button {
 
 .season-replay {
   position: relative;
-  padding: clamp(96px, 8vw, 132px) clamp(18px, 5vw, 72px) 72px;
+  padding: clamp(96px, 8vw, 132px) clamp(18px, 5vw, 72px) clamp(96px, 8vw, 128px);
   background:
     radial-gradient(circle at 16% 20%, rgba(255, 155, 202, .25), transparent 28%),
     radial-gradient(circle at 80% 18%, rgba(135, 186, 255, .23), transparent 28%),
@@ -1175,7 +1175,7 @@ button {
   gap: 12px;
   width: fit-content;
   min-height: 52px;
-  margin: 20px auto 0;
+  margin: 48px auto 0;
   padding: 0 34px;
   border-radius: 999px;
   color: #7262cc;
@@ -1424,7 +1424,7 @@ button {
   z-index: 2;
   display: grid;
   grid-template-columns: minmax(420px, .92fr) minmax(460px, 1.08fr);
-  align-items: start;
+  align-items: stretch;
   gap: clamp(30px, 4vw, 54px);
   width: min(100%, 1260px);
   margin: 0 auto;
@@ -1450,6 +1450,8 @@ button {
 
 .news-block {
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .news-block::after {
@@ -1512,6 +1514,7 @@ button {
   display: grid;
   grid-template-columns: minmax(150px, 178px) minmax(0, 1fr);
   align-items: stretch;
+  flex: 1;
   gap: 18px;
 }
 
@@ -1653,44 +1656,73 @@ button {
   box-shadow: inset 0 0 0 1px rgba(255, 178, 204, .22);
 }
 
+.gallery-block {
+  display: flex;
+  flex-direction: column;
+}
+
 .gallery-strip {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  grid-auto-rows: clamp(128px, 11vw, 176px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+  gap: 14px;
   width: 100%;
-  gap: 12px;
-  align-items: stretch;
-  padding: 12px;
-  border-radius: 8px;
-  background:
-    linear-gradient(135deg, rgba(255, 241, 248, .8), rgba(242, 249, 255, .75));
-  box-shadow: inset 0 0 0 1px rgba(255, 184, 209, .25);
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
-.gallery-strip img {
+.gallery-card {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid rgba(200, 185, 240, .22);
+  box-shadow: 0 8px 28px rgba(100, 70, 180, .1);
+  transition: transform .3s ease, box-shadow .3s ease;
+  cursor: pointer;
+}
+
+.gallery-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 42px rgba(100, 70, 180, .17);
+}
+
+.gallery-card img {
   display: block;
   width: 100%;
-  height: 100%;
+  flex: 1;
+  min-height: 0;
   object-fit: cover;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 207, 220, .38);
-  background: #fff;
-  box-shadow: 0 14px 26px rgba(60, 45, 72, .1);
-  transition: transform .3s ease, box-shadow .3s ease, filter .3s ease;
+  transition: transform .4s ease, filter .4s ease;
 }
 
-.gallery-strip img:first-child {
-  grid-row: span 2;
+.gallery-card:hover img {
+  transform: scale(1.05);
+  filter: saturate(1.1);
 }
 
-.gallery-strip img:nth-child(4) {
-  grid-column: span 2;
+.gallery-card figcaption {
+  padding: 10px 14px 12px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.gallery-strip img:hover {
-  transform: translateY(-5px) scale(1.025);
-  filter: saturate(1.08);
-  box-shadow: 0 22px 38px rgba(60, 45, 72, .16);
+.gallery-strip {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  flex: 1;
+  min-height: 0;
+}
+
+.gallery-card:nth-child(n+3) {
+  display: none;
 }
 
 .support-banner {
@@ -3832,4 +3864,35 @@ button {
     animation-iteration-count: 1 !important;
     transition-duration: .001ms !important;
   }
+}
+
+/* ── Scroll progress bar ─────────────────────────── */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--pink) 0%, #a855f7 50%, var(--blue) 100%);
+  z-index: 9999;
+  pointer-events: none;
+  border-radius: 0 2px 2px 0;
+  box-shadow: 0 0 8px rgba(255, 99, 151, .5);
+}
+
+/* ── Season card 3D perspective ──────────────────── */
+.season-card {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* ── Cell & mini-profile interactions ───────────── */
+.cell {
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.mini-profile {
+  cursor: pointer;
+  will-change: transform;
 }
