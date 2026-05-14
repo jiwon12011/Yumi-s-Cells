@@ -1157,22 +1157,26 @@
             if (!tlTrack) return;
 
             var origCards = Array.from(tlTrack.querySelectorAll(".st-tl-card"));
-            origCards.forEach(function (card) {
-              var clone = card.cloneNode(true);
-              clone.setAttribute("aria-hidden", "true");
-              tlTrack.appendChild(clone);
-            });
+
+            // clone 2 extra sets so screen is always filled (orig + 2 clones = 3 sets)
+            for (var ci = 0; ci < 2; ci++) {
+              origCards.forEach(function (card) {
+                var clone = card.cloneNode(true);
+                clone.setAttribute("aria-hidden", "true");
+                tlTrack.appendChild(clone);
+              });
+            }
 
             requestAnimationFrame(function () {
               var origSet = Array.from(tlTrack.querySelectorAll(".st-tl-card:not([aria-hidden='true'])"));
               var lastOrig = origSet[origSet.length - 1];
-              var halfW = lastOrig ? lastOrig.offsetLeft + lastOrig.offsetWidth + 16 : 0;
+              var setW = lastOrig ? lastOrig.offsetLeft + lastOrig.offsetWidth + 16 : 0;
 
-              if (halfW <= 0) return;
+              if (setW <= 0) return;
 
               var tween = gsap.fromTo(tlTrack,
                 { x: 0 },
-                { x: -halfW, ease: "none", duration: halfW / 60, repeat: -1 }
+                { x: -setW, ease: "none", duration: setW / 40, repeat: -1 }
               );
               tlTrack.addEventListener("mouseenter", function () { tween.pause(); });
               tlTrack.addEventListener("mouseleave", function () { tween.resume(); });
@@ -1253,12 +1257,16 @@
 
             var origItems = Array.from(track.querySelectorAll(".st-cell-item"));
             var cloneSet = [];
-            origItems.forEach(function (item) {
-              var c = item.cloneNode(true);
-              c.setAttribute("aria-hidden", "true");
-              cloneSet.push(c);
-              track.appendChild(c);
-            });
+
+            // clone 2 extra sets so screen is always filled
+            for (var ci = 0; ci < 2; ci++) {
+              origItems.forEach(function (item) {
+                var c = item.cloneNode(true);
+                c.setAttribute("aria-hidden", "true");
+                cloneSet.push(c);
+                track.appendChild(c);
+              });
+            }
             rotateBubbles(cloneSet);
 
             gsap.set(track, { x: 0, clearProps: "transform" });
@@ -1266,14 +1274,14 @@
             requestAnimationFrame(function () {
               var origSet = Array.from(track.querySelectorAll(".st-cell-item:not([aria-hidden='true'])"));
               var lastOrig = origSet[origSet.length - 1];
-              var halfW = lastOrig ? lastOrig.offsetLeft + lastOrig.offsetWidth + 24 : 0;
+              var setW = lastOrig ? lastOrig.offsetLeft + lastOrig.offsetWidth + 24 : 0;
 
-              if (halfW <= 0) return;
+              if (setW <= 0) return;
 
               var tween = gsap.fromTo(track,
                 { x: 0 },
                 {
-                  x: -halfW, ease: "none", duration: halfW / 50, repeat: -1,
+                  x: -setW, ease: "none", duration: setW / 35, repeat: -1,
                   onRepeat: function () { rotateBubbles(cloneSet); }
                 }
               );
