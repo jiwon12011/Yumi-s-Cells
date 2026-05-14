@@ -1164,7 +1164,12 @@
             });
 
             requestAnimationFrame(function () {
-              var halfW = tlTrack.scrollWidth / 2;
+              var origSet = Array.from(tlTrack.querySelectorAll(".st-tl-card:not([aria-hidden='true'])"));
+              var lastOrig = origSet[origSet.length - 1];
+              var halfW = lastOrig ? lastOrig.offsetLeft + lastOrig.offsetWidth + 16 : 0;
+
+              if (halfW <= 0) return;
+
               var tween = gsap.fromTo(tlTrack,
                 { x: 0 },
                 { x: -halfW, ease: "none", duration: halfW / 60, repeat: -1 }
@@ -1259,7 +1264,12 @@
             gsap.set(track, { x: 0, clearProps: "transform" });
 
             requestAnimationFrame(function () {
-              var halfW = track.scrollWidth / 2;
+              var origSet = Array.from(track.querySelectorAll(".st-cell-item:not([aria-hidden='true'])"));
+              var lastOrig = origSet[origSet.length - 1];
+              var halfW = lastOrig ? lastOrig.offsetLeft + lastOrig.offsetWidth + 24 : 0;
+
+              if (halfW <= 0) return;
+
               var tween = gsap.fromTo(track,
                 { x: 0 },
                 {
