@@ -1207,40 +1207,126 @@
             window.addEventListener("resize", getHalf);
           }());
 
-          /* ── Cells carousel ─────────────────────────────────── */
-          var track = document.querySelector(".st-cells-track");
-          var items = document.querySelectorAll(".st-cell-item");
-          var slideIndex = 0;
+          /* ── Cells carousel — infinite auto-scroll ─────────── */
+          (function () {
+            var wrapper = document.querySelector(".st-cells-track-wrapper");
+            var track = document.querySelector(".st-cells-track");
+            if (!wrapper || !track) return;
 
-          var visibleCount = function () {
-            return window.innerWidth < 768 ? 2 : window.innerWidth < 1024 ? 3 : 4;
-          };
-
-          var updateSlide = function () {
-            if (!track || !items.length) return;
-            var style = getComputedStyle(track);
-            var gap = parseInt(style.gap || style.columnGap || "24", 10);
-            var itemW = items[0].offsetWidth + gap;
-            var maxSlide = Math.max(0, items.length - visibleCount());
-            slideIndex = Math.min(slideIndex, maxSlide);
-            gsap.to(track, { x: -slideIndex * itemW, duration: 0.5, ease: "power2.out" });
-          };
-
-          var nextBtn = document.querySelector(".st-carousel-next");
-          var prevBtn = document.querySelector(".st-carousel-prev");
-
-          if (nextBtn) {
-            nextBtn.addEventListener("click", function () {
-              slideIndex = Math.min(slideIndex + 1, items.length - visibleCount());
-              updateSlide();
+            // hide buttons — replaced by auto-scroll
+            document.querySelectorAll(".st-carousel-btn").forEach(function (btn) {
+              btn.style.display = "none";
             });
-          }
-          if (prevBtn) {
-            prevBtn.addEventListener("click", function () {
-              slideIndex = Math.max(slideIndex - 1, 0);
-              updateSlide();
+
+            // quotes pool per cell
+            var quotes = {
+              "cell-love": [
+                "유미야, 사랑할 준비 됐어! 💕",
+                "두근두근 멈출 수가 없어! 💗",
+                "저 사람... 심장이 왜 이래 🥺",
+                "사랑이 최고야, 진심으로! 💖",
+              ],
+              "cell-reading": [
+                "정말! 이성적으로 생각해봐,",
+                "감정 말고 논리로 가자고요.",
+                "한 번 더 냉정하게 따져봐.",
+                "머리로 판단해야 해, 지금은.",
+              ],
+              "cell-angry": [
+                "하나씩 한 위! 침착하자!",
+                "참을 수 없어, 진짜로!! 😤",
+                "왜 이렇게 답답한 거야?!",
+                "폭발 직전이야, 조심해! 🔥",
+              ],
+              "cell-chill": [
+                "딜딜 밥부터 먹고 생각하자...",
+                "뭐가 그렇게 급해? 쉬어가.",
+                "인생은 여유롭게~ 😎",
+                "일단 아이스 아메리카노부터. ☕",
+              ],
+              "cell-artist": [
+                "유밈! 신나는 일이야~",
+                "예술혼이 불타오르고 있어! ✨",
+                "이 감성... 표현해야 해! 🎨",
+                "뮤즈가 왔어, 지금 그려야 해! 🖌️",
+              ],
+            };
+            var quoteIdx = {};
+
+            function getCellKey(item) {
+              var img = item.querySelector("img");
+              if (!img) return null;
+              var m = (img.getAttribute("src") || "").match(/cell-[^./]+/);
+              return m ? m[0] : null;
+            }
+
+            function nextQuote(key) {
+              if (!quotes[key]) return null;
+              quoteIdx[key] = ((quoteIdx[key] || 0) + 1) % quotes[key].length;
+              return quotes[key][quoteIdx[key]];
+            }
+
+            function rotateBubbles(items) {
+              items.forEach(function (item) {
+                var key = getCellKey(item);
+                var q = nextQuote(key);
+                var bubble = item.querySelector(".st-cell-bubble");
+                if (bubble && q) {
+                  gsap.to(bubble, {
+                    autoAlpha: 0, y: -6, duration: 0.18, ease: "power2.in",
+                    onComplete: function () {
+                      bubble.textContent = q;
+                      gsap.to(bubble, { autoAlpha: 1, y: 0, duration: 0.22, ease: "power2.out" });
+                    }
+                  });
+                }
+              });
+            }
+
+            // clone items
+            var origItems = Array.from(track.querySelectorAll(".st-cell-item"));
+            var cloneSet = [];
+            origItems.forEach(function (item) {
+              var c = item.cloneNode(true);
+              c.setAttribute("aria-hidden", "true");
+              cloneSet.push(c);
+              track.appendChild(c);
             });
-          }
+            rotateBubbles(cloneSet);
+
+            // make wrapper the scroll container
+            wrapper.style.overflowX = "auto";
+            wrapper.style.scrollbarWidth = "none";
+            wrapper.style.cssText += ";-webkit-overflow-scrolling:touch;";
+            track.style.transform = "";
+            gsap.set(track, { x: 0, clearProps: "transform" });
+
+            var speed = 0.7;
+            var paused = false;
+            var halfW = 0;
+
+            function calcHalf() { halfW = track.scrollWidth / 2; }
+            requestAnimationFrame(calcHalf);
+
+            gsap.ticker.add(function () {
+              if (paused || !halfW) return;
+              wrapper.scrollLeft += speed;
+              if (wrapper.scrollLeft >= halfW) {
+                wrapper.scrollLeft -= halfW;
+                rotateBubbles(cloneSet);
+              }
+            });
+
+            var carousel = document.querySelector(".st-cells-carousel");
+            if (carousel) {
+              carousel.addEventListener("mouseenter", function () { paused = true; });
+              carousel.addEventListener("mouseleave", function () { paused = false; });
+              carousel.addEventListener("touchstart", function () { paused = true; }, { passive: true });
+              carousel.addEventListener("touchend", function () { paused = false; }, { passive: true });
+            }
+
+            window.addEventListener("resize", calcHalf);
+          }());
         }
       })();
     </script>
