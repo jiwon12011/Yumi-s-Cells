@@ -8,16 +8,6 @@
     <style>
       /* ─── BASE ────────────────────────────────────────── */
       .news-page { background: #fff; color: #1a1a1a; }
-      .news-page .site-header {
-        background: rgba(255,255,255,0.95);
-        backdrop-filter: blur(12px);
-        border-bottom: 1px solid rgba(0,0,0,0.06);
-        padding-top: 0 !important;
-        padding-bottom: 0 !important;
-        height: 68px;
-        display: flex;
-        align-items: center;
-      }
 
       /* ─── HERO ────────────────────────────────────────── */
       .nw-hero {
@@ -62,7 +52,7 @@
         position: relative;
         z-index: 2;
         width: 52%;
-        padding: clamp(76px,7vw,96px) clamp(24px,5vw,80px) clamp(48px,5vw,64px);
+        padding: clamp(128px,11vw,150px) clamp(24px,5vw,80px) clamp(56px,5vw,72px);
         display: flex;
         flex-direction: column;
         gap: 16px;
@@ -463,8 +453,7 @@
         box-shadow: 0 6px 20px rgba(255,75,139,0.12);
       }
 
-      /* ─── FOOTER OVERRIDE ─────────────────────────────── */
-      .news-page .site-footer { background: #f9f9f9; border-top: 1px solid #eee; }
+      /* footer uses default styles.css dark background */
 
       /* ─── RESPONSIVE ──────────────────────────────────── */
       @media (max-width: 900px) {
@@ -521,8 +510,8 @@
         <div class="nw-filter-bar" role="navigation" aria-label="뉴스 카테고리">
           <div class="nw-filter-inner">
             <div class="nw-tabs" id="nwTabs" role="tablist">
+              <button class="nw-filter-tab is-active" role="tab" data-filter="drama">드라마 소식</button>
               <button class="nw-filter-tab" role="tab" data-filter="webtoon">웹툰 소식</button>
-              <button class="nw-filter-tab" role="tab" data-filter="drama">드라마 소식</button>
               <button class="nw-filter-tab" role="tab" data-filter="event">이벤트</button>
               <button class="nw-filter-tab" role="tab" data-filter="goods">굿즈</button>
               <button class="nw-filter-tab" role="tab" data-filter="interview">인터뷰</button>
@@ -635,7 +624,7 @@
       var catLabels = { drama:"드라마 소식", webtoon:"웹툰 소식", event:"이벤트", goods:"굿즈", interview:"인터뷰", notice:"공지사항" };
 
       /* ─── STATE ──────────────────────────────────────────── */
-      var currentFilter = "all";
+      var currentFilter = "drama";
       var currentQuery = "";
 
       /* ─── DOM REFS ───────────────────────────────────────── */
