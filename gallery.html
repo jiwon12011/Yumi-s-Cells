@@ -45,7 +45,6 @@
             <div class="gl-orbit-node gl-node-right"><strong>위로</strong><span>15 Moments</span></div>
             <div class="gl-orbit-node gl-node-bl"><strong>성장</strong><span>26 Moments</span></div>
             <div class="gl-orbit-node gl-node-br"><strong>일상</strong><span>31 Moments</span></div>
-            <div class="gl-scroll-hint">🖱 SCROLL</div>
           </div>
 
           <!-- Right: polaroids + Yumi -->
@@ -247,6 +246,8 @@
         align-items: center;
         gap: 0;
         background:
+          /* top fade: blends into the page background (#fffaf6) at the header seam */
+          linear-gradient(180deg, #fffaf6 0px, rgba(255,250,246,0) 110px),
           /* left fade for text readability */
           linear-gradient(90deg,
             rgba(253, 245, 236, .92) 0%,
@@ -413,17 +414,6 @@
       .gl-node-br {
         top: calc(50% + 134px);
         left: calc(50% + 134px);
-      }
-
-      .gl-scroll-hint {
-        position: absolute;
-        bottom: 4px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 11px;
-        font-weight: 800;
-        color: #bbbdd4;
-        letter-spacing: .1em;
       }
 
       /* ── Hero right (Yumi + polaroids) ──────────────────────────────── */
@@ -822,7 +812,6 @@
       gsap.set(".gl-hero-yumi-big",  { opacity: 0, y: 30 });
       gsap.set(".gl-hero-polaroid",  { opacity: 0, y: -20 });
       gsap.set(".gl-hero-cell",      { opacity: 0, scale: 0.5 });
-      gsap.set(".gl-scroll-hint",    { opacity: 0 });
 
       const heroTl = gsap.timeline({ delay: .2 });
       heroTl
@@ -832,7 +821,7 @@
         .to(".gl-hero-yumi-big",   { opacity: 1, y: 0,     duration: .65, ease: "power3.out" }, "-=.5")
         .to(".gl-hero-polaroid",   { opacity: 1, y: 0,     duration: .55, stagger: .1, ease: "power3.out" }, "-=.45")
         .to(".gl-hero-cell",       { opacity: 1, scale: 1, duration: .45, stagger: .08, ease: "power3.out" }, "-=.3")
-        .to(".gl-scroll-hint",     { opacity: 1,           duration: .35 }, "-=.1");
+        ;
 
       /* ── Orbit node motion: cycling highlight + per-node gentle float ── */
       (function () {
