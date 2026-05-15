@@ -40,30 +40,30 @@
 
           <!-- Center: orbit ring -->
           <div class="gl-orbit-wrap" aria-hidden="true">
-            <div class="gl-orbit-ring">
-              <img class="gl-orbit-heart-img" src="./assets/images/gallery/scene-heart-pedestal.png" alt="" />
-            </div>
-            <!-- Emotion labels on ring -->
+            <!-- decorative rings only, no overflow:hidden -->
+            <div class="gl-orbit-ring"></div>
+            <!-- heart image sits freely in the center -->
+            <img class="gl-orbit-heart-img" src="./assets/images/gallery/scene-heart-pedestal.png" alt="" />
+            <!-- emotion nodes positioned from center -->
             <div class="gl-orbit-node gl-node-top"><strong>설렘</strong><span>20 Moments</span></div>
             <div class="gl-orbit-node gl-node-left"><strong>흔들림</strong><span>18 Moments</span></div>
-            <div class="gl-orbit-node gl-node-right"><strong>위로</strong><span>16 Moments</span></div>
-            <div class="gl-orbit-node gl-node-bottom-left"><strong>성장</strong><span>26 Moments</span></div>
-            <div class="gl-orbit-node gl-node-bottom-right"><strong>일상</strong><span>31 Moments</span></div>
-            <!-- Scroll hint -->
+            <div class="gl-orbit-node gl-node-right"><strong>위로</strong><span>15 Moments</span></div>
+            <div class="gl-orbit-node gl-node-bl"><strong>성장</strong><span>26 Moments</span></div>
+            <div class="gl-orbit-node gl-node-br"><strong>일상</strong><span>31 Moments</span></div>
             <div class="gl-scroll-hint">🖱 SCROLL</div>
           </div>
 
-          <!-- Right: Yumi + polaroids -->
+          <!-- Right: polaroids + Yumi -->
           <div class="gl-hero-right" aria-hidden="true">
             <img class="gl-hero-polaroid gl-hero-polaroid-a" src="./assets/images/gallery/polaroid-yumi-writing.png" alt="" />
             <img class="gl-hero-polaroid gl-hero-polaroid-b" src="./assets/images/gallery/polaroid-yumi-woong-meet.png" alt="" />
             <img class="gl-hero-yumi-big" src="./assets/images/gallery/yumi-daydream.png" alt="" />
           </div>
 
-          <!-- Cell characters scattered -->
+          <!-- Cell characters: blue top-of-orbit, pink+green bottom-left -->
           <img class="gl-hero-cell gl-cell-blue"  src="./assets/images/gallery/cell-character-blue.png"  alt="" aria-hidden="true" />
-          <img class="gl-hero-cell gl-cell-pink"   src="./assets/images/gallery/cell-character-pink.png"  alt="" aria-hidden="true" />
-          <img class="gl-hero-cell gl-cell-green"  src="./assets/images/gallery/cell-character-green.png" alt="" aria-hidden="true" />
+          <img class="gl-hero-cell gl-cell-pink"  src="./assets/images/gallery/cell-character-pink.png"  alt="" aria-hidden="true" />
+          <img class="gl-hero-cell gl-cell-green" src="./assets/images/gallery/cell-character-green.png" alt="" aria-hidden="true" />
 
           <svg class="sub-wave" viewBox="0 0 1440 140" preserveAspectRatio="none" aria-hidden="true"><path d="M0 58 C180 18 330 16 520 56 C755 106 930 100 1120 54 C1255 22 1360 30 1440 48 L1440 140 L0 140 Z"></path></svg>
         </section>
@@ -398,46 +398,64 @@
       /* ── Orbit ring (center) ─────────────────────────────────────────── */
       .gl-orbit-wrap {
         position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 420px;
+        height: 480px;
         z-index: 1;
       }
 
+      /* decorative ring — no overflow, purely visual */
       .gl-orbit-ring {
-        position: relative;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         width: 320px;
         height: 320px;
         border-radius: 50%;
-        overflow: hidden;
-        border: 2.5px solid rgba(255, 190, 150, .5);
+        border: 1.5px solid rgba(255, 185, 145, .55);
         box-shadow:
-          0 0 0 18px rgba(255, 215, 185, .1),
-          0 0 0 36px rgba(255, 215, 185, .05);
-        flex-shrink: 0;
+          0 0 0 20px rgba(255, 215, 190, .09),
+          0 0 0 40px rgba(255, 215, 190, .05),
+          inset 0 0 60px rgba(255, 230, 210, .15);
+        pointer-events: none;
       }
 
+      /* inner ring via pseudo */
+      .gl-orbit-ring::before {
+        content: "";
+        position: absolute;
+        inset: 28px;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 200, 165, .35);
+        background: radial-gradient(circle, rgba(255, 238, 220, .3) 0%, transparent 70%);
+      }
+
+      /* heart+pedestal image — centred and cropped to heart area */
       .gl-orbit-heart-img {
-        width: 100%;
-        height: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 340px;
+        height: 340px;
         object-fit: cover;
-        object-position: center;
-        display: block;
+        object-position: center 30%;
+        border-radius: 50%;
+        z-index: 2;
       }
 
-      /* Emotion nodes */
+      /* Emotion nodes — all anchored from wrap center */
       .gl-orbit-node {
         position: absolute;
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 2px;
+        gap: 3px;
         white-space: nowrap;
+        z-index: 3;
       }
 
       .gl-orbit-node strong {
-        font-size: 15px;
+        font-size: 16px;
         font-weight: 1000;
         color: #2b2d42;
       }
@@ -445,39 +463,68 @@
       .gl-orbit-node span {
         font-size: 11px;
         font-weight: 700;
-        color: #a0a3bb;
+        color: #a8abc0;
+        letter-spacing: .02em;
       }
 
-      /* Positions — centred on orbit ring which is centred in 100% width */
-      .gl-node-top          { top: 0;    left: 50%; transform: translateX(-50%) translateY(-50%); }
-      .gl-node-left         { top: 32%;  left: -2px; transform: translateX(-100%) translateY(-50%); padding-right: 12px; align-items: flex-end; }
-      .gl-node-right        { top: 32%;  right: -2px; transform: translateX(100%) translateY(-50%); padding-left: 12px; }
-      .gl-node-bottom-left  { bottom: 8%; left: 6%;  transform: translateX(-90%) translateY(50%); align-items: flex-end; }
-      .gl-node-bottom-right { bottom: 8%; right: 6%; transform: translateX(90%) translateY(50%); }
+      /* top  (12 o'clock) */
+      .gl-node-top {
+        top: calc(50% - 192px);
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      /* left (9 o'clock) */
+      .gl-node-left {
+        top: 50%;
+        left: calc(50% - 196px);
+        transform: translate(-100%, -50%);
+        align-items: flex-end;
+      }
+
+      /* right (3 o'clock) */
+      .gl-node-right {
+        top: 50%;
+        left: calc(50% + 196px);
+        transform: translateY(-50%);
+      }
+
+      /* bottom-left (~225°) — cos225°= -0.707 */
+      .gl-node-bl {
+        top: calc(50% + 134px);
+        left: calc(50% - 134px);
+        transform: translate(-100%, 0);
+        align-items: flex-end;
+      }
+
+      /* bottom-right (~315°) — cos315°= +0.707 */
+      .gl-node-br {
+        top: calc(50% + 134px);
+        left: calc(50% + 134px);
+      }
 
       .gl-scroll-hint {
         position: absolute;
-        bottom: -20px;
+        bottom: 4px;
         left: 50%;
         transform: translateX(-50%);
         font-size: 11px;
         font-weight: 800;
-        color: #b0b3cc;
-        letter-spacing: .08em;
+        color: #bbbdd4;
+        letter-spacing: .1em;
       }
 
       /* ── Hero right (Yumi + polaroids) ──────────────────────────────── */
       .gl-hero-right {
         position: relative;
-        height: 440px;
-        padding-left: 16px;
+        height: 480px;
       }
 
       .gl-hero-yumi-big {
         position: absolute;
-        bottom: -10px;
-        right: 0;
-        width: clamp(220px, 24vw, 320px);
+        bottom: -20px;
+        right: -4px;
+        width: clamp(240px, 26vw, 360px);
         object-fit: contain;
         filter: drop-shadow(0 16px 40px rgba(0, 0, 0, .08));
       }
@@ -485,34 +532,53 @@
       /* polaroid images already have frame baked in — no extra white box */
       .gl-hero-polaroid {
         position: absolute;
-        filter: drop-shadow(0 6px 18px rgba(0, 0, 0, .12));
+        filter: drop-shadow(0 8px 22px rgba(0, 0, 0, .14));
       }
 
       .gl-hero-polaroid-a {
-        width: clamp(130px, 15vw, 190px);
-        top: 2%;
-        left: -8px;
+        width: clamp(160px, 18vw, 240px);
+        top: 4%;
+        left: 0;
         transform: rotate(-6deg);
+        z-index: 3;
       }
 
       .gl-hero-polaroid-b {
-        width: clamp(120px, 14vw, 175px);
-        top: 18%;
+        width: clamp(148px, 16vw, 218px);
+        top: 10%;
         right: 10px;
-        transform: rotate(4deg);
+        transform: rotate(5deg);
+        z-index: 2;
       }
 
       /* ── Cell characters ─────────────────────────────────────────────── */
       .gl-hero-cell {
         position: absolute;
         object-fit: contain;
-        filter: drop-shadow(0 8px 18px rgba(0, 0, 0, .1));
-        z-index: 2;
+        filter: drop-shadow(0 6px 16px rgba(0, 0, 0, .1));
+        z-index: 4;
       }
 
-      .gl-cell-blue  { width: clamp(60px, 7vw, 90px);  top: 14%; left: calc(clamp(20px,5vw,72px) + 300px); }
-      .gl-cell-pink  { width: clamp(65px, 8vw, 100px); bottom: 10%; left: calc(clamp(20px,5vw,72px) + 260px); }
-      .gl-cell-green { width: clamp(55px, 6vw, 80px);  bottom: 12%; left: calc(clamp(20px,5vw,72px) + 340px); }
+      /* blue: upper-centre, above the orbit ring */
+      .gl-cell-blue {
+        width: clamp(64px, 7vw, 96px);
+        top: 20%;
+        left: calc(clamp(20px, 5vw, 72px) + clamp(260px, 28vw, 380px) + 24px);
+      }
+
+      /* pink: bottom-left of orbit, beside the orbit ring */
+      .gl-cell-pink {
+        width: clamp(76px, 9vw, 116px);
+        bottom: 8%;
+        left: calc(clamp(20px, 5vw, 72px) + clamp(260px, 28vw, 380px) - 30px);
+      }
+
+      /* green: just right of pink */
+      .gl-cell-green {
+        width: clamp(62px, 7vw, 90px);
+        bottom: 10%;
+        left: calc(clamp(20px, 5vw, 72px) + clamp(260px, 28vw, 380px) + 68px);
+      }
 
       /* sub-wave at bottom */
       .gl-hero .sub-wave {
@@ -911,23 +977,25 @@
       gsap.registerPlugin(ScrollTrigger);
 
       /* ── Hero animations ────────────────────────────────────────────── */
-      gsap.set(".gl-hero-copy", { opacity: 0, x: -40 });
-      gsap.set(".gl-orbit-ring", { scale: 0, opacity: 0 });
-      gsap.set(".gl-orbit-node", { opacity: 0, scale: 0 });
-      gsap.set(".gl-hero-polaroid", { opacity: 0, scale: 0.7 });
-      gsap.set(".gl-hero-yumi-big", { opacity: 0, y: 40 });
-      gsap.set(".gl-hero-cell", { opacity: 0, scale: 0 });
-      gsap.set(".gl-scroll-hint", { opacity: 0 });
+      gsap.set(".gl-hero-copy",      { opacity: 0, x: -36 });
+      gsap.set(".gl-orbit-ring",     { scale: 0.6, opacity: 0 });
+      gsap.set(".gl-orbit-heart-img",{ scale: 0.7, opacity: 0 });
+      gsap.set(".gl-orbit-node",     { opacity: 0, y: 10 });
+      gsap.set(".gl-hero-yumi-big",  { opacity: 0, y: 30 });
+      gsap.set(".gl-hero-polaroid",  { opacity: 0, y: -20 });
+      gsap.set(".gl-hero-cell",      { opacity: 0, scale: 0.5 });
+      gsap.set(".gl-scroll-hint",    { opacity: 0 });
 
       const heroTl = gsap.timeline({ delay: .2 });
       heroTl
-        .to(".gl-hero-copy",    { opacity: 1, x: 0, duration: .7, ease: "power3.out" })
-        .to(".gl-orbit-ring",   { scale: 1, opacity: 1, duration: .8, ease: "power3.out" }, "-=.4")
-        .to(".gl-orbit-node",   { opacity: 1, scale: 1, duration: .5, stagger: .08, ease: "power3.out" }, "-=.3")
-        .to(".gl-hero-yumi-big",{ opacity: 1, y: 0, duration: .65, ease: "power3.out" }, "-=.4")
-        .to(".gl-hero-polaroid",{ opacity: 1, scale: 1, duration: .6, stagger: .1, ease: "power3.out" }, "-=.4")
-        .to(".gl-hero-cell",    { opacity: 1, scale: 1, duration: .5, stagger: .1, ease: "power3.out" }, "-=.3")
-        .to(".gl-scroll-hint",  { opacity: 1, duration: .4 }, "-=.1");
+        .to(".gl-hero-copy",       { opacity: 1, x: 0,     duration: .65, ease: "power3.out" })
+        .to(".gl-orbit-ring",      { scale: 1,   opacity: 1, duration: .7, ease: "power2.out" }, "-=.35")
+        .to(".gl-orbit-heart-img", { scale: 1,   opacity: 1, duration: .65, ease: "power3.out" }, "-=.5")
+        .to(".gl-orbit-node",      { opacity: 1, y: 0,     duration: .45, stagger: .07, ease: "power3.out" }, "-=.3")
+        .to(".gl-hero-yumi-big",   { opacity: 1, y: 0,     duration: .65, ease: "power3.out" }, "-=.5")
+        .to(".gl-hero-polaroid",   { opacity: 1, y: 0,     duration: .55, stagger: .1, ease: "power3.out" }, "-=.45")
+        .to(".gl-hero-cell",       { opacity: 1, scale: 1, duration: .45, stagger: .08, ease: "power3.out" }, "-=.3")
+        .to(".gl-scroll-hint",     { opacity: 1,           duration: .35 }, "-=.1");
 
       /* ── 01 Emotion bubbles ─────────────────────────────────────────── */
       gsap.set(".gl-emotion-item", { opacity: 0, y: 60, scale: .8 });
