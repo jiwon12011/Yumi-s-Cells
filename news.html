@@ -12,6 +12,11 @@
         background: rgba(255,255,255,0.95);
         backdrop-filter: blur(12px);
         border-bottom: 1px solid rgba(0,0,0,0.06);
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        height: 68px;
+        display: flex;
+        align-items: center;
       }
 
       /* ─── HERO ────────────────────────────────────────── */
@@ -57,7 +62,7 @@
         position: relative;
         z-index: 2;
         width: 52%;
-        padding: clamp(90px,10vw,130px) clamp(24px,5vw,80px) clamp(60px,7vw,90px);
+        padding: clamp(76px,7vw,96px) clamp(24px,5vw,80px) clamp(48px,5vw,64px);
         display: flex;
         flex-direction: column;
         gap: 16px;
@@ -126,16 +131,7 @@
       }
       .nw-tabs::-webkit-scrollbar { display: none; }
 
-      /* sliding pill indicator */
-      .nw-tab-indicator {
-        position: absolute;
-        bottom: -1px;
-        height: 3px;
-        background: #ff4b8b;
-        border-radius: 3px 3px 0 0;
-        transition: left 0.3s cubic-bezier(.4,0,.2,1), width 0.3s cubic-bezier(.4,0,.2,1);
-        pointer-events: none;
-      }
+
 
       .nw-filter-tab {
         flex-shrink: 0;
@@ -525,8 +521,6 @@
         <div class="nw-filter-bar" role="navigation" aria-label="뉴스 카테고리">
           <div class="nw-filter-inner">
             <div class="nw-tabs" id="nwTabs" role="tablist">
-              <div class="nw-tab-indicator" id="nwIndicator"></div>
-              <button class="nw-filter-tab is-active" role="tab" data-filter="all">전체</button>
               <button class="nw-filter-tab" role="tab" data-filter="webtoon">웹툰 소식</button>
               <button class="nw-filter-tab" role="tab" data-filter="drama">드라마 소식</button>
               <button class="nw-filter-tab" role="tab" data-filter="event">이벤트</button>
@@ -650,7 +644,6 @@
       var searchInput= document.getElementById("nwSearch");
       var clearBtn   = document.getElementById("nwClear");
       var tabs       = document.querySelectorAll(".nw-filter-tab");
-      var indicator  = document.getElementById("nwIndicator");
       var featImg    = document.getElementById("nwFeatImg");
       var featCat    = document.getElementById("nwFeatCat");
       var featDate   = document.getElementById("nwFeatDate");
@@ -748,25 +741,19 @@
         });
       }
 
-      /* ─── MOVE INDICATOR ─────────────────────────────────── */
-      function moveIndicator(tab) {
-        var rect = tab.getBoundingClientRect();
-        var parentRect = document.getElementById("nwTabs").getBoundingClientRect();
-        gsap.to(indicator, {
-          left: rect.left - parentRect.left,
-          width: rect.width,
-          duration: 0.3, ease:"power3.out"
-        });
-      }
-
-      /* ─── TAB CLICK ──────────────────────────────────────── */
+      /* ─── TAB CLICK — toggle: click same tab to deselect ── */
       tabs.forEach(function(tab) {
         tab.addEventListener("click", function() {
-          if (tab.dataset.filter === currentFilter) return;
-          tabs.forEach(function(t){ t.classList.remove("is-active"); });
-          tab.classList.add("is-active");
-          currentFilter = tab.dataset.filter;
-          moveIndicator(tab);
+          var f = tab.dataset.filter;
+          if (currentFilter === f) {
+            /* deselect → show all */
+            tab.classList.remove("is-active");
+            currentFilter = "all";
+          } else {
+            tabs.forEach(function(t){ t.classList.remove("is-active"); });
+            tab.classList.add("is-active");
+            currentFilter = f;
+          }
           renderList(true);
         });
       });
@@ -831,12 +818,6 @@
 
       /* ─── INIT ───────────────────────────────────────────── */
       renderList(false);
-
-      /* move indicator to active tab on load */
-      var firstTab = document.querySelector(".nw-filter-tab.is-active");
-      if (firstTab) {
-        requestAnimationFrame(function() { moveIndicator(firstTab); });
-      }
 
     })();
     </script>
