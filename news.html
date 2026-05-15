@@ -5,6 +5,844 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>News | 유미의 세포들</title>
     <link rel="stylesheet" href="./styles.css" />
+    <style>
+      /* ── NEWS PAGE OVERRIDES ─────────────────────────────── */
+
+      /* ── HERO ─────────────────────────────── */
+      .news-hero {
+        position: relative;
+        background: linear-gradient(135deg, #0a0e1a 0%, #0d1533 50%, #111827 100%);
+        overflow: hidden;
+        padding: clamp(80px, 10vw, 120px) clamp(20px, 5vw, 72px) 0;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .news-hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(ellipse at 70% 40%, rgba(100, 80, 240, 0.18) 0%, transparent 55%),
+          radial-gradient(ellipse at 20% 80%, rgba(30, 92, 255, 0.12) 0%, transparent 50%);
+        pointer-events: none;
+      }
+
+      .news-hero-inner {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: center;
+        max-width: 1280px;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      .news-hero-copy {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .news-live-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: #e01c3a;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        padding: 6px 14px;
+        border-radius: 4px;
+        width: fit-content;
+        text-transform: uppercase;
+      }
+
+      .news-live-badge .live-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #fff;
+        animation: livePulse 1.2s ease-in-out infinite;
+      }
+
+      @keyframes livePulse {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.4; transform: scale(0.7); }
+      }
+
+      .news-breadcrumb {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.45);
+        letter-spacing: 0.05em;
+      }
+
+      .news-kicker {
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        color: #6b8cff;
+        text-transform: uppercase;
+      }
+
+      .news-hero-copy h1 {
+        font-size: clamp(36px, 4.5vw, 58px);
+        font-weight: 900;
+        color: #fff;
+        line-height: 1.15;
+        margin: 0;
+      }
+
+      .news-hero-copy h1 em {
+        font-style: normal;
+        color: #6b8cff;
+      }
+
+      .news-hero-copy p {
+        font-size: clamp(14px, 1.4vw, 16px);
+        color: rgba(255, 255, 255, 0.6);
+        line-height: 1.7;
+        max-width: 440px;
+        margin: 0;
+      }
+
+      .news-channel-tags {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .news-channel-tags span {
+        background: rgba(107, 140, 255, 0.15);
+        border: 1px solid rgba(107, 140, 255, 0.3);
+        color: #9bb4ff;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        padding: 5px 14px;
+        border-radius: 20px;
+      }
+
+      .news-hero-actions {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        margin-top: 4px;
+      }
+
+      .news-visual {
+        position: relative;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+      }
+
+      .news-studio-img {
+        width: 100%;
+        max-width: 520px;
+        height: auto;
+        border-radius: 20px 20px 0 0;
+        object-fit: cover;
+        display: block;
+        filter: drop-shadow(0 -20px 60px rgba(107, 140, 255, 0.3));
+      }
+
+      .news-channel-badge {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: rgba(10, 14, 26, 0.85);
+        border: 1px solid rgba(107, 140, 255, 0.3);
+        backdrop-filter: blur(12px);
+        border-radius: 12px;
+        padding: 12px 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .news-channel-badge strong {
+        color: #fff;
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+      }
+
+      .news-channel-badge span {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 11px;
+      }
+
+      /* ── TICKER ─────────────────────────────── */
+      .news-ticker-bar {
+        position: relative;
+        z-index: 2;
+        background: #e01c3a;
+        margin-top: 40px;
+        display: flex;
+        align-items: center;
+        height: 42px;
+        overflow: hidden;
+      }
+
+      .news-ticker-label {
+        flex-shrink: 0;
+        background: #b01028;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        padding: 0 20px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        text-transform: uppercase;
+        z-index: 1;
+      }
+
+      .news-ticker-track-outer {
+        flex: 1;
+        overflow: hidden;
+        height: 100%;
+        position: relative;
+      }
+
+      .news-ticker-track {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        white-space: nowrap;
+        will-change: transform;
+      }
+
+      .news-ticker-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: #fff;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 0 40px;
+        flex-shrink: 0;
+      }
+
+      .news-ticker-item::after {
+        content: "◆";
+        font-size: 8px;
+        opacity: 0.6;
+        margin-left: 8px;
+      }
+
+      /* ── BREAKING NEWS ─────────────────────────────── */
+      .news-breaking {
+        background: #0a0e1a;
+        padding: clamp(60px, 7vw, 96px) clamp(20px, 5vw, 72px);
+      }
+
+      .news-section-head {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 40px;
+      }
+
+      .news-section-head .channel-tag {
+        background: #e01c3a;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        padding: 4px 12px;
+        border-radius: 3px;
+        text-transform: uppercase;
+      }
+
+      .news-section-head h2 {
+        color: #fff;
+        font-size: clamp(22px, 2.5vw, 32px);
+        font-weight: 800;
+        margin: 0;
+      }
+
+      .news-section-head .divider-line {
+        flex: 1;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .news-section-head .news-count {
+        color: rgba(255, 255, 255, 0.35);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+      }
+
+      .news-featured {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 40px;
+        max-width: 1280px;
+        margin: 0 auto;
+        align-items: center;
+      }
+
+      .news-featured-img {
+        position: relative;
+        border-radius: 16px;
+        overflow: hidden;
+      }
+
+      .news-featured-img img {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.6s ease;
+      }
+
+      .news-featured-img:hover img {
+        transform: scale(1.03);
+      }
+
+      .news-featured-img .img-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(10,14,26,0.7) 0%, transparent 50%);
+        pointer-events: none;
+      }
+
+      .news-featured-badge {
+        position: absolute;
+        top: 16px;
+        left: 16px;
+        background: #e01c3a;
+        color: #fff;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        padding: 5px 11px;
+        border-radius: 3px;
+        text-transform: uppercase;
+      }
+
+      .news-featured-copy {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .news-featured-meta {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .news-featured-meta .tag {
+        background: rgba(107, 140, 255, 0.18);
+        color: #9bb4ff;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        padding: 4px 12px;
+        border-radius: 20px;
+        text-transform: uppercase;
+      }
+
+      .news-featured-meta time {
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 12px;
+      }
+
+      .news-featured-copy h3 {
+        color: #fff;
+        font-size: clamp(22px, 2.2vw, 30px);
+        font-weight: 800;
+        line-height: 1.3;
+        margin: 0;
+      }
+
+      .news-featured-copy p {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 15px;
+        line-height: 1.75;
+        margin: 0;
+      }
+
+      .news-read-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: #6b8cff;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-decoration: none;
+        transition: gap 0.2s ease, color 0.2s ease;
+      }
+
+      .news-read-btn::after {
+        content: "→";
+        transition: transform 0.2s ease;
+      }
+
+      .news-read-btn:hover {
+        color: #9bb4ff;
+      }
+
+      .news-read-btn:hover::after {
+        transform: translateX(4px);
+      }
+
+      /* ── NEWS GRID ─────────────────────────────── */
+      .news-grid-section {
+        background: #0d1120;
+        padding: clamp(60px, 7vw, 96px) clamp(20px, 5vw, 72px);
+      }
+
+      .news-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        max-width: 1280px;
+        margin: 0 auto;
+      }
+
+      .news-card {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        border-radius: 14px;
+        overflow: hidden;
+        transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+      }
+
+      .news-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(107, 140, 255, 0.3);
+        box-shadow: 0 20px 50px rgba(107, 140, 255, 0.12);
+      }
+
+      .news-card-img {
+        position: relative;
+        overflow: hidden;
+        height: 200px;
+      }
+
+      .news-card-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.5s ease, filter 0.3s ease;
+      }
+
+      .news-card:hover .news-card-img img {
+        transform: scale(1.06);
+        filter: brightness(1.05);
+      }
+
+      .news-card-cat {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        padding: 4px 10px;
+        border-radius: 3px;
+        text-transform: uppercase;
+        color: #fff;
+      }
+
+      .news-card-cat.cat-drama { background: #7c3aed; }
+      .news-card-cat.cat-character { background: #0ea5e9; }
+      .news-card-cat.cat-goods { background: #f59e0b; color: #1a1a1a; }
+      .news-card-cat.cat-event { background: #10b981; }
+
+      .news-card-body {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .news-card-body time {
+        color: rgba(255, 255, 255, 0.35);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+      }
+
+      .news-card-body h3 {
+        color: #fff;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 1.4;
+        margin: 0;
+      }
+
+      .news-card-body p {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 13px;
+        line-height: 1.65;
+        margin: 0;
+      }
+
+      /* ── CHANNEL SWITCH SECTION ─────────────────────────────── */
+      .news-channel-section {
+        background: #080c18;
+        padding: clamp(60px, 7vw, 96px) clamp(20px, 5vw, 72px);
+      }
+
+      .news-channel-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        max-width: 1280px;
+        margin: 0 auto;
+        align-items: center;
+      }
+
+      .news-channel-visual {
+        position: relative;
+      }
+
+      .news-channel-frame {
+        border-radius: 16px;
+        overflow: hidden;
+        position: relative;
+        background: #0d1120;
+        border: 1px solid rgba(107, 140, 255, 0.15);
+      }
+
+      .news-channel-frame img {
+        width: 100%;
+        height: 320px;
+        object-fit: cover;
+        display: block;
+        transition: filter 0.4s ease;
+      }
+
+      .news-channel-frame .scanline {
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(0, 0, 0, 0.06) 2px,
+          rgba(0, 0, 0, 0.06) 4px
+        );
+        pointer-events: none;
+        border-radius: 16px;
+      }
+
+      .news-channel-frame .channel-label {
+        position: absolute;
+        bottom: 16px;
+        left: 16px;
+        background: rgba(10, 14, 26, 0.85);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(107, 140, 255, 0.2);
+        border-radius: 8px;
+        padding: 8px 14px;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+      }
+
+      .news-channel-switcher {
+        display: flex;
+        gap: 10px;
+        margin-top: 16px;
+      }
+
+      .news-channel-switcher button {
+        flex: 1;
+        padding: 10px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 8px;
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        letter-spacing: 0.04em;
+      }
+
+      .news-channel-switcher button.is-active,
+      .news-channel-switcher button:hover {
+        background: rgba(107, 140, 255, 0.15);
+        border-color: rgba(107, 140, 255, 0.4);
+        color: #9bb4ff;
+      }
+
+      .news-channel-copy {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .news-channel-copy h2 {
+        color: #fff;
+        font-size: clamp(24px, 2.5vw, 34px);
+        font-weight: 800;
+        line-height: 1.3;
+        margin: 0;
+      }
+
+      .news-channel-copy h2 em {
+        font-style: normal;
+        color: #6b8cff;
+      }
+
+      .news-episode-list {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .news-episode-item {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 14px 16px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 10px;
+        transition: border-color 0.2s ease, background 0.2s ease;
+        cursor: pointer;
+      }
+
+      .news-episode-item:hover {
+        background: rgba(107, 140, 255, 0.08);
+        border-color: rgba(107, 140, 255, 0.2);
+      }
+
+      .ep-number {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        background: rgba(107, 140, 255, 0.18);
+        color: #9bb4ff;
+        font-size: 11px;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        letter-spacing: 0.03em;
+      }
+
+      .ep-info {
+        flex: 1;
+      }
+
+      .ep-info strong {
+        display: block;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 3px;
+      }
+
+      .ep-info span {
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 12px;
+      }
+
+      .ep-badge {
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        padding: 3px 9px;
+        border-radius: 20px;
+        text-transform: uppercase;
+      }
+
+      .ep-badge.new { background: rgba(224, 28, 58, 0.2); color: #e01c3a; border: 1px solid rgba(224, 28, 58, 0.3); }
+      .ep-badge.hot { background: rgba(245, 158, 11, 0.2); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3); }
+
+      /* ── ANNOUNCEMENT BAND ─────────────────────────────── */
+      .news-announce-band {
+        background: linear-gradient(120deg, #0d1533 0%, #1a1050 50%, #0d1533 100%);
+        padding: clamp(60px, 7vw, 96px) clamp(20px, 5vw, 72px);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .news-announce-band::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(ellipse at 30% 50%, rgba(107, 140, 255, 0.12) 0%, transparent 55%),
+          radial-gradient(ellipse at 80% 30%, rgba(224, 28, 58, 0.06) 0%, transparent 45%);
+        pointer-events: none;
+      }
+
+      .news-announce-inner {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 50px;
+        align-items: center;
+        max-width: 1280px;
+        margin: 0 auto;
+      }
+
+      .news-announce-cell {
+        width: 200px;
+        flex-shrink: 0;
+        filter: drop-shadow(0 0 30px rgba(107, 140, 255, 0.4));
+        animation: floatCell 3s ease-in-out infinite;
+      }
+
+      @keyframes floatCell {
+        0%, 100% { transform: translateY(0) rotate(-3deg); }
+        50% { transform: translateY(-12px) rotate(3deg); }
+      }
+
+      .news-announce-copy {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .news-announce-copy .tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(224, 28, 58, 0.15);
+        border: 1px solid rgba(224, 28, 58, 0.3);
+        color: #e01c3a;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        padding: 5px 14px;
+        border-radius: 20px;
+        width: fit-content;
+        text-transform: uppercase;
+      }
+
+      .news-announce-copy h2 {
+        color: #fff;
+        font-size: clamp(26px, 3vw, 40px);
+        font-weight: 900;
+        line-height: 1.25;
+        margin: 0;
+      }
+
+      .news-announce-copy h2 em {
+        font-style: normal;
+        color: #6b8cff;
+      }
+
+      .news-announce-copy p {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 15px;
+        line-height: 1.75;
+        max-width: 500px;
+        margin: 0;
+      }
+
+      .news-announce-actions {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+
+      .btn-primary-glow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: linear-gradient(90deg, #4a6fff, #6b8cff);
+        color: #fff;
+        font-size: 14px;
+        font-weight: 700;
+        padding: 13px 26px;
+        border-radius: 50px;
+        text-decoration: none;
+        box-shadow: 0 8px 30px rgba(107, 140, 255, 0.35);
+        transition: box-shadow 0.2s ease, transform 0.2s ease;
+      }
+
+      .btn-primary-glow:hover {
+        box-shadow: 0 12px 40px rgba(107, 140, 255, 0.55);
+        transform: translateY(-2px);
+      }
+
+      .btn-ghost-white {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: rgba(255, 255, 255, 0.75);
+        font-size: 14px;
+        font-weight: 600;
+        padding: 13px 26px;
+        border-radius: 50px;
+        text-decoration: none;
+        transition: border-color 0.2s ease, color 0.2s ease;
+      }
+
+      .btn-ghost-white:hover {
+        border-color: rgba(255, 255, 255, 0.5);
+        color: #fff;
+      }
+
+      /* ── SUPPORT BANNER — dark override ─────────────────────────────── */
+      .news-page .support-banner {
+        background: linear-gradient(110deg, #0d1533 0%, #12193e 100%);
+      }
+
+      /* ── FOOTER — dark override ─────────────────────────────── */
+      .news-page .site-footer {
+        background: #080c18;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      /* ── GSAP INIT HIDDEN — set by JS, not CSS ─────────────────────────────── */
+
+      /* ── RESPONSIVE ─────────────────────────────── */
+      @media (max-width: 900px) {
+        .news-hero-inner {
+          grid-template-columns: 1fr;
+        }
+        .news-visual {
+          display: none;
+        }
+        .news-featured {
+          grid-template-columns: 1fr;
+        }
+        .news-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .news-channel-grid {
+          grid-template-columns: 1fr;
+        }
+        .news-announce-inner {
+          grid-template-columns: 1fr;
+        }
+        .news-announce-cell {
+          width: 140px;
+          margin: 0 auto;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .news-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
   </head>
   <body>
     <div class="site-shell sub-page news-page">
@@ -15,7 +853,6 @@
           <a href="./story.html">Story</a>
           <a href="./gallery.html">Gallery</a>
           <a class="is-active" href="./news.html">News</a>
-          <a href="./event.html">Event</a>
         </nav>
         <div class="header-actions" aria-label="소셜 메뉴">
           <a href="#" aria-label="Instagram"><span class="icon-instagram"></span></a>
@@ -25,71 +862,201 @@
       </header>
 
       <main>
-        <section class="sub-hero news-sub-hero" aria-labelledby="news-page-title">
-          <div class="sub-bubbles" aria-hidden="true"><span></span><span></span><span></span></div>
-          <div class="sub-hero-inner">
-            <div class="sub-hero-copy">
-              <nav class="sub-breadcrumb" aria-label="현재 위치">Home / News</nav>
-              <span class="sub-kicker">Yumi Newsroom</span>
-              <h1 id="news-page-title">원작과 드라마 소식을<br />한눈에 보는 뉴스룸</h1>
-              <p>작품 소개, 시즌 소식, 팬 이벤트 업데이트를 공식 홍보 페이지처럼 정리했어요.</p>
-              <div class="sub-hero-meta" aria-label="뉴스 카테고리">
-                <span>Original</span>
-                <span>TVING</span>
+
+        <!-- ── HERO ──────────────────────────── -->
+        <section class="news-hero" aria-labelledby="news-hero-title">
+          <div class="news-hero-inner">
+            <div class="news-hero-copy">
+              <nav class="news-breadcrumb" aria-label="현재 위치">Home / News</nav>
+              <div class="news-live-badge"><span class="live-dot" aria-hidden="true"></span>On Air</div>
+              <span class="news-kicker">Yumi Newsroom</span>
+              <h1 id="news-hero-title">유미의 세포들<br /><em>뉴스룸</em></h1>
+              <p>원작 웹툰부터 TVING 드라마 시즌3까지, 세포 마을의 모든 소식을 뉴스룸에서 전합니다.</p>
+              <div class="news-channel-tags" aria-label="카테고리">
+                <span>Original Webtoon</span>
+                <span>TVING Drama</span>
                 <span>Fan News</span>
               </div>
-              <div class="sub-actions">
-                <a class="primary-button" href="#news-list"><span>소식 보기</span><span class="play-icon" aria-hidden="true"></span></a>
-                <a class="secondary-button" href="./event.html">이벤트 보기</a>
+              <div class="news-hero-actions">
+                <a class="primary-button" href="#breaking"><span>주요 뉴스</span><span class="play-icon" aria-hidden="true"></span></a>
+                <a class="secondary-button" href="./gallery.html">갤러리 보기</a>
               </div>
             </div>
-            <div class="sub-hero-visual sub-cell-hero sub-news-cells" aria-hidden="true">
-              <img class="sub-float-cell cell-a" src="./assets/images/cells/cell-reading.png" alt="" />
-              <img class="sub-float-cell cell-b" src="./assets/images/cells/cell-love.png" alt="" />
-              <img class="sub-float-cell cell-c" src="./assets/images/cells/cell-angry.png" alt="" />
-              <img class="sub-float-cell cell-d" src="./assets/images/cells/cell-artist.png" alt="" />
-              <div class="sub-hero-note">
-                <strong>News Desk</strong>
-                <span>작품 정보, 시즌 업데이트, 팬 참여 소식을 카드로 정리</span>
+            <div class="news-visual" aria-hidden="true">
+              <img class="news-studio-img" src="./assets/images/news/news-hero-studio.png" alt="" />
+              <div class="news-channel-badge">
+                <strong>YUMI NEWS</strong>
+                <span>세포 뉴스 채널</span>
               </div>
             </div>
           </div>
-          <svg class="sub-wave" viewBox="0 0 1440 140" preserveAspectRatio="none" aria-hidden="true"><path d="M0 58 C180 18 330 16 520 56 C755 106 930 100 1120 54 C1255 22 1360 30 1440 48 L1440 140 L0 140 Z"></path></svg>
-        </section>
 
-        <section class="sub-section" id="news-list" aria-labelledby="news-list-title">
-          <div class="sub-section-heading">
-            <span>Latest Update</span>
-            <h2 id="news-list-title">최신 소식</h2>
-          </div>
-          <div class="sub-news-board">
-            <article class="sub-news-main">
-              <img src="./assets/images/promo/yumi-couple-poster.png" alt="유미와 구웅 일러스트" />
-              <div><time datetime="2024-05-20">2024.05.20</time><h3>새로운 팝아트 꾸밈컷 공개!</h3><p>유미와 세포들의 귀여운 순간을 담은 새 이미지가 공개되었어요.</p></div>
-            </article>
-            <div class="sub-news-items">
-              <a href="#"><img src="./assets/images/promo/teaser-coming-thumb.png" alt="" /><span><time datetime="2024-04-28">2024.04.28</time><strong>유미의 세포들3 티저 공개</strong></span></a>
-              <a href="#"><img src="./assets/images/promo/merch-cells-thumb.png" alt="" /><span><time datetime="2024-04-15">2024.04.15</time><strong>스페셜 굿즈 출시 소식</strong></span></a>
-              <a href="#"><img src="./assets/images/promo/drawing-cells-thumb.png" alt="" /><span><time datetime="2024-04-02">2024.04.02</time><strong>세포 꾸밈컷 다운로드 오픈</strong></span></a>
+          <!-- Ticker -->
+          <div class="news-ticker-bar" aria-hidden="true">
+            <div class="news-ticker-label">Breaking</div>
+            <div class="news-ticker-track-outer">
+              <div class="news-ticker-track" id="newsTicker">
+                <span class="news-ticker-item">유미의 세포들 시즌3 공식 티저 공개</span>
+                <span class="news-ticker-item">유미 × 구웅 재결합? 봄날 벚꽃 스틸 포착</span>
+                <span class="news-ticker-item">세포 굿즈 드로우 이벤트 4월 30일 마감</span>
+                <span class="news-ticker-item">이성 세포 단독 인터뷰 영상 공개 예정</span>
+                <span class="news-ticker-item">TVING 팬미팅 티켓 예매 시작</span>
+                <span class="news-ticker-item">원작 웹툰 정주행 이벤트 5월 한 달간 진행</span>
+              </div>
             </div>
           </div>
         </section>
 
-        <section class="sub-info-band" aria-labelledby="press-kit-title">
-          <div class="sub-section-heading">
-            <span>Press Kit</span>
-            <h2 id="press-kit-title">홍보 포인트</h2>
-          </div>
-          <div class="sub-info-grid">
-            <article><strong>원작성</strong><h3>웹툰 기반 IP</h3><p>네이버웹툰 인기 원작의 캐릭터성과 심리 묘사가 팬덤의 핵심 진입점이에요.</p></article>
-            <article><strong>드라마화</strong><h3>실사와 애니메이션의 결합</h3><p>유미의 현실 장면과 머릿속 세포 세계를 함께 보여주는 형식이 차별점이에요.</p></article>
-            <article><strong>팬 확장</strong><h3>세포 캐릭터 굿즈성</h3><p>사랑, 이성, 걱정, 먹방 등 세포별 성격이 SNS 콘텐츠와 이벤트로 이어지기 좋아요.</p></article>
+        <!-- ── BREAKING NEWS ──────────────────────────── -->
+        <section class="news-breaking" id="breaking" aria-labelledby="breaking-title">
+          <div style="max-width:1280px;margin:0 auto;">
+            <div class="news-section-head">
+              <span class="channel-tag">Breaking</span>
+              <h2 id="breaking-title">주요 뉴스</h2>
+              <div class="divider-line"></div>
+              <span class="news-count">LATEST</span>
+            </div>
+            <div class="news-featured gsap-reveal">
+              <div class="news-featured-img">
+                <img src="./assets/images/news/news-main-drama-s3.png" alt="유미와 구웅 벚꽃 스틸" />
+                <div class="img-overlay"></div>
+                <span class="news-featured-badge">Exclusive</span>
+              </div>
+              <div class="news-featured-copy">
+                <div class="news-featured-meta">
+                  <span class="tag">Drama S3</span>
+                  <time datetime="2026-05-15">2026.05.15</time>
+                </div>
+                <h3>시즌3 공식 스틸 최초 공개 — 유미와 구웅, 다시 봄날</h3>
+                <p>TVING 오리지널 드라마 「유미의 세포들」 시즌3의 첫 공식 스틸이 공개되었습니다. 벚꽃이 흩날리는 봄 배경 속 유미와 구웅의 재회 장면이 담겨 팬들의 뜨거운 반응이 이어지고 있어요.</p>
+                <a class="news-read-btn" href="#">전체 기사 보기</a>
+              </div>
+            </div>
           </div>
         </section>
 
+        <!-- ── NEWS GRID ──────────────────────────── -->
+        <section class="news-grid-section" aria-labelledby="news-grid-title">
+          <div style="max-width:1280px;margin:0 auto;">
+            <div class="news-section-head">
+              <span class="channel-tag" style="background:#7c3aed;">Update</span>
+              <h2 id="news-grid-title">최신 소식</h2>
+              <div class="divider-line"></div>
+              <span class="news-count">3 STORIES</span>
+            </div>
+            <div class="news-grid">
+              <article class="news-card gsap-reveal">
+                <div class="news-card-img">
+                  <img src="./assets/images/news/news-yumi-woong-romance.png" alt="유미와 구웅 로맨스 장면" />
+                  <span class="news-card-cat cat-drama">Drama</span>
+                </div>
+                <div class="news-card-body">
+                  <time datetime="2026-05-12">2026.05.12</time>
+                  <h3>시즌3 촬영 완료 — 방영 날짜 임박</h3>
+                  <p>유미와 구웅의 재결합 스토리를 담은 시즌3 촬영이 마무리됐습니다. 공식 방영일 발표가 임박했어요.</p>
+                </div>
+              </article>
+              <article class="news-card gsap-reveal">
+                <div class="news-card-img">
+                  <img src="./assets/images/news/news-cells-lineup.png" alt="세포 캐릭터 라인업" />
+                  <span class="news-card-cat cat-character">Character</span>
+                </div>
+                <div class="news-card-body">
+                  <time datetime="2026-05-10">2026.05.10</time>
+                  <h3>세포 마을 전원 집합 — 신규 캐릭터 컷 공개</h3>
+                  <p>사랑, 이성, 걱정, 먹방, 예술 세포가 모두 등장하는 시즌3 공식 캐릭터 라인업이 공개됐습니다.</p>
+                </div>
+              </article>
+              <article class="news-card gsap-reveal">
+                <div class="news-card-img">
+                  <img src="./assets/images/news/news-cells-trio.png" alt="세포 굿즈 이미지" />
+                  <span class="news-card-cat cat-goods">Goods</span>
+                </div>
+                <div class="news-card-body">
+                  <time datetime="2026-05-08">2026.05.08</time>
+                  <h3>세포 굿즈 시즌3 에디션 출시 예고</h3>
+                  <p>시즌3 방영을 기념하는 세포 캐릭터 한정 굿즈가 팝업스토어에서 선공개될 예정입니다.</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── CHANNEL SWITCH ──────────────────────────── -->
+        <section class="news-channel-section" aria-labelledby="channel-title">
+          <div class="news-channel-grid">
+            <div class="news-channel-visual gsap-reveal">
+              <div class="news-channel-frame" id="channelFrame">
+                <img id="channelImg" src="./assets/images/news/news-yumi-writing.png" alt="유미 인터뷰 장면" />
+                <div class="scanline" aria-hidden="true"></div>
+                <div class="channel-label" id="channelLabel">CH 1 · 이성 세포 인터뷰</div>
+              </div>
+              <div class="news-channel-switcher" aria-label="채널 선택">
+                <button class="is-active" data-img="./assets/images/news/news-yumi-writing.png" data-label="CH 1 · 이성 세포 인터뷰">CH 1</button>
+                <button data-img="./assets/images/news/news-yumi-diary.png" data-label="CH 2 · 유미의 일기장">CH 2</button>
+                <button data-img="./assets/images/news/news-main-drama-s3.png" data-label="CH 3 · 시즌3 메인 스틸">CH 3</button>
+              </div>
+            </div>
+            <div class="news-channel-copy gsap-reveal">
+              <span class="news-kicker">Episode Guide</span>
+              <h2 id="channel-title">세포들의 시선으로<br />바라본 <em>유미의 이야기</em></h2>
+              <div class="news-episode-list">
+                <div class="news-episode-item">
+                  <div class="ep-number">EP.01</div>
+                  <div class="ep-info">
+                    <strong>이성 세포가 전하는 사랑의 조건</strong>
+                    <span>이성 세포 단독 인터뷰 · 30분</span>
+                  </div>
+                  <span class="ep-badge new">New</span>
+                </div>
+                <div class="news-episode-item">
+                  <div class="ep-number">EP.02</div>
+                  <div class="ep-info">
+                    <strong>유미의 일기장 — 시즌3 비하인드</strong>
+                    <span>제작 비하인드 특집 · 25분</span>
+                  </div>
+                  <span class="ep-badge hot">Hot</span>
+                </div>
+                <div class="news-episode-item">
+                  <div class="ep-number">EP.03</div>
+                  <div class="ep-info">
+                    <strong>세포 마을 풀 투어 — 메이킹 필름</strong>
+                    <span>캐릭터 제작 과정 · 40분</span>
+                  </div>
+                  <span class="ep-badge" style="background:rgba(107,140,255,0.15);color:#9bb4ff;border:1px solid rgba(107,140,255,0.3);">Soon</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── ANNOUNCEMENT ──────────────────────────── -->
+        <section class="news-announce-band" aria-labelledby="announce-title">
+          <div class="news-announce-inner">
+            <img class="news-announce-cell" src="./assets/images/news/news-prime-cell-announce.png" alt="" aria-hidden="true" />
+            <div class="news-announce-copy gsap-reveal">
+              <span class="tag">공식 발표</span>
+              <h2 id="announce-title">시즌3 방영 확정!<br /><em>팬 이벤트</em>도 함께 시작됩니다</h2>
+              <p>TVING 오리지널 「유미의 세포들」 시즌3 방영이 공식 확정되었습니다. 방영 기념 팬 참여 이벤트와 팝업스토어 소식도 곧 공개될 예정이니 공식 채널을 팔로우해 주세요!</p>
+              <div class="news-announce-actions">
+                <a class="btn-primary-glow" href="#">공식 채널 바로가기</a>
+                <a class="btn-ghost-white" href="./gallery.html">갤러리 둘러보기</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── SUPPORT BANNER ──────────────────────────── -->
         <section class="support-banner" aria-label="공식 채널">
           <img class="support-cells-left" src="./assets/images/gallery/support-cells-group.png" alt="" aria-hidden="true" />
-          <div class="support-copy"><h2>유미와 세포들의 이야기를<br />함께 응원해 주세요!</h2><div class="support-buttons"><a href="#"><span class="support-icon instagram-dot"></span>공식 인스타그램</a><a href="#"><span class="support-icon youtube-dot"></span>공식 유튜브</a><a href="#"><span class="support-icon naver-dot"></span>팬카페 바로가기</a></div></div>
+          <div class="support-copy">
+            <h2>유미와 세포들의 이야기를<br />함께 응원해 주세요!</h2>
+            <div class="support-buttons">
+              <a href="#"><span class="support-icon instagram-dot"></span>공식 인스타그램</a>
+              <a href="#"><span class="support-icon youtube-dot"></span>공식 유튜브</a>
+              <a href="#"><span class="support-icon naver-dot"></span>팬카페 바로가기</a>
+            </div>
+          </div>
           <img class="support-cells-right" src="./assets/images/gallery/three-happy-cells.png" alt="" aria-hidden="true" />
         </section>
 
@@ -105,5 +1072,180 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
     <script src="./script.js"></script>
+    <script>
+      (function () {
+        "use strict";
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        /* ── HERO ENTRANCE ─────────────────────────────── */
+        var heroCopy = document.querySelector(".news-hero-copy");
+        if (heroCopy) {
+          var heroEls = heroCopy.children;
+          gsap.from(heroEls, {
+            opacity: 0,
+            y: 28,
+            duration: 0.7,
+            stagger: 0.1,
+            ease: "power3.out",
+            delay: 0.2,
+            clearProps: "all",
+          });
+        }
+
+        var studioImg = document.querySelector(".news-studio-img");
+        if (studioImg) {
+          gsap.from(studioImg, {
+            opacity: 0,
+            x: 40,
+            scale: 0.96,
+            duration: 0.9,
+            ease: "power3.out",
+            delay: 0.4,
+            clearProps: "all",
+          });
+        }
+
+        /* ── TICKER MARQUEE ─────────────────────────────── */
+        (function () {
+          var track = document.getElementById("newsTicker");
+          if (!track) return;
+
+          var outer = track.parentElement;
+          var origItems = Array.from(track.querySelectorAll(".news-ticker-item"));
+          if (!origItems.length) return;
+
+          requestAnimationFrame(function () {
+            var lastItem = origItems[origItems.length - 1];
+            var setW = lastItem.offsetLeft + lastItem.offsetWidth;
+            if (setW <= 0) return;
+
+            var needed = Math.ceil((outer.offsetWidth + setW) / setW) + 2;
+            for (var i = 0; i < needed; i++) {
+              origItems.forEach(function (item) {
+                var clone = item.cloneNode(true);
+                clone.setAttribute("aria-hidden", "true");
+                clone.removeAttribute("style");
+                track.appendChild(clone);
+              });
+            }
+
+            gsap.ticker.add(function () {
+              outer.scrollLeft += 0.8;
+              if (outer.scrollLeft >= setW) outer.scrollLeft -= setW;
+            });
+          });
+        })();
+
+        /* ── SCROLL REVEAL ─────────────────────────────── */
+        var revealEls = document.querySelectorAll(".gsap-reveal");
+        gsap.set(revealEls, { opacity: 0, y: 36 });
+        revealEls.forEach(function (el) {
+          gsap.to(el, {
+            opacity: 1,
+            y: 0,
+            duration: 0.75,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 85%",
+              once: true,
+            },
+          });
+        });
+
+        /* ── NEWS CARD STAGGER ─────────────────────────────── */
+        var newsCards = document.querySelectorAll(".news-card");
+        if (newsCards.length) {
+          gsap.set(newsCards, { opacity: 0, y: 40 });
+          gsap.to(newsCards, {
+            opacity: 1,
+            y: 0,
+            duration: 0.65,
+            stagger: 0.12,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: newsCards[0].parentElement,
+              start: "top 80%",
+              once: true,
+            },
+          });
+        }
+
+        /* ── EPISODE LIST STAGGER ─────────────────────────────── */
+        var epItems = document.querySelectorAll(".news-episode-item");
+        if (epItems.length) {
+          gsap.set(epItems, { opacity: 0, x: -24 });
+          gsap.to(epItems, {
+            opacity: 1,
+            x: 0,
+            duration: 0.55,
+            stagger: 0.1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: epItems[0].parentElement,
+              start: "top 82%",
+              once: true,
+            },
+          });
+        }
+
+        /* ── CHANNEL SWITCHER ─────────────────────────────── */
+        var channelImg = document.getElementById("channelImg");
+        var channelLabel = document.getElementById("channelLabel");
+        var channelBtns = document.querySelectorAll(".news-channel-switcher button");
+
+        channelBtns.forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            if (btn.classList.contains("is-active")) return;
+
+            channelBtns.forEach(function (b) { b.classList.remove("is-active"); });
+            btn.classList.add("is-active");
+
+            var newSrc = btn.dataset.img;
+            var newLabel = btn.dataset.label;
+
+            /* channel-switch: blur out → swap → blur in */
+            gsap.to(channelImg, {
+              filter: "blur(10px) brightness(0.4)",
+              scale: 0.96,
+              duration: 0.22,
+              ease: "power2.in",
+              onComplete: function () {
+                channelImg.src = newSrc;
+                if (channelLabel) channelLabel.textContent = newLabel;
+                gsap.to(channelImg, {
+                  filter: "blur(0px) brightness(1)",
+                  scale: 1,
+                  duration: 0.35,
+                  ease: "power2.out",
+                  clearProps: "filter,scale",
+                });
+              },
+            });
+          });
+        });
+
+        /* ── ANNOUNCE CELL PULSE ─────────────────────────────── */
+        var announceCell = document.querySelector(".news-announce-cell");
+        if (announceCell) {
+          ScrollTrigger.create({
+            trigger: announceCell,
+            start: "top 80%",
+            once: true,
+            onEnter: function () {
+              gsap.from(announceCell, {
+                opacity: 0,
+                scale: 0.6,
+                rotation: -15,
+                duration: 0.8,
+                ease: "back.out(1.7)",
+                clearProps: "all",
+              });
+            },
+          });
+        }
+      })();
+    </script>
   </body>
 </html>
