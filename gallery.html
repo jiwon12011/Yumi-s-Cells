@@ -40,10 +40,8 @@
 
           <!-- Center: orbit ring -->
           <div class="gl-orbit-wrap" aria-hidden="true">
-            <!-- decorative rings only, no overflow:hidden -->
+            <!-- decorative rings only — heart is now the hero background -->
             <div class="gl-orbit-ring"></div>
-            <!-- heart image sits freely in the center -->
-            <img class="gl-orbit-heart-img" src="./assets/images/gallery/scene-heart-pedestal.png" alt="" />
             <!-- emotion nodes positioned from center -->
             <div class="gl-orbit-node gl-node-top"><strong>설렘</strong><span>20 Moments</span></div>
             <div class="gl-orbit-node gl-node-left"><strong>흔들림</strong><span>18 Moments</span></div>
@@ -293,10 +291,16 @@
         align-items: center;
         gap: 0;
         background:
-          radial-gradient(circle at 10% 30%, rgba(255, 220, 180, .28), transparent 30%),
-          radial-gradient(circle at 80% 20%, rgba(255, 200, 200, .22), transparent 28%),
-          radial-gradient(circle at 60% 80%, rgba(255, 230, 200, .18), transparent 25%),
-          linear-gradient(135deg, #fdf6ee 0%, #fef2ea 50%, #fce9e6 100%);
+          /* left fade for text readability */
+          linear-gradient(90deg,
+            rgba(253, 245, 236, .92) 0%,
+            rgba(253, 245, 236, .78) 28%,
+            rgba(253, 245, 236, .28) 54%,
+            rgba(253, 245, 236, .18) 72%,
+            rgba(253, 245, 236, .55) 100%
+          ),
+          /* heart pedestal scene fills the full hero */
+          url('./assets/images/gallery/scene-heart-pedestal.png') center 40% / cover no-repeat;
       }
 
       /* same glass frame overlay as other sub-heroes */
@@ -429,19 +433,7 @@
         background: radial-gradient(circle, rgba(255, 238, 220, .3) 0%, transparent 70%);
       }
 
-      /* heart+pedestal image — centred and cropped to heart area */
-      .gl-orbit-heart-img {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 340px;
-        height: 340px;
-        object-fit: cover;
-        object-position: center 30%;
-        border-radius: 50%;
-        z-index: 2;
-      }
+      /* heart image is now the hero background — no img element needed */
 
       /* Emotion nodes — all anchored from wrap center */
       .gl-orbit-node {
@@ -979,7 +971,6 @@
       /* ── Hero animations ────────────────────────────────────────────── */
       gsap.set(".gl-hero-copy",      { opacity: 0, x: -36 });
       gsap.set(".gl-orbit-ring",     { scale: 0.6, opacity: 0 });
-      gsap.set(".gl-orbit-heart-img",{ scale: 0.7, opacity: 0 });
       gsap.set(".gl-orbit-node",     { opacity: 0, y: 10 });
       gsap.set(".gl-hero-yumi-big",  { opacity: 0, y: 30 });
       gsap.set(".gl-hero-polaroid",  { opacity: 0, y: -20 });
@@ -990,7 +981,6 @@
       heroTl
         .to(".gl-hero-copy",       { opacity: 1, x: 0,     duration: .65, ease: "power3.out" })
         .to(".gl-orbit-ring",      { scale: 1,   opacity: 1, duration: .7, ease: "power2.out" }, "-=.35")
-        .to(".gl-orbit-heart-img", { scale: 1,   opacity: 1, duration: .65, ease: "power3.out" }, "-=.5")
         .to(".gl-orbit-node",      { opacity: 1, y: 0,     duration: .45, stagger: .07, ease: "power3.out" }, "-=.3")
         .to(".gl-hero-yumi-big",   { opacity: 1, y: 0,     duration: .65, ease: "power3.out" }, "-=.5")
         .to(".gl-hero-polaroid",   { opacity: 1, y: 0,     duration: .55, stagger: .1, ease: "power3.out" }, "-=.45")
