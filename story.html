@@ -1179,6 +1179,10 @@
                 origCards.forEach(function (card) {
                   var clone = card.cloneNode(true);
                   clone.setAttribute("aria-hidden", "true");
+                  // cloneNode copies GSAP-applied inline styles (opacity:0, visibility:hidden, transform)
+                  // clear them so clones are visible from the start
+                  clone.removeAttribute("style");
+                  clone.querySelectorAll("[style]").forEach(function (el) { el.removeAttribute("style"); });
                   tlTrack.appendChild(clone);
                 });
               }
@@ -1282,6 +1286,9 @@
                 origItems.forEach(function (item) {
                   var c = item.cloneNode(true);
                   c.setAttribute("aria-hidden", "true");
+                  // clear GSAP-applied inline styles copied by cloneNode
+                  c.removeAttribute("style");
+                  c.querySelectorAll("[style]").forEach(function (el) { el.removeAttribute("style"); });
                   cloneSet.push(c);
                   track.appendChild(c);
                 });
