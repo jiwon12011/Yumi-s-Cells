@@ -24,72 +24,242 @@
       </header>
 
       <main>
+
+        <!-- ─── HERO ─────────────────────────────────────────────────────── -->
         <section class="sub-hero gallery-sub-hero" aria-labelledby="gallery-page-title">
           <div class="sub-bubbles" aria-hidden="true"><span></span><span></span><span></span></div>
           <div class="sub-hero-inner">
             <div class="sub-hero-copy">
               <nav class="sub-breadcrumb" aria-label="현재 위치">Home / Gallery</nav>
-              <span class="sub-kicker">Gallery Album</span>
-              <h1 id="gallery-page-title">웹툰과 드라마의<br />무드를 모은 팬 갤러리</h1>
-              <p>세포 마을의 귀여운 에너지와 유미의 로맨스 장면을 홍보 앨범처럼 큐레이션했어요.</p>
+              <span class="sub-kicker">Emotion Archive</span>
+              <h1 id="gallery-page-title">유미의 모든 감정이<br />한 화면에 펼쳐진다</h1>
+              <p>설렘, 흔들림, 위로, 성장… 세포들이 기억하는 순간들을 모았어요.</p>
               <div class="sub-hero-meta" aria-label="갤러리 구성">
+                <span>Emotion</span>
                 <span>Scene</span>
                 <span>Cells</span>
-                <span>Poster</span>
               </div>
               <div class="sub-actions">
-                <a class="primary-button" href="#album"><span>앨범 보기</span><span class="play-icon" aria-hidden="true"></span></a>
-                <a class="secondary-button" href="./news.html">새 소식 보기</a>
+                <a class="primary-button" href="#emotions"><span>감정 탐색하기</span><span class="play-icon" aria-hidden="true"></span></a>
+                <a class="secondary-button" href="#archive">아카이브 보기</a>
               </div>
             </div>
-            <div class="sub-hero-visual sub-cell-hero sub-gallery-cells" aria-hidden="true">
-              <img class="sub-float-cell cell-a" src="./assets/images/cells/cell-love.png" alt="" />
-              <img class="sub-float-cell cell-b" src="./assets/images/cells/cell-artist.png" alt="" />
-              <img class="sub-float-cell cell-c" src="./assets/images/cells/cell-reading.png" alt="" />
-              <img class="sub-float-cell cell-d" src="./assets/images/gallery/three-happy-cells.png" alt="" />
-              <div class="sub-hero-note">
-                <strong>Visual Library</strong>
-                <span>포스터, 장면컷, 세포 캐릭터 컷을 한 화면에서 탐색</span>
+
+            <div class="gl-hero-visual" aria-hidden="true">
+              <div class="gl-hero-center">
+                <img class="gl-hero-yumi" src="./assets/images/gallery/yumi-daydream.png" alt="" />
               </div>
+              <img class="gl-polaroid gl-polaroid-a" src="./assets/images/gallery/polaroid-yumi-writing.png" alt="" />
+              <img class="gl-polaroid gl-polaroid-b" src="./assets/images/gallery/polaroid-yumi-woong-meet.png" alt="" />
+              <img class="gl-orbit-bubble gl-orbit-a" src="./assets/images/gallery/emotion-love.png" alt="" />
+              <img class="gl-orbit-bubble gl-orbit-b" src="./assets/images/gallery/emotion-joy.png" alt="" />
+              <img class="gl-orbit-bubble gl-orbit-c" src="./assets/images/gallery/emotion-growth.png" alt="" />
+              <img class="gl-cell-float gl-cell-a" src="./assets/images/gallery/cell-character-pink.png" alt="" />
+              <img class="gl-cell-float gl-cell-b" src="./assets/images/gallery/cell-character-blue.png" alt="" />
             </div>
           </div>
           <svg class="sub-wave" viewBox="0 0 1440 140" preserveAspectRatio="none" aria-hidden="true"><path d="M0 58 C180 18 330 16 520 56 C755 106 930 100 1120 54 C1255 22 1360 30 1440 48 L1440 140 L0 140 Z"></path></svg>
         </section>
 
-        <section class="sub-section" id="album" aria-labelledby="album-title">
+        <!-- ─── 01 감정 탐색하기 ──────────────────────────────────────────── -->
+        <section class="gl-emotions" id="emotions" aria-labelledby="emotions-title">
           <div class="sub-section-heading">
-            <span>Photo Moment</span>
-            <h2 id="album-title">갤러리 컬렉션</h2>
+            <span>01 Emotions</span>
+            <h2 id="emotions-title">감정 탐색하기</h2>
           </div>
-          <div class="sub-filter-row" aria-label="갤러리 카테고리">
-            <span class="is-active">All</span><span>Yumi</span><span>Cells</span><span>Season</span>
-          </div>
-          <div class="sub-gallery-grid">
-            <article class="sub-gallery-tile tile-large"><img src="./assets/images/gallery/bedtime-cells.png" alt="침대 위 유미와 세포들" /><strong>포근한 밤의 세포들</strong></article>
-            <article class="sub-gallery-tile"><img src="./assets/images/gallery/family-evening.png" alt="유미와 세포의 따뜻한 저녁" /><strong>따뜻한 저녁</strong></article>
-            <article class="sub-gallery-tile"><img src="./assets/images/gallery/cafe-date-cells.png" alt="카페에 모인 캐릭터들" /><strong>카페 데이트</strong></article>
-            <article class="sub-gallery-tile"><img src="./assets/images/gallery/yumi-blue-cardigan.png" alt="파란 가디건을 입은 유미" /><strong>파란 가디건 유미</strong></article>
-            <article class="sub-gallery-tile tile-wide"><img src="./assets/images/gallery/support-cells-group.png" alt="함께 응원하는 세포들" /><strong>응원하는 세포들</strong></article>
+          <p class="gl-section-desc">지금 이 순간, 어떤 세포가 가장 크게 울리고 있나요?</p>
+          <div class="gl-emotion-row" role="list">
+            <div class="gl-emotion-item" role="listitem" data-emotion="위로">
+              <div class="gl-emotion-bubble">
+                <img src="./assets/images/gallery/emotion-comfort.png" alt="위로 세포" />
+              </div>
+              <span class="gl-emotion-label">위로</span>
+              <span class="gl-emotion-sub">Comfort</span>
+            </div>
+            <div class="gl-emotion-item" role="listitem" data-emotion="설렘">
+              <div class="gl-emotion-bubble">
+                <img src="./assets/images/gallery/emotion-love.png" alt="설렘 세포" />
+              </div>
+              <span class="gl-emotion-label">설렘</span>
+              <span class="gl-emotion-sub">Love</span>
+            </div>
+            <div class="gl-emotion-item" role="listitem" data-emotion="흔들림">
+              <div class="gl-emotion-bubble">
+                <img src="./assets/images/gallery/emotion-anxiety.png" alt="흔들림 세포" />
+              </div>
+              <span class="gl-emotion-label">흔들림</span>
+              <span class="gl-emotion-sub">Anxiety</span>
+            </div>
+            <div class="gl-emotion-item" role="listitem" data-emotion="성장">
+              <div class="gl-emotion-bubble">
+                <img src="./assets/images/gallery/emotion-growth.png" alt="성장 세포" />
+              </div>
+              <span class="gl-emotion-label">성장</span>
+              <span class="gl-emotion-sub">Growth</span>
+            </div>
+            <div class="gl-emotion-item" role="listitem" data-emotion="기쁨">
+              <div class="gl-emotion-bubble">
+                <img src="./assets/images/gallery/emotion-joy.png" alt="기쁨 세포" />
+              </div>
+              <span class="gl-emotion-label">기쁨</span>
+              <span class="gl-emotion-sub">Joy</span>
+            </div>
           </div>
         </section>
 
-        <section class="sub-info-band gallery-info-band" aria-labelledby="gallery-guide-title">
+        <!-- ─── 02 오늘의 명장면 ──────────────────────────────────────────── -->
+        <section class="gl-carousel-section" id="scenes" aria-labelledby="scenes-title">
           <div class="sub-section-heading">
-            <span>Gallery Guide</span>
-            <h2 id="gallery-guide-title">팬페이지 구성</h2>
+            <span>02 Scenes</span>
+            <h2 id="scenes-title">오늘의 명장면</h2>
           </div>
-          <div class="sub-info-grid">
-            <article><strong>웹툰 무드</strong><h3>일상의 공감 장면</h3><p>유미의 생각과 감정이 세포 캐릭터로 바뀌는 순간을 중심으로 보여줘요.</p></article>
-            <article><strong>드라마 무드</strong><h3>실사와 세포 애니메이션</h3><p>실사 로맨스 장면과 세포 애니메이션의 대비가 팬들이 기억하는 포인트예요.</p></article>
-            <article><strong>활용</strong><h3>홍보 배너와 이벤트 컷</h3><p>시즌 다시보기, 팬 이벤트, SNS 홍보 이미지로 확장하기 좋은 이미지 영역.</p></article>
+          <p class="gl-section-desc">웹툰 속 그 순간을 다시 꺼내봤어요.</p>
+
+          <div class="gl-carousel-wrap" aria-label="장면 갤러리">
+            <button class="gl-carousel-btn gl-carousel-prev" aria-label="이전">&#8592;</button>
+            <div class="gl-carousel-stage">
+              <div class="gl-carousel-track">
+                <figure class="gl-scene-card">
+                  <img src="./assets/images/gallery/scene-heart-pedestal.png" alt="설렘의 심장" />
+                  <figcaption><strong>설렘의 심장</strong><span>처음 사랑에 빠진 그 순간</span></figcaption>
+                </figure>
+                <figure class="gl-scene-card">
+                  <img src="./assets/images/gallery/scene-umbrella-rain.png" alt="빗속의 우산" />
+                  <figcaption><strong>빗속의 우산</strong><span>용이를 처음 만난 그날 밤</span></figcaption>
+                </figure>
+                <figure class="gl-scene-card">
+                  <img src="./assets/images/gallery/polaroid-yumi-writing.png" alt="꿈을 위해" />
+                  <figcaption><strong>꿈을 위해 한걸음씩</strong><span>유미의 일상 속 작은 결심</span></figcaption>
+                </figure>
+                <figure class="gl-scene-card">
+                  <img src="./assets/images/gallery/polaroid-yumi-woong-meet.png" alt="첫 만남" />
+                  <figcaption><strong>용이를 처음 안난 그 순간</strong><span>운명처럼 시작된 두 사람</span></figcaption>
+                </figure>
+                <figure class="gl-scene-card">
+                  <img src="./assets/images/gallery/bedtime-cells.png" alt="침대 위 세포들" />
+                  <figcaption><strong>포근한 밤의 세포들</strong><span>잠들기 전 유미의 감정 마을</span></figcaption>
+                </figure>
+                <figure class="gl-scene-card">
+                  <img src="./assets/images/gallery/cafe-date-cells.png" alt="카페 데이트" />
+                  <figcaption><strong>카페 데이트</strong><span>두근두근 설레는 만남</span></figcaption>
+                </figure>
+              </div>
+            </div>
+            <button class="gl-carousel-btn gl-carousel-next" aria-label="다음">&#8594;</button>
+          </div>
+          <div class="gl-carousel-dots" aria-hidden="true">
+            <span class="is-active"></span><span></span><span></span><span></span><span></span><span></span>
           </div>
         </section>
 
+        <!-- ─── 03 감정 아카이브 ──────────────────────────────────────────── -->
+        <section class="gl-archive-section" id="archive" aria-labelledby="archive-title">
+          <div class="sub-section-heading">
+            <span>03 Archive</span>
+            <h2 id="archive-title">감정 아카이브</h2>
+          </div>
+          <p class="gl-section-desc">유미와 세포들이 함께한 모든 장면을 기록합니다.</p>
+
+          <div class="gl-masonry" aria-label="아카이브 갤러리">
+            <figure class="gl-masonry-item gl-masonry-wide">
+              <img src="./assets/images/gallery/scene-umbrella-rain.png" alt="빗속의 우산" />
+              <figcaption>빗속의 우산</figcaption>
+            </figure>
+            <figure class="gl-masonry-item">
+              <img src="./assets/images/gallery/yumi-daydream.png" alt="유미의 상상" />
+              <figcaption>유미의 상상</figcaption>
+            </figure>
+            <figure class="gl-masonry-item">
+              <img src="./assets/images/gallery/family-evening.png" alt="따뜻한 저녁" />
+              <figcaption>따뜻한 저녁</figcaption>
+            </figure>
+            <figure class="gl-masonry-item">
+              <img src="./assets/images/gallery/cafe-date-cells.png" alt="카페 데이트" />
+              <figcaption>카페 데이트</figcaption>
+            </figure>
+            <figure class="gl-masonry-item gl-masonry-tall">
+              <img src="./assets/images/gallery/scene-heart-pedestal.png" alt="설렘의 심장" />
+              <figcaption>설렘의 심장</figcaption>
+            </figure>
+            <figure class="gl-masonry-item">
+              <img src="./assets/images/gallery/yumi-blue-cardigan.png" alt="파란 가디건 유미" />
+              <figcaption>파란 가디건 유미</figcaption>
+            </figure>
+            <figure class="gl-masonry-item">
+              <img src="./assets/images/gallery/support-cells-group.png" alt="응원하는 세포들" />
+              <figcaption>응원하는 세포들</figcaption>
+            </figure>
+            <figure class="gl-masonry-item">
+              <img src="./assets/images/gallery/three-happy-cells.png" alt="세포 셋이 함께" />
+              <figcaption>세포 셋이 함께</figcaption>
+            </figure>
+            <figure class="gl-masonry-item">
+              <img src="./assets/images/gallery/bedtime-cells.png" alt="포근한 밤" />
+              <figcaption>포근한 밤</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <!-- ─── 04 세포들과 함께 둘러보기 ──────────────────────────────────── -->
+        <section class="gl-cells-section" id="cells" aria-labelledby="cells-title">
+          <div class="sub-section-heading">
+            <span>04 Cells</span>
+            <h2 id="cells-title">세포들과 함께 둘러보기</h2>
+          </div>
+          <p class="gl-section-desc">유미의 마음을 움직이는 세포 캐릭터들을 만나보세요.</p>
+
+          <div class="gl-cells-grid">
+            <article class="gl-cell-card" data-color="pink">
+              <div class="gl-cell-card-img">
+                <img src="./assets/images/gallery/cell-character-pink.png" alt="사랑 세포" />
+              </div>
+              <div class="gl-cell-card-body">
+                <span class="gl-cell-badge" style="background:#ff86b7;">사랑 세포</span>
+                <h3>Love Cell</h3>
+                <p>언제나 설레고 두근두근. 유미의 가장 활발한 세포예요.</p>
+              </div>
+            </article>
+            <article class="gl-cell-card" data-color="blue">
+              <div class="gl-cell-card-img">
+                <img src="./assets/images/gallery/cell-character-blue.png" alt="이성 세포" />
+              </div>
+              <div class="gl-cell-card-body">
+                <span class="gl-cell-badge" style="background:#7ab8ff;">이성 세포</span>
+                <h3>Reason Cell</h3>
+                <p>논리적이고 차분해요. 유미의 판단을 책임지는 세포예요.</p>
+              </div>
+            </article>
+            <article class="gl-cell-card" data-color="green">
+              <div class="gl-cell-card-img">
+                <img src="./assets/images/gallery/cell-character-green.png" alt="생명 세포" />
+              </div>
+              <div class="gl-cell-card-body">
+                <span class="gl-cell-badge" style="background:#7ecb6a;">생명 세포</span>
+                <h3>Life Cell</h3>
+                <p>활기차고 생명력이 넘쳐요. 유미에게 에너지를 불어넣어줘요.</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="gl-quote-block">
+            <img class="gl-quote-img" src="./assets/images/gallery/quote-timing.png" alt="" aria-hidden="true" />
+            <div class="gl-quote-copy">
+              <blockquote>"사랑은 타이밍이야<br />마음이 닿을 때까지<br />유린 조금씩 자라나는 거니까."</blockquote>
+              <cite>— 유미의 세포들</cite>
+            </div>
+          </div>
+        </section>
+
+        <!-- ─── Support Banner ──────────────────────────────────────────────── -->
         <section class="support-banner" aria-label="공식 채널">
           <img class="support-cells-left" src="./assets/images/gallery/support-cells-group.png" alt="" aria-hidden="true" />
           <div class="support-copy">
             <h2>유미와 세포들의 이야기를<br />함께 응원해 주세요!</h2>
-            <div class="support-buttons"><a href="#"><span class="support-icon instagram-dot"></span>공식 인스타그램</a><a href="#"><span class="support-icon youtube-dot"></span>공식 유튜브</a><a href="#"><span class="support-icon naver-dot"></span>팬카페 바로가기</a></div>
+            <div class="support-buttons">
+              <a href="#"><span class="support-icon instagram-dot"></span>공식 인스타그램</a>
+              <a href="#"><span class="support-icon youtube-dot"></span>공식 유튜브</a>
+              <a href="#"><span class="support-icon naver-dot"></span>팬카페 바로가기</a>
+            </div>
           </div>
           <img class="support-cells-right" src="./assets/images/gallery/three-happy-cells.png" alt="" aria-hidden="true" />
         </section>
@@ -103,8 +273,613 @@
       </main>
     </div>
 
+    <style>
+      /* ── Hero Visual ───────────────────────────────────────────────────── */
+      .gallery-sub-hero .sub-hero-inner {
+        grid-template-columns: minmax(320px, 480px) 1fr;
+        align-items: center;
+      }
+
+      .gl-hero-visual {
+        position: relative;
+        width: 100%;
+        height: 480px;
+      }
+
+      .gl-hero-center {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        overflow: hidden;
+        box-shadow: 0 24px 64px rgba(255, 100, 152, .22), 0 0 0 6px rgba(255, 255, 255, .8);
+      }
+
+      .gl-hero-yumi {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top;
+      }
+
+      .gl-polaroid {
+        position: absolute;
+        width: 160px;
+        border-radius: 4px;
+        padding: 10px 10px 30px;
+        background: #fff;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, .14), 0 4px 8px rgba(0, 0, 0, .08);
+        object-fit: cover;
+      }
+
+      .gl-polaroid-a {
+        top: 8%;
+        left: 2%;
+        transform: rotate(-8deg);
+        width: 140px;
+      }
+
+      .gl-polaroid-b {
+        bottom: 10%;
+        right: 4%;
+        transform: rotate(6deg);
+        width: 148px;
+      }
+
+      .gl-orbit-bubble {
+        position: absolute;
+        width: 72px;
+        height: 72px;
+        object-fit: contain;
+        filter: drop-shadow(0 8px 18px rgba(0, 0, 0, .12));
+      }
+
+      .gl-orbit-a { top: 6%; right: 28%; }
+      .gl-orbit-b { top: 52%; right: 6%; }
+      .gl-orbit-c { bottom: 8%; left: 18%; }
+
+      .gl-cell-float {
+        position: absolute;
+        object-fit: contain;
+        filter: drop-shadow(0 8px 20px rgba(0, 0, 0, .1));
+      }
+
+      .gl-cell-a {
+        width: 90px;
+        bottom: 6%;
+        left: 4%;
+      }
+
+      .gl-cell-b {
+        width: 78px;
+        top: 12%;
+        right: 6%;
+      }
+
+      /* ── Section common ──────────────────────────────────────────────── */
+      .gl-section-desc {
+        text-align: center;
+        color: #686b87;
+        font-size: 16px;
+        font-weight: 700;
+        margin: -8px 0 48px;
+      }
+
+      /* ── 01 Emotions ────────────────────────────────────────────────── */
+      .gl-emotions {
+        padding: clamp(60px, 8vw, 100px) clamp(20px, 5vw, 74px);
+        background: #fff;
+        text-align: center;
+      }
+
+      .gl-emotion-row {
+        display: flex;
+        justify-content: center;
+        gap: clamp(16px, 3vw, 40px);
+        flex-wrap: wrap;
+      }
+
+      .gl-emotion-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        cursor: pointer;
+      }
+
+      .gl-emotion-bubble {
+        width: clamp(100px, 12vw, 160px);
+        height: clamp(100px, 12vw, 160px);
+        border-radius: 50%;
+        overflow: hidden;
+        transition: transform .3s cubic-bezier(.34, 1.56, .64, 1), box-shadow .3s ease;
+        box-shadow: 0 8px 28px rgba(0, 0, 0, .08);
+      }
+
+      .gl-emotion-bubble img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .gl-emotion-item:hover .gl-emotion-bubble {
+        transform: scale(1.12) translateY(-6px);
+        box-shadow: 0 20px 48px rgba(255, 100, 152, .22);
+      }
+
+      .gl-emotion-label {
+        font-size: 18px;
+        font-weight: 1000;
+        color: var(--navy);
+      }
+
+      .gl-emotion-sub {
+        font-size: 12px;
+        font-weight: 700;
+        color: #a0a3bb;
+        text-transform: uppercase;
+        letter-spacing: .06em;
+        margin-top: -6px;
+      }
+
+      /* ── 02 Carousel ────────────────────────────────────────────────── */
+      .gl-carousel-section {
+        padding: clamp(60px, 8vw, 100px) 0 clamp(60px, 8vw, 100px);
+        background: linear-gradient(180deg, #fff8fb 0%, #f0eeff 100%);
+        text-align: center;
+        overflow: hidden;
+      }
+
+      .gl-carousel-wrap {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 0;
+        margin-top: 8px;
+      }
+
+      .gl-carousel-stage {
+        flex: 1;
+        overflow: hidden;
+      }
+
+      .gl-carousel-track {
+        display: flex;
+        gap: 24px;
+        padding: 24px clamp(20px, 5vw, 74px);
+        transition: transform .5s cubic-bezier(.25, .46, .45, .94);
+        will-change: transform;
+      }
+
+      .gl-scene-card {
+        flex: 0 0 clamp(260px, 30vw, 360px);
+        border-radius: 16px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, .09);
+        transition: transform .3s ease, box-shadow .3s ease;
+        margin: 0;
+        cursor: pointer;
+      }
+
+      .gl-scene-card:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 24px 56px rgba(0, 0, 0, .14);
+      }
+
+      .gl-scene-card img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        display: block;
+      }
+
+      .gl-scene-card figcaption {
+        padding: 16px 18px 20px;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .gl-scene-card figcaption strong {
+        font-size: 15px;
+        font-weight: 900;
+        color: var(--navy);
+      }
+
+      .gl-scene-card figcaption span {
+        font-size: 13px;
+        font-weight: 700;
+        color: #9396b0;
+      }
+
+      .gl-carousel-btn {
+        flex: 0 0 auto;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        border: none;
+        background: #fff;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, .12);
+        font-size: 20px;
+        cursor: pointer;
+        transition: transform .2s ease, box-shadow .2s ease;
+        z-index: 2;
+        margin: 0 clamp(8px, 2vw, 24px);
+        color: var(--navy);
+      }
+
+      .gl-carousel-btn:hover {
+        transform: scale(1.12);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, .16);
+      }
+
+      .gl-carousel-dots {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 24px;
+      }
+
+      .gl-carousel-dots span {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #d4d6e8;
+        cursor: pointer;
+        transition: background .2s, width .2s;
+      }
+
+      .gl-carousel-dots span.is-active {
+        width: 24px;
+        border-radius: 4px;
+        background: var(--pink);
+      }
+
+      /* ── 03 Archive (Masonry) ────────────────────────────────────────── */
+      .gl-archive-section {
+        padding: clamp(60px, 8vw, 100px) clamp(20px, 5vw, 74px);
+        background: #fff;
+        text-align: center;
+      }
+
+      .gl-masonry {
+        columns: 3;
+        column-gap: 18px;
+        text-align: left;
+      }
+
+      .gl-masonry-item {
+        break-inside: avoid;
+        margin: 0 0 18px;
+        border-radius: 12px;
+        overflow: hidden;
+        position: relative;
+        cursor: pointer;
+      }
+
+      .gl-masonry-item img {
+        width: 100%;
+        height: auto;
+        display: block;
+        transition: transform .4s ease;
+      }
+
+      .gl-masonry-item:hover img {
+        transform: scale(1.04);
+      }
+
+      .gl-masonry-item figcaption {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 24px 14px 12px;
+        background: linear-gradient(transparent, rgba(0, 0, 0, .48));
+        color: #fff;
+        font-size: 13px;
+        font-weight: 800;
+        opacity: 0;
+        transition: opacity .3s ease;
+      }
+
+      .gl-masonry-item:hover figcaption {
+        opacity: 1;
+      }
+
+      .gl-masonry-wide {
+        column-span: all;
+        margin-bottom: 18px;
+      }
+
+      .gl-masonry-wide img {
+        height: 280px;
+        object-fit: cover;
+        width: 100%;
+      }
+
+      /* ── 04 Cells ───────────────────────────────────────────────────── */
+      .gl-cells-section {
+        padding: clamp(60px, 8vw, 100px) clamp(20px, 5vw, 74px);
+        background: linear-gradient(180deg, #fff0f5 0%, #f8f0ff 100%);
+        text-align: center;
+      }
+
+      .gl-cells-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 28px;
+        max-width: 900px;
+        margin: 0 auto 72px;
+      }
+
+      .gl-cell-card {
+        border-radius: 20px;
+        background: #fff;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, .07);
+        overflow: hidden;
+        transition: transform .3s cubic-bezier(.34, 1.56, .64, 1), box-shadow .3s ease;
+      }
+
+      .gl-cell-card:hover {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 0 24px 56px rgba(0, 0, 0, .12);
+      }
+
+      .gl-cell-card-img {
+        background: linear-gradient(135deg, #fff5f9, #f0f5ff);
+        padding: 32px 20px 16px;
+        display: flex;
+        justify-content: center;
+      }
+
+      .gl-cell-card-img img {
+        width: 140px;
+        height: 140px;
+        object-fit: contain;
+      }
+
+      .gl-cell-card-body {
+        padding: 16px 20px 24px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .gl-cell-badge {
+        display: inline-block;
+        padding: 4px 14px;
+        border-radius: 999px;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 900;
+        letter-spacing: .04em;
+      }
+
+      .gl-cell-card-body h3 {
+        font-size: 18px;
+        font-weight: 1000;
+        color: var(--navy);
+        margin: 0;
+      }
+
+      .gl-cell-card-body p {
+        font-size: 13px;
+        font-weight: 700;
+        color: #7b7e99;
+        line-height: 1.6;
+        margin: 0;
+      }
+
+      /* ── Quote Block ────────────────────────────────────────────────── */
+      .gl-quote-block {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(24px, 4vw, 64px);
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 40px;
+        border-radius: 24px;
+        background: #fff;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, .07);
+      }
+
+      .gl-quote-img {
+        width: clamp(140px, 18vw, 220px);
+        border-radius: 12px;
+        object-fit: cover;
+        flex-shrink: 0;
+      }
+
+      .gl-quote-copy {
+        text-align: left;
+      }
+
+      .gl-quote-copy blockquote {
+        font-size: clamp(18px, 2vw, 24px);
+        font-weight: 900;
+        color: var(--navy);
+        line-height: 1.7;
+        margin: 0 0 12px;
+      }
+
+      .gl-quote-copy cite {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--pink);
+        font-style: normal;
+      }
+
+      /* ── Responsive ─────────────────────────────────────────────────── */
+      @media (max-width: 900px) {
+        .gl-masonry { columns: 2; }
+        .gl-cells-grid { grid-template-columns: repeat(2, 1fr); }
+        .gl-hero-visual { height: 360px; }
+        .gl-hero-center { width: 220px; height: 220px; }
+        .gl-quote-block { flex-direction: column; text-align: center; }
+        .gl-quote-copy { text-align: center; }
+      }
+
+      @media (max-width: 600px) {
+        .gl-masonry { columns: 1; }
+        .gl-cells-grid { grid-template-columns: 1fr; }
+        .gl-emotion-row { gap: 12px; }
+        .gl-emotion-bubble { width: 80px; height: 80px; }
+        .gallery-sub-hero .sub-hero-inner { grid-template-columns: 1fr; }
+        .gl-hero-visual { height: 280px; margin-top: 32px; }
+      }
+    </style>
+
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
     <script src="./script.js"></script>
+    <script>
+      gsap.registerPlugin(ScrollTrigger);
+
+      /* ── Hero animations ────────────────────────────────────────────── */
+      gsap.set(".gl-hero-center", { scale: 0, opacity: 0 });
+      gsap.set(".gl-polaroid", { opacity: 0, scale: 0.6, rotation: 0 });
+      gsap.set(".gl-orbit-bubble", { opacity: 0, scale: 0 });
+      gsap.set(".gl-cell-float", { opacity: 0, y: 40 });
+
+      const heroTl = gsap.timeline({ delay: .3 });
+      heroTl
+        .to(".gl-hero-center", { scale: 1, opacity: 1, duration: .9, ease: "back.out(1.4)" })
+        .to(".gl-polaroid-a", { opacity: 1, scale: 1, rotation: -8, duration: .7, ease: "back.out(1.6)" }, "-=.4")
+        .to(".gl-polaroid-b", { opacity: 1, scale: 1, rotation: 6, duration: .7, ease: "back.out(1.6)" }, "-=.5")
+        .to(".gl-orbit-bubble", {
+          opacity: 1, scale: 1, duration: .6,
+          stagger: { amount: .4, from: "random" },
+          ease: "elastic.out(1, .5)"
+        }, "-=.4")
+        .to(".gl-cell-float", {
+          opacity: 1, y: 0, duration: .7,
+          stagger: .15, ease: "back.out(1.8)"
+        }, "-=.5");
+
+      /* ── Orbit float loop ──────────────────────────────────────────── */
+      gsap.to(".gl-orbit-a", { y: -18, duration: 2.4, repeat: -1, yoyo: true, ease: "sine.inOut" });
+      gsap.to(".gl-orbit-b", { y: 14, duration: 2.8, repeat: -1, yoyo: true, ease: "sine.inOut", delay: .5 });
+      gsap.to(".gl-orbit-c", { y: -12, duration: 2.2, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 1 });
+      gsap.to(".gl-cell-a", { y: -14, rotation: 4, duration: 2.6, repeat: -1, yoyo: true, ease: "sine.inOut" });
+      gsap.to(".gl-cell-b", { y: 12, rotation: -3, duration: 3, repeat: -1, yoyo: true, ease: "sine.inOut", delay: .7 });
+
+      /* ── 01 Emotion bubbles ─────────────────────────────────────────── */
+      gsap.set(".gl-emotion-item", { opacity: 0, y: 60, scale: .8 });
+      ScrollTrigger.create({
+        trigger: ".gl-emotions",
+        start: "top 75%",
+        onEnter: () => {
+          gsap.to(".gl-emotion-item", {
+            opacity: 1, y: 0, scale: 1,
+            duration: .8,
+            stagger: .12,
+            ease: "elastic.out(1, .55)"
+          });
+        }
+      });
+
+      /* ── 02 Carousel logic ──────────────────────────────────────────── */
+      (function () {
+        const track = document.querySelector(".gl-carousel-track");
+        const cards = Array.from(track.querySelectorAll(".gl-scene-card"));
+        const dots = Array.from(document.querySelectorAll(".gl-carousel-dots span"));
+        const cardWidth = () => cards[0].offsetWidth + 24;
+        let current = 0;
+        const total = cards.length;
+
+        function go(idx) {
+          current = ((idx % total) + total) % total;
+          gsap.to(track, {
+            x: -(current * cardWidth()),
+            duration: .55, ease: "power3.out"
+          });
+          dots.forEach((d, i) => d.classList.toggle("is-active", i === current));
+        }
+
+        document.querySelector(".gl-carousel-prev").addEventListener("click", () => go(current - 1));
+        document.querySelector(".gl-carousel-next").addEventListener("click", () => go(current + 1));
+        dots.forEach((d, i) => d.addEventListener("click", () => go(i)));
+
+        /* auto-play */
+        let autoplay = setInterval(() => go(current + 1), 3800);
+        track.addEventListener("mouseenter", () => clearInterval(autoplay));
+        track.addEventListener("mouseleave", () => {
+          autoplay = setInterval(() => go(current + 1), 3800);
+        });
+
+        /* carousel entrance */
+        gsap.set(".gl-scene-card", { opacity: 0, y: 40 });
+        ScrollTrigger.create({
+          trigger: ".gl-carousel-section",
+          start: "top 75%",
+          onEnter: () => {
+            gsap.to(".gl-scene-card", {
+              opacity: 1, y: 0, duration: .65,
+              stagger: .1, ease: "power3.out"
+            });
+          }
+        });
+      })();
+
+      /* ── 03 Archive masonry reveal ──────────────────────────────────── */
+      gsap.set(".gl-masonry-item", { opacity: 0, scale: .9, y: 30 });
+      ScrollTrigger.create({
+        trigger: ".gl-archive-section",
+        start: "top 70%",
+        onEnter: () => {
+          gsap.to(".gl-masonry-item", {
+            opacity: 1, scale: 1, y: 0,
+            duration: .7,
+            stagger: { amount: .8, from: "random" },
+            ease: "power3.out"
+          });
+        }
+      });
+
+      /* ── 04 Cell cards pop-in ───────────────────────────────────────── */
+      gsap.set(".gl-cell-card", { opacity: 0, y: 50, scale: .85 });
+      gsap.set(".gl-quote-block", { opacity: 0, y: 40 });
+      ScrollTrigger.create({
+        trigger: ".gl-cells-section",
+        start: "top 70%",
+        onEnter: () => {
+          gsap.to(".gl-cell-card", {
+            opacity: 1, y: 0, scale: 1,
+            duration: .75, stagger: .15,
+            ease: "elastic.out(1, .6)"
+          });
+          gsap.to(".gl-quote-block", {
+            opacity: 1, y: 0, duration: .8, delay: .55,
+            ease: "power3.out"
+          });
+        }
+      });
+
+      /* ── Section headings slide-in ──────────────────────────────────── */
+      gsap.utils.toArray(".sub-section-heading").forEach(el => {
+        gsap.set(el, { opacity: 0, y: 30 });
+        ScrollTrigger.create({
+          trigger: el,
+          start: "top 82%",
+          onEnter: () => gsap.to(el, { opacity: 1, y: 0, duration: .65, ease: "power3.out" })
+        });
+      });
+      gsap.utils.toArray(".gl-section-desc").forEach(el => {
+        gsap.set(el, { opacity: 0, y: 20 });
+        ScrollTrigger.create({
+          trigger: el,
+          start: "top 85%",
+          onEnter: () => gsap.to(el, { opacity: 1, y: 0, duration: .6, delay: .15, ease: "power3.out" })
+        });
+      });
+    </script>
   </body>
 </html>
