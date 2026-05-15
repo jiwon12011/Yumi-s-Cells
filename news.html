@@ -12,7 +12,7 @@
       /* ─── HERO ────────────────────────────────────────── */
       .nw-hero {
         position: relative;
-        min-height: 520px;
+        min-height: 100vh;
         overflow: hidden;
         background: linear-gradient(120deg, #fff0f6 0%, #fde0ef 30%, #efd6f5 55%, #dac8f5 80%, #c9b8f0 100%);
         display: flex;
@@ -25,7 +25,7 @@
         right: 0;
         top: 0;
         bottom: 0;
-        width: 58%;
+        width: 62%;
         overflow: hidden;
         pointer-events: none;
       }
@@ -44,7 +44,7 @@
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(to right, #fde0ef 0%, rgba(253,224,239,0.6) 18%, transparent 45%);
+        background: linear-gradient(to right, #fde0ef 0%, rgba(253,224,239,0.7) 15%, rgba(253,224,239,0.2) 38%, transparent 55%);
         z-index: 1;
       }
 
@@ -52,10 +52,15 @@
         position: relative;
         z-index: 2;
         width: 52%;
-        padding: clamp(128px,11vw,150px) clamp(24px,5vw,80px) clamp(56px,5vw,72px);
+        padding: clamp(130px,12vw,160px) clamp(24px,5vw,80px) clamp(60px,6vw,80px);
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: 20px;
+        justify-content: center;
+      }
+
+      .nw-hero-copy h1 {
+        font-size: clamp(36px,4.5vw,62px);
       }
 
       .nw-tag {
