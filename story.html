@@ -197,13 +197,11 @@
 
       /* ── Timeline ──────────────────────────────────────────────── */
       .st-timeline-right {
-        overflow: hidden;
+        overflow-x: auto;
+        scrollbar-width: none;
       }
 
-      @keyframes st-tl-marquee {
-        from { transform: translateX(0); }
-        to   { transform: translateX(-50%); }
-      }
+      .st-timeline-right::-webkit-scrollbar { display: none; }
 
       .st-timeline-track {
         position: relative;
@@ -212,12 +210,6 @@
         width: max-content;
         padding-bottom: 12px;
         padding-top: 52px;
-        animation: st-tl-marquee 28s linear infinite;
-      }
-
-      .st-timeline-right:hover .st-timeline-track,
-      .st-timeline-right:focus-within .st-timeline-track {
-        animation-play-state: paused;
       }
 
       .st-timeline-line {
@@ -509,6 +501,7 @@
         display: flex;
         flex-direction: column;
         gap: 32px;
+        min-width: 0;
       }
 
       .st-cells-carousel {
@@ -516,27 +509,23 @@
         display: flex;
         align-items: center;
         gap: 16px;
+        min-width: 0;
+        overflow: hidden;
       }
 
       .st-cells-track-wrapper {
-        overflow: hidden;
+        overflow-x: auto;
+        scrollbar-width: none;
         flex: 1;
+        min-width: 0;
       }
 
-      @keyframes st-cell-marquee {
-        from { transform: translateX(0); }
-        to   { transform: translateX(-50%); }
-      }
+      .st-cells-track-wrapper::-webkit-scrollbar { display: none; }
 
       .st-cells-track {
         display: flex;
         gap: 24px;
         width: max-content;
-        animation: st-cell-marquee 22s linear infinite;
-      }
-
-      .st-cells-carousel:hover .st-cells-track {
-        animation-play-state: paused;
       }
 
       .st-cell-item {
@@ -1173,28 +1162,39 @@
 
           /* ── Timeline infinite auto-scroll ──────────────────── */
           (function () {
+            var tlRight = document.querySelector(".st-timeline-right");
             var tlTrack = document.querySelector(".st-timeline-track");
-            if (!tlTrack) return;
+            if (!tlRight || !tlTrack) return;
 
             var origCards = Array.from(tlTrack.querySelectorAll(".st-tl-card"));
 
-            // one clone set — total = 2 sets, so translateX(-50%) = exactly one set width
-            origCards.forEach(function (card) {
-              var clone = card.cloneNode(true);
-              clone.setAttribute("aria-hidden", "true");
-              tlTrack.appendChild(clone);
-            });
+            requestAnimationFrame(function () {
+              var lastOrig = origCards[origCards.length - 1];
+              var setW = lastOrig ? lastOrig.offsetLeft + lastOrig.offsetWidth + 16 : 0;
+              if (setW <= 0) return;
 
-            // touch support
-            var tlParent = tlTrack.closest(".st-timeline-right");
-            if (tlParent) {
-              tlParent.addEventListener("touchstart", function () {
-                tlTrack.style.animationPlayState = "paused";
-              }, { passive: true });
-              tlParent.addEventListener("touchend", function () {
-                tlTrack.style.animationPlayState = "running";
-              }, { passive: true });
-            }
+              // add enough clones to always have content beyond viewport
+              var needed = Math.ceil((tlRight.offsetWidth + setW) / setW) + 1;
+              for (var s = 0; s < needed; s++) {
+                origCards.forEach(function (card) {
+                  var clone = card.cloneNode(true);
+                  clone.setAttribute("aria-hidden", "true");
+                  tlTrack.appendChild(clone);
+                });
+              }
+
+              var paused = false;
+              gsap.ticker.add(function () {
+                if (paused) return;
+                tlRight.scrollLeft += 0.5;
+                if (tlRight.scrollLeft >= setW) tlRight.scrollLeft -= setW;
+              });
+
+              tlRight.addEventListener("mouseenter", function () { paused = true; });
+              tlRight.addEventListener("mouseleave", function () { paused = false; });
+              tlRight.addEventListener("touchstart", function () { paused = true; }, { passive: true });
+              tlRight.addEventListener("touchend", function () { paused = false; }, { passive: true });
+            });
           }());
 
           /* ── Cells carousel — infinite auto-scroll ─────────── */
@@ -1206,7 +1206,6 @@
             document.querySelectorAll(".st-carousel-btn").forEach(function (btn) {
               btn.style.display = "none";
             });
-            wrapper.style.overflow = "hidden";
 
             var quotes = {
               "cell-love": [
@@ -1268,33 +1267,47 @@
             }
 
             var origItems = Array.from(track.querySelectorAll(".st-cell-item"));
-            var cloneSet = [];
-
-            // one clone set — total = 2 sets, so translateX(-50%) = exactly one set width
-            origItems.forEach(function (item) {
-              var c = item.cloneNode(true);
-              c.setAttribute("aria-hidden", "true");
-              cloneSet.push(c);
-              track.appendChild(c);
-            });
-            rotateBubbles(cloneSet);
 
             gsap.set(track, { clearProps: "transform,x" });
 
-            // rotate bubbles on each loop
-            track.addEventListener("animationiteration", function () {
-              rotateBubbles(cloneSet);
-            });
+            requestAnimationFrame(function () {
+              var lastOrig = origItems[origItems.length - 1];
+              var setW = lastOrig ? lastOrig.offsetLeft + lastOrig.offsetWidth + 24 : 0;
+              if (setW <= 0) return;
 
-            var carousel = document.querySelector(".st-cells-carousel");
-            if (carousel) {
-              carousel.addEventListener("touchstart", function () {
-                track.style.animationPlayState = "paused";
-              }, { passive: true });
-              carousel.addEventListener("touchend", function () {
-                track.style.animationPlayState = "running";
-              }, { passive: true });
-            }
+              // add enough clone sets to always have content beyond viewport
+              var needed = Math.ceil((wrapper.offsetWidth + setW) / setW) + 1;
+              var cloneSet = [];
+              for (var s = 0; s < needed; s++) {
+                origItems.forEach(function (item) {
+                  var c = item.cloneNode(true);
+                  c.setAttribute("aria-hidden", "true");
+                  cloneSet.push(c);
+                  track.appendChild(c);
+                });
+              }
+              rotateBubbles(cloneSet);
+
+              var paused = false;
+              var loopCount = 0;
+              gsap.ticker.add(function () {
+                if (paused) return;
+                wrapper.scrollLeft += 0.5;
+                if (wrapper.scrollLeft >= setW) {
+                  wrapper.scrollLeft -= setW;
+                  loopCount++;
+                  rotateBubbles(cloneSet);
+                }
+              });
+
+              var carousel = document.querySelector(".st-cells-carousel");
+              if (carousel) {
+                carousel.addEventListener("mouseenter", function () { paused = true; });
+                carousel.addEventListener("mouseleave", function () { paused = false; });
+                carousel.addEventListener("touchstart", function () { paused = true; }, { passive: true });
+                carousel.addEventListener("touchend", function () { paused = false; }, { passive: true });
+              }
+            });
           }());
         }
       })();
