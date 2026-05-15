@@ -33,9 +33,6 @@
             <span class="gl-hero-kicker">Gallery</span>
             <h1 id="gallery-page-title">유미의 모든 순간을<br />기록한 <em>갤러리</em> <span class="gl-heart-deco" aria-hidden="true">♡</span></h1>
             <p>사랑하고, 흔들리고, 성장했던<br />유미와 세포들의 다양한 순간들을 만나보세요.</p>
-            <a class="gl-hero-cta" href="#emotions">
-              <span class="gl-cta-play" aria-hidden="true">▶</span>갤러리 소개 영상 보기
-            </a>
           </div>
 
           <!-- Center: orbit ring -->
@@ -362,46 +359,10 @@
         line-height: 1.7;
       }
 
-      .gl-hero-cta {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        height: 48px;
-        padding: 0 22px;
-        border-radius: 999px;
-        background: rgba(255, 255, 255, .72);
-        border: 1.5px solid rgba(232, 93, 130, .28);
-        color: #2b2d42;
-        font-size: 14px;
-        font-weight: 900;
-        text-decoration: none;
-        backdrop-filter: blur(8px);
-        box-shadow: 0 8px 24px rgba(232, 93, 130, .12);
-        transition: transform .2s ease, box-shadow .2s ease;
-      }
-
-      .gl-hero-cta:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 14px 32px rgba(232, 93, 130, .2);
-      }
-
-      .gl-cta-play {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 26px;
-        height: 26px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #ff7eb3, #e85d82);
-        color: #fff;
-        font-size: 10px;
-        flex-shrink: 0;
-      }
-
       /* ── Orbit ring (center) ─────────────────────────────────────────── */
       .gl-orbit-wrap {
         position: relative;
-        height: 480px;
+        height: 440px;
         z-index: 1;
       }
 
@@ -550,25 +511,25 @@
         z-index: 4;
       }
 
-      /* blue: upper-centre, above the orbit ring */
+      /* blue: upper-centre, just below header clearance */
       .gl-cell-blue {
-        width: clamp(64px, 7vw, 96px);
-        top: 20%;
-        left: calc(clamp(20px, 5vw, 72px) + clamp(260px, 28vw, 380px) + 24px);
+        width: clamp(80px, 8.5vw, 118px);
+        top: 18%;
+        left: calc(clamp(20px, 5vw, 72px) + clamp(260px, 28vw, 380px) + 56px);
       }
 
-      /* pink: bottom-left of orbit, beside the orbit ring */
+      /* pink: bottom-left, overlapping the left edge of the orbit */
       .gl-cell-pink {
-        width: clamp(76px, 9vw, 116px);
-        bottom: 8%;
-        left: calc(clamp(20px, 5vw, 72px) + clamp(260px, 28vw, 380px) - 30px);
+        width: clamp(96px, 10.5vw, 142px);
+        bottom: 6%;
+        left: calc(clamp(20px, 5vw, 72px) + clamp(260px, 28vw, 380px) - 44px);
       }
 
-      /* green: just right of pink */
+      /* green: bottom-centre-right, between orbit and right column */
       .gl-cell-green {
-        width: clamp(62px, 7vw, 90px);
-        bottom: 10%;
-        left: calc(clamp(20px, 5vw, 72px) + clamp(260px, 28vw, 380px) + 68px);
+        width: clamp(76px, 8vw, 108px);
+        bottom: 9%;
+        left: calc(clamp(20px, 5vw, 72px) + clamp(260px, 28vw, 380px) + 100px);
       }
 
 
@@ -974,6 +935,34 @@
         .to(".gl-hero-polaroid",   { opacity: 1, y: 0,     duration: .55, stagger: .1, ease: "power3.out" }, "-=.45")
         .to(".gl-hero-cell",       { opacity: 1, scale: 1, duration: .45, stagger: .08, ease: "power3.out" }, "-=.3")
         .to(".gl-scroll-hint",     { opacity: 1,           duration: .35 }, "-=.1");
+
+      /* ── Orbit node motion: cycling highlight + per-node gentle float ── */
+      (function () {
+        const nodes = gsap.utils.toArray('.gl-orbit-node');
+        let idx = 0;
+
+        /* subtle float: each node bobs slightly, offset so they don't sync */
+        nodes.forEach((node, i) => {
+          gsap.to(node, {
+            y: -6, duration: 2.0 + i * 0.28,
+            repeat: -1, yoyo: true, ease: "sine.inOut", delay: i * 0.45
+          });
+        });
+
+        /* cycling colour highlight */
+        function highlightNext() {
+          const prev = nodes[(idx - 1 + nodes.length) % nodes.length];
+          const curr = nodes[idx];
+          gsap.to(prev.querySelector('strong'), { color: '#2b2d42', scale: 1, duration: .45, ease: "power2.out" });
+          gsap.to(prev.querySelector('span'),   { opacity: .5, duration: .45 });
+          gsap.to(curr.querySelector('strong'), { color: '#e85d82', scale: 1.15, duration: .45, ease: "power2.out", transformOrigin: 'center' });
+          gsap.to(curr.querySelector('span'),   { opacity: 1, duration: .45 });
+          idx = (idx + 1) % nodes.length;
+          setTimeout(highlightNext, 1500);
+        }
+        /* kick off after hero entrance finishes */
+        setTimeout(highlightNext, 2000);
+      })();
 
       /* ── 01 Emotion bubbles ─────────────────────────────────────────── */
       gsap.set(".gl-emotion-item", { opacity: 0, y: 60, scale: .8 });
