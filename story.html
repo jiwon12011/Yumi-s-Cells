@@ -200,14 +200,24 @@
         overflow: hidden;
       }
 
+      @keyframes st-tl-marquee {
+        from { transform: translateX(0); }
+        to   { transform: translateX(var(--tl-setw, -1600px)); }
+      }
+
       .st-timeline-track {
         position: relative;
         display: flex;
         gap: 16px;
-        overflow: visible;
+        width: max-content;
         padding-bottom: 12px;
         padding-top: 52px;
-        will-change: transform;
+        animation: st-tl-marquee var(--tl-dur, 30s) linear infinite;
+      }
+
+      .st-timeline-right:hover .st-timeline-track,
+      .st-timeline-right:focus-within .st-timeline-track {
+        animation-play-state: paused;
       }
 
       .st-timeline-line {
@@ -513,10 +523,20 @@
         flex: 1;
       }
 
+      @keyframes st-cell-marquee {
+        from { transform: translateX(0); }
+        to   { transform: translateX(var(--cell-setw, -900px)); }
+      }
+
       .st-cells-track {
         display: flex;
         gap: 24px;
-        will-change: transform;
+        width: max-content;
+        animation: st-cell-marquee var(--cell-dur, 20s) linear infinite;
+      }
+
+      .st-cells-carousel:hover .st-cells-track {
+        animation-play-state: paused;
       }
 
       .st-cell-item {
@@ -1171,17 +1191,20 @@
               var origSet = Array.from(tlTrack.querySelectorAll(".st-tl-card:not([aria-hidden='true'])"));
               var lastOrig = origSet[origSet.length - 1];
               var setW = lastOrig ? lastOrig.offsetLeft + lastOrig.offsetWidth + 16 : 0;
-
               if (setW <= 0) return;
+              tlTrack.style.setProperty("--tl-setw", "-" + setW + "px");
+              tlTrack.style.setProperty("--tl-dur", (setW / 40).toFixed(1) + "s");
 
-              var tween = gsap.fromTo(tlTrack,
-                { x: 0 },
-                { x: -setW, ease: "none", duration: setW / 40, repeat: -1 }
-              );
-              tlTrack.addEventListener("mouseenter", function () { tween.pause(); });
-              tlTrack.addEventListener("mouseleave", function () { tween.resume(); });
-              tlTrack.addEventListener("touchstart", function () { tween.pause(); }, { passive: true });
-              tlTrack.addEventListener("touchend", function () { tween.resume(); }, { passive: true });
+              // touch support
+              var parent = tlTrack.closest(".st-timeline-right");
+              if (parent) {
+                parent.addEventListener("touchstart", function () {
+                  tlTrack.style.animationPlayState = "paused";
+                }, { passive: true });
+                parent.addEventListener("touchend", function () {
+                  tlTrack.style.animationPlayState = "running";
+                }, { passive: true });
+              }
             });
           }());
 
@@ -1269,28 +1292,29 @@
             }
             rotateBubbles(cloneSet);
 
-            gsap.set(track, { x: 0, clearProps: "transform" });
+            gsap.set(track, { clearProps: "transform,x" });
 
             requestAnimationFrame(function () {
               var origSet = Array.from(track.querySelectorAll(".st-cell-item:not([aria-hidden='true'])"));
               var lastOrig = origSet[origSet.length - 1];
               var setW = lastOrig ? lastOrig.offsetLeft + lastOrig.offsetWidth + 24 : 0;
-
               if (setW <= 0) return;
+              track.style.setProperty("--cell-setw", "-" + setW + "px");
+              track.style.setProperty("--cell-dur", (setW / 35).toFixed(1) + "s");
 
-              var tween = gsap.fromTo(track,
-                { x: 0 },
-                {
-                  x: -setW, ease: "none", duration: setW / 35, repeat: -1,
-                  onRepeat: function () { rotateBubbles(cloneSet); }
-                }
-              );
+              // rotate bubbles on each loop
+              track.addEventListener("animationiteration", function () {
+                rotateBubbles(cloneSet);
+              });
+
               var carousel = document.querySelector(".st-cells-carousel");
               if (carousel) {
-                carousel.addEventListener("mouseenter", function () { tween.pause(); });
-                carousel.addEventListener("mouseleave", function () { tween.resume(); });
-                carousel.addEventListener("touchstart", function () { tween.pause(); }, { passive: true });
-                carousel.addEventListener("touchend", function () { tween.resume(); }, { passive: true });
+                carousel.addEventListener("touchstart", function () {
+                  track.style.animationPlayState = "paused";
+                }, { passive: true });
+                carousel.addEventListener("touchend", function () {
+                  track.style.animationPlayState = "running";
+                }, { passive: true });
               }
             });
           }());
