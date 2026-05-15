@@ -202,7 +202,7 @@
 
       @keyframes st-tl-marquee {
         from { transform: translateX(0); }
-        to   { transform: translateX(var(--tl-setw, -1600px)); }
+        to   { transform: translateX(-50%); }
       }
 
       .st-timeline-track {
@@ -212,7 +212,7 @@
         width: max-content;
         padding-bottom: 12px;
         padding-top: 52px;
-        animation: st-tl-marquee var(--tl-dur, 30s) linear infinite;
+        animation: st-tl-marquee 28s linear infinite;
       }
 
       .st-timeline-right:hover .st-timeline-track,
@@ -525,14 +525,14 @@
 
       @keyframes st-cell-marquee {
         from { transform: translateX(0); }
-        to   { transform: translateX(var(--cell-setw, -900px)); }
+        to   { transform: translateX(-50%); }
       }
 
       .st-cells-track {
         display: flex;
         gap: 24px;
         width: max-content;
-        animation: st-cell-marquee var(--cell-dur, 20s) linear infinite;
+        animation: st-cell-marquee 22s linear infinite;
       }
 
       .st-cells-carousel:hover .st-cells-track {
@@ -1178,34 +1178,23 @@
 
             var origCards = Array.from(tlTrack.querySelectorAll(".st-tl-card"));
 
-            // clone 2 extra sets so screen is always filled (orig + 2 clones = 3 sets)
-            for (var ci = 0; ci < 2; ci++) {
-              origCards.forEach(function (card) {
-                var clone = card.cloneNode(true);
-                clone.setAttribute("aria-hidden", "true");
-                tlTrack.appendChild(clone);
-              });
-            }
-
-            requestAnimationFrame(function () {
-              var origSet = Array.from(tlTrack.querySelectorAll(".st-tl-card:not([aria-hidden='true'])"));
-              var lastOrig = origSet[origSet.length - 1];
-              var setW = lastOrig ? lastOrig.offsetLeft + lastOrig.offsetWidth + 16 : 0;
-              if (setW <= 0) return;
-              tlTrack.style.setProperty("--tl-setw", "-" + setW + "px");
-              tlTrack.style.setProperty("--tl-dur", (setW / 40).toFixed(1) + "s");
-
-              // touch support
-              var parent = tlTrack.closest(".st-timeline-right");
-              if (parent) {
-                parent.addEventListener("touchstart", function () {
-                  tlTrack.style.animationPlayState = "paused";
-                }, { passive: true });
-                parent.addEventListener("touchend", function () {
-                  tlTrack.style.animationPlayState = "running";
-                }, { passive: true });
-              }
+            // one clone set — total = 2 sets, so translateX(-50%) = exactly one set width
+            origCards.forEach(function (card) {
+              var clone = card.cloneNode(true);
+              clone.setAttribute("aria-hidden", "true");
+              tlTrack.appendChild(clone);
             });
+
+            // touch support
+            var tlParent = tlTrack.closest(".st-timeline-right");
+            if (tlParent) {
+              tlParent.addEventListener("touchstart", function () {
+                tlTrack.style.animationPlayState = "paused";
+              }, { passive: true });
+              tlParent.addEventListener("touchend", function () {
+                tlTrack.style.animationPlayState = "running";
+              }, { passive: true });
+            }
           }());
 
           /* ── Cells carousel — infinite auto-scroll ─────────── */
@@ -1281,42 +1270,31 @@
             var origItems = Array.from(track.querySelectorAll(".st-cell-item"));
             var cloneSet = [];
 
-            // clone 2 extra sets so screen is always filled
-            for (var ci = 0; ci < 2; ci++) {
-              origItems.forEach(function (item) {
-                var c = item.cloneNode(true);
-                c.setAttribute("aria-hidden", "true");
-                cloneSet.push(c);
-                track.appendChild(c);
-              });
-            }
+            // one clone set — total = 2 sets, so translateX(-50%) = exactly one set width
+            origItems.forEach(function (item) {
+              var c = item.cloneNode(true);
+              c.setAttribute("aria-hidden", "true");
+              cloneSet.push(c);
+              track.appendChild(c);
+            });
             rotateBubbles(cloneSet);
 
             gsap.set(track, { clearProps: "transform,x" });
 
-            requestAnimationFrame(function () {
-              var origSet = Array.from(track.querySelectorAll(".st-cell-item:not([aria-hidden='true'])"));
-              var lastOrig = origSet[origSet.length - 1];
-              var setW = lastOrig ? lastOrig.offsetLeft + lastOrig.offsetWidth + 24 : 0;
-              if (setW <= 0) return;
-              track.style.setProperty("--cell-setw", "-" + setW + "px");
-              track.style.setProperty("--cell-dur", (setW / 35).toFixed(1) + "s");
-
-              // rotate bubbles on each loop
-              track.addEventListener("animationiteration", function () {
-                rotateBubbles(cloneSet);
-              });
-
-              var carousel = document.querySelector(".st-cells-carousel");
-              if (carousel) {
-                carousel.addEventListener("touchstart", function () {
-                  track.style.animationPlayState = "paused";
-                }, { passive: true });
-                carousel.addEventListener("touchend", function () {
-                  track.style.animationPlayState = "running";
-                }, { passive: true });
-              }
+            // rotate bubbles on each loop
+            track.addEventListener("animationiteration", function () {
+              rotateBubbles(cloneSet);
             });
+
+            var carousel = document.querySelector(".st-cells-carousel");
+            if (carousel) {
+              carousel.addEventListener("touchstart", function () {
+                track.style.animationPlayState = "paused";
+              }, { passive: true });
+              carousel.addEventListener("touchend", function () {
+                track.style.animationPlayState = "running";
+              }, { passive: true });
+            }
           }());
         }
       })();
