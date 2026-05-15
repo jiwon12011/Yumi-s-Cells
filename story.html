@@ -597,8 +597,10 @@
       .st-cta-section {
         position: relative;
         overflow: hidden;
-        background: linear-gradient(135deg, #1a1450 0%, #2d1b69 50%, #1a2d6b 100%);
-        min-height: 420px;
+        background: linear-gradient(110deg, #2b1460 0%, #4a1fa0 40%, #3a1888 100%);
+        border-radius: 28px;
+        margin: 0 clamp(20px, 5vw, 72px) clamp(60px, 6vw, 80px);
+        min-height: 200px;
         display: flex;
         align-items: center;
       }
@@ -607,45 +609,49 @@
         content: "";
         position: absolute;
         inset: 0;
-        background: radial-gradient(ellipse at 30% 50%, rgba(255, 99, 151, 0.12) 0%, transparent 60%),
-          radial-gradient(ellipse at 70% 30%, rgba(100, 80, 200, 0.15) 0%, transparent 55%);
+        background:
+          linear-gradient(to right, #2b1460 0%, #3d1a8a 35%, rgba(48, 22, 110, 0.75) 55%, transparent 80%),
+          radial-gradient(ellipse at 20% 60%, rgba(160, 80, 255, 0.25) 0%, transparent 45%);
+        z-index: 1;
         pointer-events: none;
       }
 
       .st-cta-copy {
         position: relative;
         z-index: 2;
-        padding: clamp(60px, 7vw, 100px) clamp(20px, 5vw, 72px);
-        max-width: 520px;
+        padding: clamp(32px, 3.5vw, 52px) clamp(28px, 4vw, 60px);
+        max-width: 440px;
       }
 
       .st-cta-copy h2 {
-        font-size: clamp(28px, 3.5vw, 48px);
+        font-size: clamp(22px, 2.6vw, 36px);
         color: #fff;
         font-weight: 1000;
-        line-height: 1.2;
-        margin-bottom: 16px;
+        line-height: 1.25;
+        margin-bottom: 8px;
       }
 
       .st-cta-copy h2 em {
-        color: var(--pink);
+        color: #ff8ec8;
         font-style: normal;
       }
 
       .st-cta-copy p {
-        color: rgba(255, 255, 255, 0.7);
-        margin-bottom: 32px;
-        font-size: clamp(15px, 1.6vw, 18px);
-        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.78);
+        margin-bottom: 22px;
+        font-size: clamp(13px, 1.3vw, 15px);
+        line-height: 1.5;
       }
 
       .st-cta-img {
         position: absolute;
-        right: clamp(-20px, 5vw, 60px);
+        right: 0;
         bottom: 0;
-        height: 90%;
+        height: 118%;
+        width: auto;
         object-fit: contain;
-        z-index: 1;
+        object-position: right bottom;
+        z-index: 0;
         pointer-events: none;
       }
 
@@ -991,7 +997,7 @@
         ══════════════════════════════════════════════════════════ -->
         <section class="st-cta-section" aria-labelledby="st-cta-title">
           <div class="st-cta-copy">
-            <h2 id="st-cta-title">유미의 이야기는<br />계속됩니다 <em>💫</em></h2>
+            <h2 id="st-cta-title">유미의 이야기는<br />계속됩니다 <em>🩷</em></h2>
             <p>다음 이야기가 궁금하다면?</p>
             <a class="primary-button" href="#">
               <span>웹툰 &amp; 드라마 보러가기</span>
