@@ -1,11 +1,30 @@
 :root {
-  --navy: #242454;
-  --blue: #1165e7;
-  --pink: #ff6397;
-  --hot-pink: #ff4f8f;
+  /* Brand colors */
+  --primary:   #FF6B9D;   /* 사랑세포 핑크 */
+  --secondary: #4A90E2;   /* 이성세포 블루 */
+  --accent:    #FFB347;   /* 열정세포 오렌지 */
+  --text:      #2D2D2D;   /* 딥 그레이 */
+
+  /* Legacy aliases (keep for backward compat) */
+  --navy:      #242454;
+  --blue:      #1165e7;
+  --pink:      #FF6B9D;
+  --hot-pink:  #ff4f8f;
   --soft-pink: #fff1f7;
-  --white: #fff;
-  --ink: #1d1b3f;
+  --white:     #fff;
+  --ink:       #2D2D2D;
+
+  /* Typography scale */
+  --fw-heading: 700;
+  --fw-sub:     500;
+  --fw-body:    400;
+  --lh-body:    1.6;
+  --ls-heading: -0.02em;
+
+  /* Card system */
+  --card-radius: 24px;
+  --card-shadow: 0 8px 32px rgba(0, 0, 0, .10);
+  --card-shadow-hover: 0 16px 48px rgba(255, 107, 157, .20);
 }
 
 * {
@@ -40,7 +59,7 @@ button {
 }
 
 .site-header {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -49,10 +68,20 @@ button {
   grid-template-columns: minmax(116px, 170px) 1fr minmax(116px, 170px);
   align-items: center;
   gap: 24px;
-  width: min(100%, 1560px);
+  width: 100%;
   margin: 0 auto;
   padding: 28px clamp(20px, 4vw, 68px);
   animation: headerDrop .9s cubic-bezier(.2, .9, .2, 1) both;
+  transition: background .3s ease, backdrop-filter .3s ease, padding .3s ease, box-shadow .3s ease;
+}
+
+.site-header.is-scrolled {
+  padding-top: 16px;
+  padding-bottom: 16px;
+  background: rgba(255, 252, 253, .82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, .07);
 }
 
 .brand {
@@ -2000,6 +2029,11 @@ button {
 
 .sub-page {
   background: #fffaf6;
+}
+
+/* sub-page body: push content below fixed header */
+.sub-page .site-header + * {
+  padding-top: 0;
 }
 
 .sub-hero {

@@ -416,6 +416,7 @@ if (window.gsap && canAnimate) {
       ease: softEase
     });
 
+    /* sub-page hero: fade-up entrance (no infinite float) */
     gsap.from(".sub-hero-visual img", {
       y: 28,
       scale: .88,
@@ -426,25 +427,11 @@ if (window.gsap && canAnimate) {
       ease: springEase
     });
 
-    gsap.to(".sub-hero-visual img", {
-      y: (index) => index % 2 ? -10 : -14,
-      rotate: (index) => index % 2 ? 2 : -2,
-      duration: (index) => 3.4 + index * .35,
-      ease: "sine.inOut",
-      repeat: -1,
-      yoyo: true,
-      stagger: .08
-    });
-
-    gsap.to(".sub-bubbles span", {
-      y: -22,
-      x: (index) => index % 2 ? 12 : -10,
-      scale: 1.05,
-      duration: (index) => 4.2 + index * .5,
-      ease: "sine.inOut",
-      repeat: -1,
-      yoyo: true,
-      stagger: .15
+    /* hero image subtle zoom (non-looping) */
+    gsap.to(".sub-hero-visual", {
+      scale: 1.04,
+      duration: 9,
+      ease: "none"
     });
 
     gsap.from(".sub-card, .story-timeline article, .sub-gallery-tile, .sub-news-main, .sub-news-items a, .sub-event-card, .sub-info-grid article", {
@@ -466,4 +453,29 @@ if (window.gsap && canAnimate) {
     stagger: .08,
     ease: softEase
   });
+
+  /* scroll-progress for sub-pages (index.html already has its own) */
+  if (document.querySelector(".sub-page")) {
+    gsap.to(".scroll-progress", {
+      width: "100%",
+      ease: "none",
+      scrollTrigger: {
+        trigger: "body",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 0.3
+      }
+    });
+  }
 }
+
+/* ── Header: add is-scrolled class on scroll ──────── */
+(function () {
+  const header = document.querySelector(".site-header");
+  if (!header) return;
+  const onScroll = () => {
+    header.classList.toggle("is-scrolled", window.scrollY > 40);
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+})();

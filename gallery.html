@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
+    <div class="scroll-progress" aria-hidden="true"></div>
     <div class="site-shell sub-page gallery-page">
       <header class="site-header" aria-label="주요 메뉴">
         <a class="brand" href="./index.html" aria-label="유미의 세포들 홈"><img src="./assets/images/logo/yumi-cells-logo.png" alt="유미의 세포들" /></a>
@@ -519,6 +520,7 @@
         height: clamp(100px, 12vw, 160px);
         border-radius: 50%;
         overflow: hidden;
+        background: linear-gradient(135deg, #fff0f5, #f0f4ff);
         transition: transform .3s cubic-bezier(.34, 1.56, .64, 1), box-shadow .3s ease;
         box-shadow: 0 8px 28px rgba(0, 0, 0, .08);
       }
