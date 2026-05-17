@@ -40,13 +40,13 @@
           <div class="gl-orbit-wrap" aria-hidden="true">
             <!-- decorative rings only — heart is now the hero background -->
             <div class="gl-orbit-ring"></div>
-            <!-- emotion nodes — Ferris-wheel spinner -->
+            <!-- emotion nodes — Ferris-wheel spinner (5 × 72° equal spacing) -->
             <div class="gl-orbit-spinner">
-              <div class="gl-orbit-node" data-angle="90"><strong>설렘</strong><span>20 Moments</span></div>
-              <div class="gl-orbit-node" data-angle="180"><strong>흔들림</strong><span>18 Moments</span></div>
-              <div class="gl-orbit-node" data-angle="0"><strong>위로</strong><span>15 Moments</span></div>
-              <div class="gl-orbit-node" data-angle="225"><strong>성장</strong><span>26 Moments</span></div>
-              <div class="gl-orbit-node" data-angle="315"><strong>일상</strong><span>31 Moments</span></div>
+              <div class="gl-orbit-node"><span class="gl-orbit-heart" aria-hidden="true">♥</span></div>
+              <div class="gl-orbit-node"><span class="gl-orbit-heart" aria-hidden="true">♥</span></div>
+              <div class="gl-orbit-node"><span class="gl-orbit-heart" aria-hidden="true">♥</span></div>
+              <div class="gl-orbit-node"><span class="gl-orbit-heart" aria-hidden="true">♥</span></div>
+              <div class="gl-orbit-node"><span class="gl-orbit-heart" aria-hidden="true">♥</span></div>
             </div>
           </div>
 
@@ -359,28 +359,42 @@
 
       /* heart image is now the hero background — no img element needed */
 
-      /* Emotion nodes — all anchored from wrap center */
+      /* Emotion nodes — pivot anchor for Ferris wheel */
       .gl-orbit-node {
         position: absolute;
         display: flex;
-        flex-direction: column;
         align-items: center;
-        gap: 3px;
-        white-space: nowrap;
+        justify-content: center;
         z-index: 3;
       }
 
-      .gl-orbit-node strong {
-        font-size: 16px;
-        font-weight: 1000;
-        color: #2b2d42;
+      /* Heart icon bubble */
+      .gl-orbit-heart {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, .88);
+        box-shadow:
+          0 4px 18px rgba(232, 93, 130, .30),
+          0 0 0 1.5px rgba(255, 185, 200, .55),
+          inset 0 1px 2px rgba(255, 255, 255, .9);
+        font-size: 20px;
+        color: #e85d82;
+        cursor: pointer;
+        transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s ease;
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
       }
 
-      .gl-orbit-node span {
-        font-size: 11px;
-        font-weight: 700;
-        color: #a8abc0;
-        letter-spacing: .02em;
+      .gl-orbit-heart:hover {
+        transform: scale(1.25);
+        box-shadow:
+          0 8px 28px rgba(232, 93, 130, .45),
+          0 0 0 2px rgba(255, 107, 157, .6),
+          inset 0 1px 2px rgba(255, 255, 255, .9);
       }
 
       /* Ferris-wheel spinner — zero-size pivot at orbit center */
@@ -786,7 +800,8 @@
       /* ── Ferris-wheel setup — position nodes on the orbit circle ─────── */
       const ORBIT_R   = 190;   // px radius
       const ORBIT_DUR = 22;    // seconds per full revolution
-      const orbitAngles = [90, 180, 0, 225, 315]; // math angles (0=right, 90=up)
+      /* 5 nodes × 72° = perfectly equal spacing, starting at 12 o'clock */
+      const orbitAngles = [90, 18, 306, 234, 162];
       const spinnerEl  = document.querySelector('.gl-orbit-spinner');
       const orbitNodes = Array.from(document.querySelectorAll('.gl-orbit-node'));
 
