@@ -86,14 +86,55 @@ if (window.gsap && canAnimate) {
   gsap.to(".hero-glow-blue", { x: 38, y: 20, scale: 1.12, duration: 5.5, ease: "sine.inOut", repeat: -1, yoyo: true });
   gsap.to(".hero-glow-pink", { x: -32, y: 28, scale: 1.18, duration: 6.4, ease: "sine.inOut", repeat: -1, yoyo: true });
   gsap.to(".title-heart", { y: -3, rotate: -6, scale: 1.05, duration: 1.7, ease: "sine.inOut", repeat: -1, yoyo: true });
-  gsap.to(".yumi-main", { y: -8, rotate: .35, duration: 4.6, ease: "sine.inOut", repeat: -1, yoyo: true });
   gsap.to(".hero-wave", { y: 9, scaleX: 1.035, duration: 4.2, ease: "sine.inOut", repeat: -1, yoyo: true, transformOrigin: "50% 100%" });
 
-  gsap.to(".cell-love", { y: [-3, -12, -3], x: 5, rotate: 4, duration: 3.5, ease: "sine.inOut", repeat: -1, yoyo: true });
-  gsap.to(".cell-angry", { y: -3, x: 1.5, rotate: .8, duration: 3.4, ease: "sine.inOut", repeat: -1, yoyo: true });
-  gsap.to(".cell-reading", { y: [-1, -6, -1], x: -3, rotate: -1.4, duration: 4.5, ease: "sine.inOut", repeat: -1, yoyo: true });
-  gsap.to(".cell-chill", { y: [-2, -7, -2], x: 4, rotate: 1.2, duration: 4.9, ease: "sine.inOut", repeat: -1, yoyo: true });
-  gsap.to(".cell-artist", { y: [-1, -5, -1], x: 2, rotate: -1.1, duration: 3.9, ease: "sine.inOut", repeat: -1, yoyo: true });
+  // ── 캐릭터 float: idle=잔잔하게 / hover=원래 크기만큼 ────────────
+  const cellConfigs = [
+    { sel: ".yumi-main",
+      idle:  { y: -3,  rotate: .18, duration: 4.6 },
+      hover: { y: -15, rotate: .8 } },
+    { sel: ".cell-love",
+      idle:  { y: [-1, -4, -1], x: 1.5, rotate: 1,   duration: 3.5 },
+      hover: { y: -14, x: 5,   rotate: 4 } },
+    { sel: ".cell-angry",
+      idle:  { y: -1,  x: .5,  rotate: .3,  duration: 3.4 },
+      hover: { y: -8,  x: 2 } },
+    { sel: ".cell-reading",
+      idle:  { y: [-0.5, -2, -0.5], x: -1, rotate: -.4, duration: 4.5 },
+      hover: { y: -12, x: -3, rotate: -1.4 } },
+    { sel: ".cell-chill",
+      idle:  { y: [-0.5, -2.5, -0.5], x: 1.5, rotate: .4, duration: 4.9 },
+      hover: { y: -14, x: 4,  rotate: 1.2 } },
+    { sel: ".cell-artist",
+      idle:  { y: [-0.5, -2, -0.5], x: .8, rotate: -.4, duration: 3.9 },
+      hover: { y: -12, x: 2,  rotate: -1.1 } },
+  ];
+
+  cellConfigs.forEach(({ sel, idle, hover }) => {
+    const el = document.querySelector(sel);
+    if (!el) return;
+    el.style.pointerEvents = "all"; // hero-stage가 pointer-events:none이라도 hover 수신
+
+    let idleTween;
+    const startIdle = () => {
+      idleTween = gsap.to(el, { ...idle, ease: "sine.inOut", repeat: -1, yoyo: true });
+    };
+    startIdle();
+
+    el.addEventListener("mouseenter", () => {
+      if (idleTween) idleTween.kill();
+      gsap.to(el, {
+        y:      hover.y      ?? 0,
+        x:      hover.x      ?? 0,
+        rotate: hover.rotate ?? 0,
+        duration: .45, ease: "power2.out"
+      });
+    });
+    el.addEventListener("mouseleave", () => {
+      gsap.to(el, { y: 0, x: 0, rotate: 0, duration: .4, ease: "power2.out",
+                    onComplete: startIdle });
+    });
+  });
 
   gsap.to(".cell-panels", {
     y: -14,
