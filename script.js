@@ -243,9 +243,9 @@ if (window.gsap && canAnimate) {
     ease: springEase
   });
 
-  gsap.to(".season-float-love", { y: -18, x: 12, rotate: 5, scale: 1.035, duration: 3.4, ease: "sine.inOut", repeat: -1, yoyo: true });
-  gsap.to(".season-float-happy", { y: -18, x: -12, rotate: -5, duration: 3.7, ease: "sine.inOut", repeat: -1, yoyo: true });
-  gsap.to(".season-decor-heart", { y: -10, rotate: 8, duration: 3.4, ease: "sine.inOut", repeat: -1, yoyo: true });
+  gsap.to(".season-float-love",  { y: -5, x: 3, rotate: 1.2, scale: 1.008, duration: 3.4, ease: "sine.inOut", repeat: -1, yoyo: true });
+  gsap.to(".season-float-happy", { y: -5, x: -3, rotate: -1.2,            duration: 3.7, ease: "sine.inOut", repeat: -1, yoyo: true });
+  gsap.to(".season-decor-heart", { y: -3, rotate: 2.5,                    duration: 3.4, ease: "sine.inOut", repeat: -1, yoyo: true });
 
   gsap.from(".webtoon-copy > *", {
     scrollTrigger: { trigger: ".webtoon-meet", start: "top 76%" },
