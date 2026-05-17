@@ -40,12 +40,14 @@
           <div class="gl-orbit-wrap" aria-hidden="true">
             <!-- decorative rings only — heart is now the hero background -->
             <div class="gl-orbit-ring"></div>
-            <!-- emotion nodes positioned from center -->
-            <div class="gl-orbit-node gl-node-top"><strong>설렘</strong><span>20 Moments</span></div>
-            <div class="gl-orbit-node gl-node-left"><strong>흔들림</strong><span>18 Moments</span></div>
-            <div class="gl-orbit-node gl-node-right"><strong>위로</strong><span>15 Moments</span></div>
-            <div class="gl-orbit-node gl-node-bl"><strong>성장</strong><span>26 Moments</span></div>
-            <div class="gl-orbit-node gl-node-br"><strong>일상</strong><span>31 Moments</span></div>
+            <!-- emotion nodes — Ferris-wheel spinner -->
+            <div class="gl-orbit-spinner">
+              <div class="gl-orbit-node" data-angle="90"><strong>설렘</strong><span>20 Moments</span></div>
+              <div class="gl-orbit-node" data-angle="180"><strong>흔들림</strong><span>18 Moments</span></div>
+              <div class="gl-orbit-node" data-angle="0"><strong>위로</strong><span>15 Moments</span></div>
+              <div class="gl-orbit-node" data-angle="225"><strong>성장</strong><span>26 Moments</span></div>
+              <div class="gl-orbit-node" data-angle="315"><strong>일상</strong><span>31 Moments</span></div>
+            </div>
           </div>
 
           <!-- Right: polaroids + Yumi -->
@@ -381,40 +383,13 @@
         letter-spacing: .02em;
       }
 
-      /* top  (12 o'clock) */
-      .gl-node-top {
-        top: calc(50% - 192px);
+      /* Ferris-wheel spinner — zero-size pivot at orbit center */
+      .gl-orbit-spinner {
+        position: absolute;
+        top: 50%;
         left: 50%;
-        transform: translateX(-50%);
-      }
-
-      /* left (9 o'clock) */
-      .gl-node-left {
-        top: 50%;
-        left: calc(50% - 196px);
-        transform: translate(-100%, -50%);
-        align-items: flex-end;
-      }
-
-      /* right (3 o'clock) */
-      .gl-node-right {
-        top: 50%;
-        left: calc(50% + 196px);
-        transform: translateY(-50%);
-      }
-
-      /* bottom-left (~225°) — cos225°= -0.707 */
-      .gl-node-bl {
-        top: calc(50% + 134px);
-        left: calc(50% - 134px);
-        transform: translate(-100%, 0);
-        align-items: flex-end;
-      }
-
-      /* bottom-right (~315°) — cos315°= +0.707 */
-      .gl-node-br {
-        top: calc(50% + 134px);
-        left: calc(50% + 134px);
+        width: 0;
+        height: 0;
       }
 
       /* ── Hero right (Yumi + polaroids) ──────────────────────────────── */
@@ -808,9 +783,28 @@
       gsap.registerPlugin(ScrollTrigger);
 
       /* ── Hero animations ────────────────────────────────────────────── */
+      /* ── Ferris-wheel setup — position nodes on the orbit circle ─────── */
+      const ORBIT_R   = 190;   // px radius
+      const ORBIT_DUR = 22;    // seconds per full revolution
+      const orbitAngles = [90, 180, 0, 225, 315]; // math angles (0=right, 90=up)
+      const spinnerEl  = document.querySelector('.gl-orbit-spinner');
+      const orbitNodes = Array.from(document.querySelectorAll('.gl-orbit-node'));
+
+      /* position each node at its angle (y is negative of sin because screen-y is flipped) */
+      orbitNodes.forEach((node, i) => {
+        const rad = orbitAngles[i] * Math.PI / 180;
+        gsap.set(node, {
+          x: ORBIT_R * Math.cos(rad),
+          y: -ORBIT_R * Math.sin(rad),
+          xPercent: -50,
+          yPercent: -50
+        });
+      });
+
+      /* ── Hero entrance ─────────────────────────────────────────────── */
       gsap.set(".gl-hero-copy",      { opacity: 0, x: -36 });
       gsap.set(".gl-orbit-ring",     { scale: 0.6, opacity: 0 });
-      gsap.set(".gl-orbit-node",     { opacity: 0, y: 10 });
+      gsap.set(".gl-orbit-node",     { opacity: 0 }); /* orbital x/y already set above */
       gsap.set(".gl-hero-yumi-big",  { opacity: 0, y: 30 });
       gsap.set(".gl-hero-polaroid",  { opacity: 0, y: -20 });
       gsap.set(".gl-hero-cell",      { opacity: 0, scale: 0.5 });
@@ -819,39 +813,30 @@
       heroTl
         .to(".gl-hero-copy",       { opacity: 1, x: 0,     duration: .65, ease: "power3.out" })
         .to(".gl-orbit-ring",      { scale: 1,   opacity: 1, duration: .7, ease: "power2.out" }, "-=.35")
-        .to(".gl-orbit-node",      { opacity: 1, y: 0,     duration: .45, stagger: .07, ease: "power3.out" }, "-=.3")
+        .to(".gl-orbit-node",      { opacity: 1,            duration: .45, stagger: .07, ease: "power3.out" }, "-=.3")
         .to(".gl-hero-yumi-big",   { opacity: 1, y: 0,     duration: .65, ease: "power3.out" }, "-=.5")
         .to(".gl-hero-polaroid",   { opacity: 1, y: 0,     duration: .55, stagger: .1, ease: "power3.out" }, "-=.45")
         .to(".gl-hero-cell",       { opacity: 1, scale: 1, duration: .45, stagger: .08, ease: "power3.out" }, "-=.3")
-        ;
-
-      /* ── Orbit node motion: cycling highlight + per-node gentle float ── */
-      (function () {
-        const nodes = gsap.utils.toArray('.gl-orbit-node');
-        let idx = 0;
-
-        /* subtle float: each node bobs slightly, offset so they don't sync */
-        nodes.forEach((node, i) => {
-          gsap.to(node, {
-            y: -6, duration: 2.0 + i * 0.28,
-            repeat: -1, yoyo: true, ease: "sine.inOut", delay: i * 0.45
+        .call(() => {
+          /* ── Start Ferris-wheel after entrance finishes ────────────── */
+          /* spinner rotates clockwise — all child nodes orbit together */
+          gsap.to(spinnerEl, {
+            rotation: 360,
+            duration: ORBIT_DUR,
+            repeat: -1,
+            ease: "none",
+            transformOrigin: "0px 0px"   /* pivot = orbit center (spinner is 0×0) */
+          });
+          /* counter-rotate each node so text always faces upright */
+          orbitNodes.forEach(node => {
+            gsap.to(node, {
+              rotation: -360,
+              duration: ORBIT_DUR,
+              repeat: -1,
+              ease: "none"
+            });
           });
         });
-
-        /* cycling colour highlight */
-        function highlightNext() {
-          const prev = nodes[(idx - 1 + nodes.length) % nodes.length];
-          const curr = nodes[idx];
-          gsap.to(prev.querySelector('strong'), { color: '#2b2d42', scale: 1, duration: .45, ease: "power2.out" });
-          gsap.to(prev.querySelector('span'),   { opacity: .5, duration: .45 });
-          gsap.to(curr.querySelector('strong'), { color: '#e85d82', scale: 1.15, duration: .45, ease: "power2.out", transformOrigin: 'center' });
-          gsap.to(curr.querySelector('span'),   { opacity: 1, duration: .45 });
-          idx = (idx + 1) % nodes.length;
-          setTimeout(highlightNext, 1500);
-        }
-        /* kick off after hero entrance finishes */
-        setTimeout(highlightNext, 2000);
-      })();
 
       /* ── 01 Emotion bubbles ─────────────────────────────────────────── */
       gsap.set(".gl-emotion-item", { opacity: 0, y: 60, scale: .8 });
