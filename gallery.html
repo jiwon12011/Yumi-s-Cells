@@ -838,7 +838,7 @@
           });
         });
 
-      /* ── 01 Emotion bubbles ─────────────────────────────────────────── */
+      /* ── 01 Emotion bubbles scroll entrance ───────────────────────── */
       gsap.set(".gl-emotion-item", { opacity: 0, y: 60, scale: .8 });
       ScrollTrigger.create({
         trigger: ".gl-emotions",
@@ -851,6 +851,50 @@
             ease: "power3.out"
           });
         }
+      });
+
+      /* ── 01 Emotion bubbles click: jelly bounce + ripple ───────────── */
+      document.querySelectorAll('.gl-emotion-item').forEach(item => {
+        const bubble = item.querySelector('.gl-emotion-bubble');
+        const label  = item.querySelector('.gl-emotion-label');
+
+        item.addEventListener('click', () => {
+          /* jelly bounce on bubble */
+          gsap.timeline()
+            .to(bubble, { scale: 1.28, duration: .12, ease: "power2.out",
+                          boxShadow: "0 0 0 8px rgba(255,107,157,.22), 0 20px 48px rgba(255,107,157,.28)" })
+            .to(bubble, { scale: 1,    duration: .7,  ease: "elastic.out(1.4, 0.38)",
+                          boxShadow: "0 8px 28px rgba(0,0,0,.08)" });
+
+          /* label pops up */
+          gsap.timeline()
+            .to(label, { y: -9, color: '#e85d82', duration: .1, ease: "power2.out" })
+            .to(label, { y: 0,  color: '',        duration: .6, ease: "elastic.out(1.2, 0.4)" });
+
+          /* ripple ring — appended outside bubble (avoids overflow:hidden clip) */
+          const bRect = bubble.getBoundingClientRect();
+          const iRect = item.getBoundingClientRect();
+          const ripple = document.createElement('div');
+          Object.assign(ripple.style, {
+            position:     'absolute',
+            borderRadius: '50%',
+            width:         bubble.offsetWidth  + 'px',
+            height:        bubble.offsetHeight + 'px',
+            top:          (bRect.top  - iRect.top)  + 'px',
+            left:         (bRect.left - iRect.left) + 'px',
+            border:       '2.5px solid #ff6b9d',
+            pointerEvents:'none',
+            zIndex:       '10',
+            willChange:   'transform, opacity'
+          });
+          item.style.position = 'relative';
+          item.appendChild(ripple);
+          gsap.fromTo(ripple,
+            { scale: 1,   opacity: .75 },
+            { scale: 2.1, opacity: 0,  duration: .65, ease: "power2.out",
+              onComplete: () => ripple.remove() }
+          );
+        });
       });
 
       /* ── 02 Carousel logic (infinite loop via clone) ───────────────── */

@@ -1847,30 +1847,20 @@ button {
   flex-shrink: 0;
 }
 
-/* ── Instagram: 카메라 바디 외곽선 + 렌즈 링 + 뷰파인더 점 ── */
+/* ── Instagram: SVG 카메라 아이콘 (인코딩된 data URI) ── */
 .instagram-dot {
-  background: linear-gradient(135deg, #ff69a4, #a76bff);
+  background: linear-gradient(135deg, #f9ce34, #ee2a7b, #6228d7);
 }
 
 .instagram-dot::before {
   position: absolute;
-  inset: 4px;
+  inset: 2px;
   content: "";
-  border: 2px solid rgba(255, 255, 255, .92);
-  border-radius: 4px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2' y='2' width='20' height='20' rx='5'/%3E%3Ccircle cx='12' cy='12' r='5'/%3E%3Ccircle cx='17.5' cy='6.5' r='1.5' fill='white' stroke='none'/%3E%3C/svg%3E") center / contain no-repeat;
 }
 
 .instagram-dot::after {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 5px;
-  height: 5px;
-  margin: -2.5px 0 0 -2.5px;
-  content: "";
-  border: 1.5px solid rgba(255, 255, 255, .92);
-  border-radius: 50%;
-  box-shadow: 4px -4px 0 0 rgba(255, 255, 255, .92);
+  display: none;
 }
 
 /* ── YouTube: 흰색 재생 삼각형 ── */
