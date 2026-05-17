@@ -364,18 +364,7 @@ if (window.gsap && canAnimate) {
     });
   });
 
-  // ── 5. Random idle wiggle ────────────────────────
-  const heroCells = gsap.utils.toArray(".cell");
-  const scheduleWiggle = () => {
-    const cell = heroCells[Math.floor(Math.random() * heroCells.length)];
-    gsap.timeline()
-      .to(cell, { rotate: 13,  duration: 0.07, ease: "power2.out" })
-      .to(cell, { rotate: -11, duration: 0.07 })
-      .to(cell, { rotate: 8,   duration: 0.06 })
-      .to(cell, { rotate: 0,   duration: 0.45, ease: "elastic.out(1, 0.45)" })
-      .then(() => gsap.delayedCall(Math.random() * 2.5 + 1.5, scheduleWiggle));
-  };
-  gsap.delayedCall(2.2, scheduleWiggle);
+  // ── 5. Random idle wiggle (removed — too intense) ───────────────
 
   // ── 6. Season card 3D hover tilt ─────────────────
   document.querySelectorAll(".season-card").forEach((card) => {
