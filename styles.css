@@ -3119,6 +3119,146 @@ button {
   }
 }
 
+/* ─────────────────────────────────────────────────────────────────────
+   RESPONSIVE — 1920 (min-width: 1441px)
+   1440 스타일을 건드리지 않고, 더 넓은 화면에서 스케일업
+   ───────────────────────────────────────────────────────────────────── */
+@media (min-width: 1441px) {
+
+  /* ── 히어로 ──────────────────────────────────────────────────────── */
+  .hero {
+    min-height: clamp(880px, 92svh, 1060px);
+  }
+
+  .hero-copy {
+    width: min(38vw, 700px);
+    padding-left: clamp(80px, 7vw, 148px);
+    padding-top: clamp(152px, 15vh, 210px);
+  }
+
+  .hero h1 {
+    font-size: clamp(100px, 7.6vw, 158px);
+  }
+
+  .eyebrow {
+    font-size: clamp(22px, 1.6vw, 32px);
+  }
+
+  .hero-description {
+    font-size: clamp(20px, 1.5vw, 28px);
+  }
+
+  .primary-button,
+  .secondary-button {
+    min-height: 64px;
+    padding: 0 34px;
+    font-size: 18px;
+  }
+
+  /* ── 유미 & 세포 캐릭터 ──────────────────────────────────────────── */
+  .yumi-main {
+    right: clamp(420px, 27vw, 640px);
+    bottom: clamp(60px, 9vh, 140px);
+    width: clamp(540px, 39vw, 760px);
+  }
+
+  .cell-panels {
+    right: 6%;
+    top: 10%;
+    width: clamp(400px, 31vw, 640px);
+  }
+
+  .cell-love   { width: clamp(140px, 11.5vw, 230px); }
+  .cell-angry  { width: clamp(176px, 14vw,   288px); }
+  .cell-reading{ width: clamp(166px, 13.5vw, 278px); }
+  .cell-chill  { width: clamp(200px, 17vw,   360px); }
+  .cell-artist { width: clamp(200px, 18vw,   380px); }
+
+  /* ── 섹션 헤딩 ───────────────────────────────────────────────────── */
+  .section-heading span {
+    font-size: 16px;
+  }
+
+  .section-heading h2 {
+    font-size: clamp(44px, 3.4vw, 68px);
+  }
+
+  /* ── 관계도 ──────────────────────────────────────────────────────── */
+  .relationship {
+    padding-inline: clamp(60px, 6vw, 140px);
+  }
+
+  .relationship-map {
+    max-width: 1720px;
+  }
+
+  .rel-card {
+    padding: 48px;
+  }
+
+  .mini-profile img {
+    width: 128px;
+  }
+
+  /* ── 시즌 ────────────────────────────────────────────────────────── */
+  .season-replay {
+    padding-inline: clamp(60px, 6vw, 140px);
+  }
+
+  .season-grid {
+    max-width: 1720px;
+  }
+
+  .season-card {
+    min-height: 540px;
+  }
+
+  /* ── 웹툰 ────────────────────────────────────────────────────────── */
+  .webtoon-meet {
+    padding-inline: clamp(60px, 6vw, 140px);
+  }
+
+  .webtoon-art {
+    min-height: 700px;
+  }
+
+  /* ── 뉴스 갤러리 ─────────────────────────────────────────────────── */
+  .news-gallery {
+    padding-inline: clamp(60px, 6vw, 140px);
+  }
+
+  /* ── 서브 히어로 ─────────────────────────────────────────────────── */
+  .sub-hero {
+    padding: clamp(128px, 13vh, 188px) clamp(80px, 8vw, 160px) clamp(120px, 12vh, 160px);
+  }
+
+  .sub-hero-inner {
+    gap: 80px;
+  }
+
+  .sub-hero h1 {
+    font-size: clamp(44px, 3.8vw, 72px);
+  }
+
+  .sub-section {
+    padding-inline: clamp(80px, 8vw, 160px);
+  }
+
+  /* ── 서포트 배너 ─────────────────────────────────────────────────── */
+  .support-banner {
+    padding: 80px clamp(80px, 8vw, 160px);
+  }
+
+  .support-copy h2 {
+    font-size: clamp(30px, 2.5vw, 48px);
+  }
+
+  /* ── 푸터 ────────────────────────────────────────────────────────── */
+  .site-footer {
+    padding: 32px clamp(80px, 8vw, 160px);
+  }
+}
+
 @media (max-width: 1180px) {
   .site-header {
     grid-template-columns: auto 1fr auto;
@@ -3263,6 +3403,15 @@ button {
 
   .sub-info-grid {
     grid-template-columns: 1fr;
+  }
+
+  /* 태블릿에서 서브 섹션 좌우 패딩 적절히 줄이기 */
+  .sub-section {
+    padding-inline: clamp(20px, 4vw, 48px);
+  }
+
+  .sub-hero {
+    padding-inline: clamp(24px, 4vw, 52px);
   }
 }
 
@@ -3940,6 +4089,51 @@ button {
   .sub-info-grid article {
     min-height: auto;
     padding: 24px 20px;
+  }
+
+  /* ── 모바일 320px 최소 지원 ─────────────────────────────────────── */
+  .hero h1 {
+    font-size: clamp(38px, 11.5vw, 54px);
+    word-break: keep-all;
+  }
+
+  .hero-description {
+    font-size: 15px;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .primary-button,
+  .secondary-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .section-heading h2 {
+    font-size: clamp(26px, 8vw, 38px);
+    word-break: keep-all;
+  }
+
+  .sub-hero h1 {
+    font-size: clamp(30px, 9vw, 42px);
+    word-break: keep-all;
+  }
+
+  .support-copy h2 {
+    font-size: 20px;
+    word-break: keep-all;
+  }
+
+  .support-buttons {
+    flex-direction: column;
+  }
+
+  .support-buttons a {
+    width: 100%;
+    justify-content: center;
   }
 }
 

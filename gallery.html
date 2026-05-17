@@ -771,22 +771,157 @@
       }
 
       /* ── Responsive ─────────────────────────────────────────────────── */
+      /* ── Gallery 반응형 ──────────────────────────────────────────── */
+
+      /* 1920 — 오빗 & 히어로 스케일업 */
+      @media (min-width: 1441px) {
+        .gl-hero {
+          grid-template-columns: minmax(320px, 460px) 1fr minmax(300px, 440px);
+          padding: clamp(130px, 13vw, 190px) clamp(48px, 6vw, 108px) clamp(130px, 13vw, 170px);
+        }
+
+        .gl-orbit-wrap {
+          height: 560px;
+          transform: scale(1.28);
+          transform-origin: center center;
+        }
+
+        .gl-hero-yumi-big {
+          width: clamp(420px, 44vw, 660px);
+          bottom: -160px;
+        }
+
+        .gl-hero-polaroid-a { width: clamp(200px, 20vw, 300px); }
+        .gl-hero-polaroid-b { width: clamp(186px, 18vw, 272px); }
+      }
+
+      /* 태블릿 가로 (1100px 이하) — 오른쪽 컬럼 숨김 */
+      @media (max-width: 1100px) {
+        .gl-hero {
+          grid-template-columns: minmax(220px, 320px) 1fr;
+        }
+
+        .gl-hero-right {
+          display: none;
+        }
+
+        .gl-hero-copy h1 {
+          font-size: clamp(26px, 3.2vw, 44px);
+        }
+      }
+
+      /* 태블릿 세로 (860px 이하) — 세로 스택, 오빗 축소 */
+      @media (max-width: 860px) {
+        .gl-hero {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          min-height: auto;
+          padding: 108px 28px 52px;
+          text-align: center;
+          gap: 0;
+        }
+
+        .gl-hero-copy {
+          padding-right: 0;
+          max-width: 520px;
+        }
+
+        .gl-hero-copy p {
+          font-size: 15px;
+        }
+
+        .gl-orbit-wrap {
+          height: 350px;
+          width: 100%;
+          transform: scale(0.76);
+          transform-origin: center center;
+          margin: -52px 0 -44px;
+        }
+
+        .gl-hero-right {
+          display: none;
+        }
+
+        .gl-cell-blue {
+          top: 13%;
+          left: 3%;
+          width: clamp(78px, 10vw, 116px);
+        }
+
+        .gl-cell-pink {
+          bottom: 3%;
+          left: 4%;
+          width: clamp(68px, 9vw, 100px);
+        }
+
+        .gl-cell-green {
+          bottom: 5%;
+          left: 18%;
+          width: clamp(54px, 7vw, 78px);
+        }
+      }
+
+      /* 섹션 카드 — 2열 */
       @media (max-width: 900px) {
-        .gl-masonry { columns: 2; }
         .gl-cells-grid { grid-template-columns: repeat(2, 1fr); }
-        .gl-hero-visual { height: 360px; }
-        .gl-hero-center { width: 220px; height: 220px; }
         .gl-quote-block { flex-direction: column; text-align: center; }
         .gl-quote-copy { text-align: center; }
       }
 
+      /* 모바일 (600px 이하) — 오빗 숨김, 1열 */
       @media (max-width: 600px) {
-        .gl-masonry { columns: 1; }
+        .gl-hero {
+          padding: 92px 18px 36px;
+        }
+
+        .gl-orbit-wrap {
+          display: none;
+        }
+
+        .gl-hero-cell {
+          display: none;
+        }
+
+        .gl-hero-copy h1 {
+          font-size: clamp(28px, 9vw, 42px);
+          word-break: keep-all;
+        }
+
+        .gl-hero-copy p {
+          font-size: 14px;
+          margin-bottom: 18px;
+        }
+
         .gl-cells-grid { grid-template-columns: 1fr; }
-        .gl-emotion-row { gap: 12px; }
-        .gl-emotion-bubble { width: 80px; height: 80px; }
-        .gallery-sub-hero .sub-hero-inner { grid-template-columns: 1fr; }
-        .gl-hero-visual { height: 280px; margin-top: 32px; }
+
+        .gl-emotion-row {
+          gap: 10px;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+
+        .gl-emotion-bubble {
+          width: clamp(78px, 18vw, 108px);
+          height: clamp(78px, 18vw, 108px);
+        }
+
+        .gl-emotion-label {
+          font-size: 15px;
+        }
+
+        .gl-scene-card {
+          flex: 0 0 clamp(240px, 80vw, 320px);
+        }
+
+        .gl-quote-block {
+          padding: 28px 20px;
+          gap: 20px;
+        }
+
+        .gl-quote-copy blockquote {
+          font-size: clamp(16px, 4.5vw, 20px);
+        }
       }
     </style>
 
