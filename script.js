@@ -443,6 +443,38 @@ if (window.gsap && canAnimate) {
       stagger: .075,
       ease: springEase
     });
+
+    /* ── 서브페이지 섹션 헤딩 스크롤 페이드업 ── */
+    gsap.utils.toArray(".sub-section-heading").forEach((heading) => {
+      gsap.from(heading.children, {
+        scrollTrigger: { trigger: heading, start: "top 82%" },
+        y: 24,
+        autoAlpha: 0,
+        duration: .62,
+        stagger: .09,
+        ease: softEase
+      });
+    });
+
+    /* ── 이벤트 카드 3D 틸트 (mousemove) ── */
+    document.querySelectorAll(".sub-event-card").forEach((card) => {
+      card.addEventListener("mousemove", (e) => {
+        const r = card.getBoundingClientRect();
+        const cx = (e.clientX - r.left) / r.width  - 0.5;
+        const cy = (e.clientY - r.top)  / r.height - 0.5;
+        gsap.to(card, {
+          rotateY: cx * 12,
+          rotateX: -cy * 8,
+          scale: 1.03,
+          duration: 0.3,
+          ease: "power2.out",
+          transformPerspective: 700
+        });
+      });
+      card.addEventListener("mouseleave", () => {
+        gsap.to(card, { rotateY: 0, rotateX: 0, scale: 1, duration: 0.55, ease: "back.out(1.5)" });
+      });
+    });
   }
 
   gsap.from(".site-footer > *", {

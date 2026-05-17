@@ -1840,21 +1840,72 @@ button {
 
 .support-icon {
   display: block;
+  position: relative;
   width: 22px;
   height: 22px;
   border-radius: 50%;
+  flex-shrink: 0;
 }
 
+/* ── Instagram: 카메라 바디 외곽선 + 렌즈 링 + 뷰파인더 점 ── */
 .instagram-dot {
   background: linear-gradient(135deg, #ff69a4, #a76bff);
 }
 
+.instagram-dot::before {
+  position: absolute;
+  inset: 4px;
+  content: "";
+  border: 2px solid rgba(255, 255, 255, .92);
+  border-radius: 4px;
+}
+
+.instagram-dot::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  content: "";
+  border: 1.5px solid rgba(255, 255, 255, .92);
+  border-radius: 50%;
+  box-shadow: 4px -4px 0 0 rgba(255, 255, 255, .92);
+}
+
+/* ── YouTube: 흰색 재생 삼각형 ── */
 .youtube-dot {
   background: #ff4f5f;
 }
 
+.youtube-dot::before {
+  position: absolute;
+  top: 50%;
+  left: 55%;
+  content: "";
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 8px solid rgba(255, 255, 255, .92);
+  transform: translate(-50%, -50%);
+}
+
+/* ── Naver: 흰색 N 글자 ── */
 .naver-dot {
-  background: #35c766;
+  background: #03c75a;
+}
+
+.naver-dot::before {
+  position: absolute;
+  inset: 0;
+  content: "N";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, .92);
+  font-size: 13px;
+  font-weight: 900;
+  font-family: Pretendard, -apple-system, sans-serif;
+  line-height: 1;
 }
 
 .support-cells-left,
@@ -2790,6 +2841,13 @@ button {
   font-weight: 950;
   background: linear-gradient(135deg, #21b98d, #34cf9a);
   box-shadow: 0 14px 26px rgba(33, 185, 141, .22);
+  transition: transform .22s ease, box-shadow .22s ease, filter .22s ease;
+}
+
+.sub-event-card a:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 34px rgba(33, 185, 141, .38);
+  filter: brightness(1.06);
 }
 
 .sub-info-band {
@@ -2843,6 +2901,12 @@ button {
   background: rgba(255, 255, 255, .82);
   box-shadow: 0 22px 48px rgba(71, 58, 88, .09);
   backdrop-filter: blur(10px);
+  transition: transform .28s ease, box-shadow .28s ease;
+}
+
+.sub-info-grid article:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 30px 58px rgba(71, 58, 88, .16);
 }
 
 .sub-info-grid strong {
