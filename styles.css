@@ -561,9 +561,9 @@ button {
   z-index: 6;
   display: block;
   width: 100%;
-  height: clamp(104px, 11vw, 178px);
+  height: clamp(58px, 5.8vw, 84px);
   pointer-events: none;
-  filter: drop-shadow(0 -14px 20px rgba(255, 255, 255, .36));
+  filter: drop-shadow(0 -10px 18px rgba(255, 255, 255, .36));
 }
 
 .hero-wave path {
