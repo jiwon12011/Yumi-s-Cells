@@ -36,11 +36,8 @@
             <p>사랑하고, 흔들리고, 성장했던<br />유미와 세포들의 다양한 순간들을 만나보세요.</p>
           </div>
 
-          <!-- Center: orbit ring -->
+          <!-- Center: floating hearts -->
           <div class="gl-orbit-wrap" aria-hidden="true">
-            <!-- decorative rings only — heart is now the hero background -->
-            <div class="gl-orbit-ring"></div>
-            <!-- emotion nodes — Ferris-wheel spinner (5 × 72° equal spacing) -->
             <div class="gl-orbit-spinner">
               <div class="gl-orbit-node"><span class="gl-orbit-heart" aria-hidden="true">♥</span></div>
               <div class="gl-orbit-node"><span class="gl-orbit-heart" aria-hidden="true">♥</span></div>
@@ -323,43 +320,14 @@
         line-height: 1.7;
       }
 
-      /* ── Orbit ring (center) ─────────────────────────────────────────── */
+      /* ── Floating hearts (center) ───────────────────────────────────── */
       .gl-orbit-wrap {
         position: relative;
         height: 440px;
         z-index: 1;
       }
 
-      /* decorative ring — no overflow, purely visual */
-      .gl-orbit-ring {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 320px;
-        height: 320px;
-        border-radius: 50%;
-        border: 1.5px solid rgba(255, 185, 145, .55);
-        box-shadow:
-          0 0 0 20px rgba(255, 215, 190, .09),
-          0 0 0 40px rgba(255, 215, 190, .05),
-          inset 0 0 60px rgba(255, 230, 210, .15);
-        pointer-events: none;
-      }
-
-      /* inner ring via pseudo */
-      .gl-orbit-ring::before {
-        content: "";
-        position: absolute;
-        inset: 28px;
-        border-radius: 50%;
-        border: 1px solid rgba(255, 200, 165, .35);
-        background: radial-gradient(circle, rgba(255, 238, 220, .3) 0%, transparent 70%);
-      }
-
-      /* heart image is now the hero background — no img element needed */
-
-      /* Emotion nodes — pivot anchor for Ferris wheel */
+      /* Heart nodes — pivot anchor for Ferris wheel */
       .gl-orbit-node {
         position: absolute;
         display: flex;
@@ -373,28 +341,18 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, .88);
-        box-shadow:
-          0 4px 18px rgba(232, 93, 130, .30),
-          0 0 0 1.5px rgba(255, 185, 200, .55),
-          inset 0 1px 2px rgba(255, 255, 255, .9);
-        font-size: 20px;
+        width: 42px;
+        height: 42px;
+        font-size: 30px;
         color: #e85d82;
         cursor: pointer;
-        transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s ease;
-        backdrop-filter: blur(4px);
-        -webkit-backdrop-filter: blur(4px);
+        text-shadow: 0 8px 18px rgba(232, 93, 130, .35);
+        transition: transform .25s cubic-bezier(.34,1.56,.64,1), text-shadow .25s ease;
       }
 
       .gl-orbit-heart:hover {
         transform: scale(1.25);
-        box-shadow:
-          0 8px 28px rgba(232, 93, 130, .45),
-          0 0 0 2px rgba(255, 107, 157, .6),
-          inset 0 1px 2px rgba(255, 255, 255, .9);
+        text-shadow: 0 12px 24px rgba(232, 93, 130, .48);
       }
 
       /* Ferris-wheel spinner — zero-size pivot at orbit center */
@@ -773,28 +731,6 @@
       /* ── Responsive ─────────────────────────────────────────────────── */
       /* ── Gallery 반응형 ──────────────────────────────────────────── */
 
-      /* 1920 — 오빗 & 히어로 스케일업 */
-      @media (min-width: 1441px) {
-        .gl-hero {
-          grid-template-columns: minmax(320px, 460px) 1fr minmax(300px, 440px);
-          padding: clamp(130px, 13vw, 190px) clamp(48px, 6vw, 108px) clamp(130px, 13vw, 170px);
-        }
-
-        .gl-orbit-wrap {
-          height: 560px;
-          transform: scale(1.28);
-          transform-origin: center center;
-        }
-
-        .gl-hero-yumi-big {
-          width: clamp(420px, 44vw, 660px);
-          bottom: -160px;
-        }
-
-        .gl-hero-polaroid-a { width: clamp(200px, 20vw, 300px); }
-        .gl-hero-polaroid-b { width: clamp(186px, 18vw, 272px); }
-      }
-
       /* 태블릿 가로 (1100px 이하) — 오른쪽 컬럼 숨김 */
       @media (max-width: 1100px) {
         .gl-hero {
@@ -953,7 +889,6 @@
 
       /* ── Hero entrance ─────────────────────────────────────────────── */
       gsap.set(".gl-hero-copy",      { opacity: 0, x: -36 });
-      gsap.set(".gl-orbit-ring",     { scale: 0.6, opacity: 0 });
       gsap.set(".gl-orbit-node",     { opacity: 0 }); /* orbital x/y already set above */
       gsap.set(".gl-hero-yumi-big",  { opacity: 0, y: 30 });
       gsap.set(".gl-hero-polaroid",  { opacity: 0, y: -20 });
@@ -962,8 +897,7 @@
       const heroTl = gsap.timeline({ delay: .2 });
       heroTl
         .to(".gl-hero-copy",       { opacity: 1, x: 0,     duration: .65, ease: "power3.out" })
-        .to(".gl-orbit-ring",      { scale: 1,   opacity: 1, duration: .7, ease: "power2.out" }, "-=.35")
-        .to(".gl-orbit-node",      { opacity: 1,            duration: .45, stagger: .07, ease: "power3.out" }, "-=.3")
+        .to(".gl-orbit-node",      { opacity: 1,            duration: .45, stagger: .07, ease: "power3.out" }, "-=.35")
         .to(".gl-hero-yumi-big",   { opacity: 1, y: 0,     duration: .65, ease: "power3.out" }, "-=.5")
         .to(".gl-hero-polaroid",   { opacity: 1, y: 0,     duration: .55, stagger: .1, ease: "power3.out" }, "-=.45")
         .to(".gl-hero-cell",       { opacity: 1, scale: 1, duration: .45, stagger: .08, ease: "power3.out" }, "-=.3")
