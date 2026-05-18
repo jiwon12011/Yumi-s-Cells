@@ -3,6 +3,53 @@ const motionLayers = document.querySelectorAll(".motion-layer");
 
 const canAnimate = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+if (finePointer) {
+  const cursor = document.createElement("div");
+  cursor.className = "custom-cursor";
+  cursor.setAttribute("aria-hidden", "true");
+  cursor.innerHTML = '<span class="custom-cursor-heart"></span><span class="custom-cursor-dot"></span>';
+  document.body.appendChild(cursor);
+
+  let cursorX = window.innerWidth / 2;
+  let cursorY = window.innerHeight / 2;
+  let targetCursorX = cursorX;
+  let targetCursorY = cursorY;
+
+  const moveCursor = () => {
+    cursorX += (targetCursorX - cursorX) * 0.32;
+    cursorY += (targetCursorY - cursorY) * 0.32;
+    cursor.style.left = `${cursorX}px`;
+    cursor.style.top = `${cursorY}px`;
+    requestAnimationFrame(moveCursor);
+  };
+
+  window.addEventListener("pointermove", (event) => {
+    targetCursorX = event.clientX;
+    targetCursorY = event.clientY;
+    cursor.classList.add("is-visible");
+  });
+
+  document.addEventListener("pointerover", (event) => {
+    if (event.target.closest("a, button, [role='button'], .cell, .mini-profile, .season-card, .gl-carousel-btn, .gl-emotion-item, .gl-cell-card")) {
+      cursor.classList.add("is-hover");
+    }
+  });
+
+  document.addEventListener("pointerout", (event) => {
+    if (event.target.closest("a, button, [role='button'], .cell, .mini-profile, .season-card, .gl-carousel-btn, .gl-emotion-item, .gl-cell-card")) {
+      cursor.classList.remove("is-hover");
+    }
+  });
+
+  document.addEventListener("pointerleave", () => {
+    cursor.classList.remove("is-visible");
+  });
+
+  moveCursor();
+}
+
 if (hero && motionLayers.length) {
   let pointerX = 0;
   let pointerY = 0;
