@@ -735,7 +735,8 @@
       /* 태블릿 가로 (1100px 이하) — 오른쪽 컬럼 숨김 */
       @media (max-width: 1100px) {
         .gl-hero {
-          grid-template-columns: minmax(220px, 320px) 1fr;
+          grid-template-columns: minmax(280px, 420px) minmax(320px, 1fr);
+          gap: clamp(16px, 4vw, 48px);
         }
 
         .gl-hero-right {
@@ -990,7 +991,13 @@
         const total   = originals.length;
 
         /* clone all cards and append — gives us seamless wraparound */
-        originals.forEach(card => track.appendChild(card.cloneNode(true)));
+        originals.forEach(card => {
+          const clone = card.cloneNode(true);
+          clone.setAttribute("aria-hidden", "true");
+          clone.removeAttribute("style");
+          clone.querySelectorAll("[style]").forEach(el => el.removeAttribute("style"));
+          track.appendChild(clone);
+        });
 
         const allCards = () => Array.from(track.querySelectorAll(".gl-scene-card"));
         const cardW    = () => allCards()[0].offsetWidth + 24;

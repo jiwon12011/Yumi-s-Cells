@@ -463,7 +463,7 @@
       /* ─── RESPONSIVE ──────────────────────────────────── */
       @media (max-width: 900px) {
         .nw-hero-copy { width: 100%; padding-right: 24px; }
-        .nw-hero-img { width: 50%; opacity: 0.35; }
+        .nw-hero-img { display: none; }
         .nw-featured { grid-template-columns: 1fr; }
         .nw-featured-img img { height: 220px; }
         .nw-featured-copy { padding: 24px; }
@@ -516,7 +516,8 @@
         <div class="nw-filter-bar" role="navigation" aria-label="뉴스 카테고리">
           <div class="nw-filter-inner">
             <div class="nw-tabs" id="nwTabs" role="tablist">
-              <button class="nw-filter-tab is-active" role="tab" data-filter="drama">드라마 소식</button>
+              <button class="nw-filter-tab is-active" role="tab" data-filter="all">전체</button>
+              <button class="nw-filter-tab" role="tab" data-filter="drama">드라마 소식</button>
               <button class="nw-filter-tab" role="tab" data-filter="webtoon">웹툰 소식</button>
               <button class="nw-filter-tab" role="tab" data-filter="event">이벤트</button>
               <button class="nw-filter-tab" role="tab" data-filter="goods">굿즈</button>
@@ -630,7 +631,7 @@
       var catLabels = { drama:"드라마 소식", webtoon:"웹툰 소식", event:"이벤트", goods:"굿즈", interview:"인터뷰", notice:"공지사항" };
 
       /* ─── STATE ──────────────────────────────────────────── */
-      var currentFilter = "drama";
+      var currentFilter = "all";
       var currentQuery = "";
 
       /* ─── DOM REFS ───────────────────────────────────────── */
@@ -736,19 +737,16 @@
         });
       }
 
-      /* ─── TAB CLICK — toggle: click same tab to deselect ── */
+      /* ─── TAB CLICK — keep current tab active on repeated click ── */
       tabs.forEach(function(tab) {
         tab.addEventListener("click", function() {
           var f = tab.dataset.filter;
           if (currentFilter === f) {
-            /* deselect → show all */
-            tab.classList.remove("is-active");
-            currentFilter = "all";
-          } else {
-            tabs.forEach(function(t){ t.classList.remove("is-active"); });
-            tab.classList.add("is-active");
-            currentFilter = f;
+            return;
           }
+          tabs.forEach(function(t){ t.classList.remove("is-active"); });
+          tab.classList.add("is-active");
+          currentFilter = f;
           renderList(true);
         });
       });
