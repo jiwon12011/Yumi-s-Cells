@@ -4185,6 +4185,20 @@ button {
   box-shadow: 0 0 8px rgba(255, 99, 151, .5);
 }
 
+/* ── Season card 3D perspective ──────────────────── */
+/* ── Cell & mini-profile interactions ───────────── */
+/* NOTE: these must appear BEFORE the cursor media query so that
+   cursor: none inside it wins by source order (same specificity) */
+.cell {
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.mini-profile {
+  cursor: pointer;
+  will-change: transform;
+}
+
 /* ── Custom cursor ───────────────────────────────── */
 @media (hover: hover) and (pointer: fine) {
   html,
@@ -4195,7 +4209,8 @@ button {
   .cell,
   .mini-profile,
   .season-card,
-  .gl-carousel-btn,
+  .gl-filter-btn,
+  .gl-scene-card,
   .gl-emotion-item,
   .gl-cell-card {
     cursor: none;
@@ -4272,16 +4287,5 @@ button {
 /* ── Season card 3D perspective ──────────────────── */
 .season-card {
   transform-style: preserve-3d;
-  will-change: transform;
-}
-
-/* ── Cell & mini-profile interactions ───────────── */
-.cell {
-  cursor: pointer;
-  pointer-events: auto;
-}
-
-.mini-profile {
-  cursor: pointer;
   will-change: transform;
 }

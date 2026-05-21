@@ -32,13 +32,13 @@ if (finePointer) {
   });
 
   document.addEventListener("pointerover", (event) => {
-    if (event.target.closest("a, button, [role='button'], .cell, .mini-profile, .season-card, .gl-carousel-btn, .gl-emotion-item, .gl-cell-card")) {
+    if (event.target.closest("a, button, [role='button'], .cell, .mini-profile, .season-card, .gl-filter-btn, .gl-scene-card, .gl-emotion-item, .gl-cell-card")) {
       cursor.classList.add("is-hover");
     }
   });
 
   document.addEventListener("pointerout", (event) => {
-    if (event.target.closest("a, button, [role='button'], .cell, .mini-profile, .season-card, .gl-carousel-btn, .gl-emotion-item, .gl-cell-card")) {
+    if (event.target.closest("a, button, [role='button'], .cell, .mini-profile, .season-card, .gl-filter-btn, .gl-scene-card, .gl-emotion-item, .gl-cell-card")) {
       cursor.classList.remove("is-hover");
     }
   });
