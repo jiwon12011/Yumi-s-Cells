@@ -588,3 +588,24 @@ if (window.gsap && canAnimate) {
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 })();
+
+/* ── Auto-detect active nav item ──────────────────── */
+(function () {
+  const page = location.pathname.split("/").pop() || "index.html";
+  document.querySelectorAll(".main-nav a").forEach((a) => {
+    const href = a.getAttribute("href").replace("./", "");
+    a.classList.toggle("is-active", href === page);
+  });
+})();
+
+/* ── Page transition: fade out before navigation ──── */
+document.querySelectorAll("a[href]").forEach((a) => {
+  const href = a.getAttribute("href");
+  if (!href || href.startsWith("#") || href.includes("://") || a.target === "_blank") return;
+  a.addEventListener("click", (e) => {
+    e.preventDefault();
+    const shell = document.querySelector(".site-shell");
+    if (shell) shell.classList.add("page-exit");
+    setTimeout(() => { window.location.href = href; }, 270);
+  });
+});

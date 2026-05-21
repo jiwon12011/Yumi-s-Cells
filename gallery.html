@@ -14,12 +14,12 @@
         <nav class="main-nav" aria-label="페이지 메뉴">
           <a href="./index.html">Home</a>
           <a href="./story.html">Story</a>
-          <a class="is-active" href="./gallery.html">Gallery</a>
+          <a href="./gallery.html">Gallery</a>
           <a href="./news.html">News</a>
         </nav>
         <div class="header-actions" aria-label="소셜 메뉴">
-          <a href="#" aria-label="Instagram"><span class="icon-instagram"></span></a>
-          <a href="#" aria-label="YouTube"><span class="icon-youtube"></span></a>
+          <a href="https://www.instagram.com/juicysmile/" target="_blank" rel="noopener" aria-label="Instagram"><span class="icon-instagram"></span></a>
+          <a href="https://www.youtube.com/hashtag/%EC%9C%A0%EB%AF%B8%EC%9D%98%EC%84%B8%ED%8F%AC%EB%93%A4" aria-label="YouTube" target="_blank" rel="noopener"><span class="icon-youtube"></span></a>
           <button class="menu-button" type="button" aria-label="메뉴 열기"><span></span><span></span></button>
         </div>
       </header>
@@ -115,48 +115,46 @@
           </div>
           <p class="gl-section-desc">웹툰 속 그 순간을 다시 꺼내봤어요.</p>
 
-          <div class="gl-carousel-wrap" aria-label="장면 갤러리">
-            <button class="gl-carousel-btn gl-carousel-prev" aria-label="이전">&#8592;</button>
-            <div class="gl-carousel-stage">
-              <div class="gl-carousel-track">
-                <figure class="gl-scene-card">
-                  <img src="./assets/images/news/news-yumi-woong-romance.png" alt="유미와 구웅의 로맨스" />
-                  <figcaption><strong>유미와 구웅의 로맨스</strong><span>두 사람의 두 번째 봄</span></figcaption>
-                </figure>
-                <figure class="gl-scene-card">
-                  <img src="./assets/images/news/news-main-drama-s3.png" alt="시즌3 포스터" />
-                  <figcaption><strong>시즌3 공식 포스터</strong><span>벚꽃 가득한 새로운 시작</span></figcaption>
-                </figure>
-                <figure class="gl-scene-card">
-                  <img src="./assets/images/news/news-yumi-diary.png" alt="유미의 일기" />
-                  <figcaption><strong>유미의 일기</strong><span>500화 돌파, 마음속 이야기</span></figcaption>
-                </figure>
-                <figure class="gl-scene-card">
-                  <img src="./assets/images/news/news-cells-lineup.png" alt="세포 라인업" />
-                  <figcaption><strong>10주년 세포 라인업</strong><span>팬 이벤트 2차 라인업 공개</span></figcaption>
-                </figure>
-                <figure class="gl-scene-card">
-                  <img src="./assets/images/news/news-cells-trio.png" alt="세포 트리오" />
-                  <figcaption><strong>세포 피규어 트리오</strong><span>한정 수량으로 만나는 세포들</span></figcaption>
-                </figure>
-                <figure class="gl-scene-card">
-                  <img src="./assets/images/news/news-yumi-writing.png" alt="유미의 글쓰기" />
-                  <figcaption><strong>작가 이동건 인터뷰</strong><span>10년의 여정과 시즌3 비화</span></figcaption>
-                </figure>
-                <figure class="gl-scene-card">
-                  <img src="./assets/images/news/news-prime-cell-announce.png" alt="프라임 세포 발표" />
-                  <figcaption><strong>공식 홈페이지 리뉴얼</strong><span>새로워진 유미의 세포들</span></figcaption>
-                </figure>
-                <figure class="gl-scene-card">
-                  <img src="./assets/images/news/news-hero-studio.png" alt="스튜디오" />
-                  <figcaption><strong>촬영장 비하인드</strong><span>시즌3 제작 현장 스케치</span></figcaption>
-                </figure>
-              </div>
-            </div>
-            <button class="gl-carousel-btn gl-carousel-next" aria-label="다음">&#8594;</button>
+          <div class="gl-filter-bar" role="group" aria-label="카테고리 필터">
+            <button class="gl-filter-btn is-active" data-cat="all">전체</button>
+            <button class="gl-filter-btn" data-cat="drama">드라마</button>
+            <button class="gl-filter-btn" data-cat="webtoon">웹툰</button>
+            <button class="gl-filter-btn" data-cat="character">캐릭터</button>
+            <button class="gl-filter-btn" data-cat="behind">비하인드</button>
           </div>
-          <div class="gl-carousel-dots" aria-hidden="true">
-            <span class="is-active"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          <div class="gl-photo-grid">
+            <figure class="gl-scene-card" data-cat="drama">
+              <img src="./assets/images/news/news-yumi-woong-romance.png" alt="유미와 구웅의 로맨스" />
+              <figcaption><strong>유미와 구웅의 로맨스</strong><span>두 사람의 두 번째 봄</span></figcaption>
+            </figure>
+            <figure class="gl-scene-card" data-cat="drama">
+              <img src="./assets/images/news/news-main-drama-s3.png" alt="시즌3 포스터" />
+              <figcaption><strong>시즌3 공식 포스터</strong><span>벚꽃 가득한 새로운 시작</span></figcaption>
+            </figure>
+            <figure class="gl-scene-card" data-cat="webtoon">
+              <img src="./assets/images/news/news-yumi-diary.png" alt="유미의 일기" />
+              <figcaption><strong>유미의 일기</strong><span>500화 돌파, 마음속 이야기</span></figcaption>
+            </figure>
+            <figure class="gl-scene-card" data-cat="character">
+              <img src="./assets/images/news/news-cells-lineup.png" alt="세포 라인업" />
+              <figcaption><strong>10주년 세포 라인업</strong><span>팬 이벤트 2차 라인업 공개</span></figcaption>
+            </figure>
+            <figure class="gl-scene-card" data-cat="character">
+              <img src="./assets/images/news/news-cells-trio.png" alt="세포 트리오" />
+              <figcaption><strong>세포 피규어 트리오</strong><span>한정 수량으로 만나는 세포들</span></figcaption>
+            </figure>
+            <figure class="gl-scene-card" data-cat="webtoon">
+              <img src="./assets/images/news/news-yumi-writing.png" alt="작가 이동건 인터뷰" />
+              <figcaption><strong>작가 이동건 인터뷰</strong><span>10년의 여정과 시즌3 비화</span></figcaption>
+            </figure>
+            <figure class="gl-scene-card" data-cat="behind">
+              <img src="./assets/images/news/news-prime-cell-announce.png" alt="공식 홈페이지 리뉴얼" />
+              <figcaption><strong>공식 홈페이지 리뉴얼</strong><span>새로워진 유미의 세포들</span></figcaption>
+            </figure>
+            <figure class="gl-scene-card" data-cat="behind">
+              <img src="./assets/images/news/news-hero-studio.png" alt="촬영장 비하인드" />
+              <figcaption><strong>촬영장 비하인드</strong><span>시즌3 제작 현장 스케치</span></figcaption>
+            </figure>
           </div>
         </section>
 
@@ -216,9 +214,9 @@
           <div class="support-copy">
             <h2>유미와 세포들의 이야기를<br />함께 응원해 주세요!</h2>
             <div class="support-buttons">
-              <a href="#"><span class="support-icon instagram-dot"></span>공식 인스타그램</a>
-              <a href="#"><span class="support-icon youtube-dot"></span>공식 유튜브</a>
-              <a href="#"><span class="support-icon naver-dot"></span>팬카페 바로가기</a>
+              <a href="https://www.instagram.com/juicysmile/" target="_blank" rel="noopener"><span class="support-icon instagram-dot"></span>공식 인스타그램</a>
+              <a href="https://www.youtube.com/hashtag/%EC%9C%A0%EB%AF%B8%EC%9D%98%EC%84%B8%ED%8F%AC%EB%93%A4" target="_blank" rel="noopener"><span class="support-icon youtube-dot"></span>공식 유튜브</a>
+              <a href="https://comic.naver.com/webtoon/list?titleId=651673" target="_blank" rel="noopener"><span class="support-icon naver-dot"></span>팬카페 바로가기</a>
             </div>
           </div>
           <img class="support-cells-right" src="./assets/images/gallery/three-happy-cells.png" alt="" aria-hidden="true" />
@@ -286,16 +284,20 @@
       .gl-hero-kicker {
         display: inline-block;
         margin-bottom: 14px;
+        padding: 5px 14px;
+        border-radius: 999px;
         color: #e85d82;
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 1000;
+        letter-spacing: 0.12em;
         text-transform: uppercase;
-        letter-spacing: .12em;
+        background: rgba(232, 93, 130, .1);
+        border: 1px solid rgba(232, 93, 130, .25);
       }
 
       .gl-hero-copy h1 {
         margin: 0;
-        font-size: clamp(32px, 3.4vw, 52px);
+        font-size: clamp(28px, 3.0vw, 44px);
         font-weight: 1000;
         color: #2b2d42;
         line-height: 1.18;
@@ -314,7 +316,7 @@
 
       .gl-hero-copy p {
         margin: 18px 0 28px;
-        font-size: clamp(14px, 1.1vw, 17px);
+        font-size: clamp(15px, 1.3vw, 19px);
         font-weight: 700;
         color: #5a5d7a;
         line-height: 1.7;
@@ -500,44 +502,61 @@
         margin-top: -6px;
       }
 
-      /* ── 02 Carousel ────────────────────────────────────────────────── */
+      /* ── 02 Scenes (filter + grid) ──────────────────────────────────── */
       .gl-carousel-section {
-        padding: clamp(60px, 8vw, 100px) 0 clamp(60px, 8vw, 100px);
+        padding: clamp(60px, 8vw, 100px) clamp(20px, 5vw, 74px);
         background: linear-gradient(180deg, #fff8fb 0%, #f0eeff 100%);
         text-align: center;
-        overflow: hidden;
       }
 
-      .gl-carousel-wrap {
-        position: relative;
+      /* ── Filter bar ─────────────────────────────────────────────────── */
+      .gl-filter-bar {
         display: flex;
-        align-items: center;
-        gap: 0;
-        margin-top: 8px;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        margin-bottom: 32px;
       }
 
-      .gl-carousel-stage {
-        flex: 1;
-        overflow: hidden;
+      .gl-filter-btn {
+        padding: 8px 22px;
+        border-radius: 999px;
+        font: 800 13px/1 Pretendard, -apple-system, sans-serif;
+        cursor: pointer;
+        border: 1.5px solid rgba(255, 99, 151, .28);
+        background: rgba(255, 99, 151, .07);
+        color: #a0547a;
+        letter-spacing: .04em;
+        transition: background .2s, color .2s, border-color .2s, transform .15s;
       }
 
-      .gl-carousel-track {
-        display: flex;
-        gap: 24px;
-        padding: 24px clamp(20px, 5vw, 74px);
-        transition: transform .5s cubic-bezier(.25, .46, .45, .94);
-        will-change: transform;
+      .gl-filter-btn.is-active,
+      .gl-filter-btn:hover {
+        background: #ff6397;
+        border-color: #ff6397;
+        color: #fff;
+        transform: translateY(-2px);
+      }
+
+      /* ── Photo grid ─────────────────────────────────────────────────── */
+      .gl-photo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 20px;
+        text-align: left;
       }
 
       .gl-scene-card {
-        flex: 0 0 clamp(260px, 30vw, 360px);
         border-radius: 16px;
         overflow: hidden;
         background: #fff;
         box-shadow: 0 8px 32px rgba(0, 0, 0, .09);
-        transition: transform .3s ease, box-shadow .3s ease;
-        margin: 0;
+        transition: transform .3s ease, box-shadow .3s ease, opacity .25s ease;
         cursor: pointer;
+      }
+
+      .gl-scene-card.gl-filtered-out {
+        display: none;
       }
 
       .gl-scene-card:hover {
@@ -554,7 +573,6 @@
 
       .gl-scene-card figcaption {
         padding: 16px 18px 20px;
-        text-align: left;
         display: flex;
         flex-direction: column;
         gap: 4px;
@@ -570,49 +588,6 @@
         font-size: 13px;
         font-weight: 700;
         color: #9396b0;
-      }
-
-      .gl-carousel-btn {
-        flex: 0 0 auto;
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        border: none;
-        background: #fff;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, .12);
-        font-size: 20px;
-        cursor: pointer;
-        transition: transform .2s ease, box-shadow .2s ease;
-        z-index: 2;
-        margin: 0 clamp(8px, 2vw, 24px);
-        color: var(--navy);
-      }
-
-      .gl-carousel-btn:hover {
-        transform: scale(1.12);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, .16);
-      }
-
-      .gl-carousel-dots {
-        display: flex;
-        justify-content: center;
-        gap: 8px;
-        margin-top: 24px;
-      }
-
-      .gl-carousel-dots span {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: #d4d6e8;
-        cursor: pointer;
-        transition: background .2s, width .2s;
-      }
-
-      .gl-carousel-dots span.is-active {
-        width: 24px;
-        border-radius: 4px;
-        background: var(--pink);
       }
 
       /* ── 03 Cells ───────────────────────────────────────────────────── */
@@ -744,7 +719,7 @@
         }
 
         .gl-hero-copy h1 {
-          font-size: clamp(26px, 3.2vw, 44px);
+          font-size: clamp(24px, 2.8vw, 36px);
         }
       }
 
@@ -822,7 +797,7 @@
         }
 
         .gl-hero-copy h1 {
-          font-size: clamp(28px, 9vw, 42px);
+          font-size: clamp(20px, 5.5vw, 28px);
           word-break: keep-all;
         }
 
@@ -848,8 +823,17 @@
           font-size: 15px;
         }
 
-        .gl-scene-card {
-          flex: 0 0 clamp(240px, 80vw, 320px);
+        .gl-photo-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .gl-filter-bar {
+          gap: 8px;
+        }
+
+        .gl-filter-btn {
+          padding: 7px 16px;
+          font-size: 12px;
         }
 
         .gl-quote-block {
@@ -983,75 +967,30 @@
         });
       });
 
-      /* ── 02 Carousel logic (infinite loop via clone) ───────────────── */
+      /* ── 02 Gallery filter ──────────────────────────────────────────── */
       (function () {
-        const track   = document.querySelector(".gl-carousel-track");
-        const originals = Array.from(track.querySelectorAll(".gl-scene-card"));
-        const dots    = Array.from(document.querySelectorAll(".gl-carousel-dots span"));
-        const total   = originals.length;
+        const filterBtns = document.querySelectorAll(".gl-filter-btn");
+        const cards      = document.querySelectorAll(".gl-photo-grid .gl-scene-card");
 
-        /* clone all cards and append — gives us seamless wraparound */
-        originals.forEach(card => {
-          const clone = card.cloneNode(true);
-          clone.setAttribute("aria-hidden", "true");
-          clone.removeAttribute("style");
-          clone.querySelectorAll("[style]").forEach(el => el.removeAttribute("style"));
-          track.appendChild(clone);
-        });
+        filterBtns.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const cat = btn.dataset.cat;
+            filterBtns.forEach((b) => b.classList.remove("is-active"));
+            btn.classList.add("is-active");
 
-        const allCards = () => Array.from(track.querySelectorAll(".gl-scene-card"));
-        const cardW    = () => allCards()[0].offsetWidth + 24;
-
-        let current = 0;
-        let animating = false;
-
-        function syncDots(idx) {
-          const realIdx = ((idx % total) + total) % total;
-          dots.forEach((d, i) => d.classList.toggle("is-active", i === realIdx));
-        }
-
-        function go(idx, instant) {
-          if (animating && !instant) return;
-          animating = true;
-          current = idx;
-          const x = -(current * cardW());
-          if (instant) {
-            gsap.set(track, { x });
-            animating = false;
-          } else {
-            gsap.to(track, {
-              x, duration: .55, ease: "power3.out",
-              onComplete: () => {
-                /* seamless jump: if we're in clone territory, snap to real */
-                if (current >= total) {
-                  gsap.set(track, { x: -(0 * cardW()) });
-                  current = 0;
-                  syncDots(0);
-                } else if (current < 0) {
-                  gsap.set(track, { x: -((total - 1) * cardW()) });
-                  current = total - 1;
-                  syncDots(total - 1);
-                }
-                animating = false;
-              }
+            cards.forEach((card) => {
+              card.classList.toggle("gl-filtered-out", cat !== "all" && card.dataset.cat !== cat);
             });
-          }
-          syncDots(current);
-        }
 
-        document.querySelector(".gl-carousel-prev").addEventListener("click", () => go(current - 1));
-        document.querySelector(".gl-carousel-next").addEventListener("click", () => go(current + 1));
-        dots.forEach((d, i) => d.addEventListener("click", () => go(i)));
-
-        /* auto-play */
-        let autoplay = setInterval(() => go(current + 1), 3600);
-        const stage = document.querySelector(".gl-carousel-stage");
-        stage.addEventListener("mouseenter", () => clearInterval(autoplay));
-        stage.addEventListener("mouseleave", () => {
-          autoplay = setInterval(() => go(current + 1), 3600);
+            /* fade-in visible cards */
+            const visible = Array.from(cards).filter((c) => !c.classList.contains("gl-filtered-out"));
+            if (window.gsap) {
+              gsap.from(visible, { opacity: 0, y: 14, scale: .97, duration: .35, stagger: .045, ease: "power2.out", clearProps: "all" });
+            }
+          });
         });
 
-        /* carousel entrance */
+        /* scene card scroll entrance */
         gsap.set(".gl-scene-card", { opacity: 0, y: 40 });
         ScrollTrigger.create({
           trigger: ".gl-carousel-section",

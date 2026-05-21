@@ -53,9 +53,27 @@ button {
   font: inherit;
 }
 
+/* ── Page transition ─────────────────────────────── */
+@keyframes page-enter {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 .site-shell {
   min-height: 100vh;
   overflow: hidden;
+  transition: opacity .26s ease, transform .26s ease;
+}
+
+.site-shell.sub-page {
+  animation: page-enter .4s ease both;
+}
+
+.site-shell.page-exit {
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+  animation: none;
 }
 
 .site-header {
@@ -287,7 +305,7 @@ button {
   position: relative;
   z-index: 5;
   width: min(45vw, 590px);
-  padding: clamp(124px, 13vh, 158px) 0 0 clamp(28px, 5.8vw, 104px);
+  padding: clamp(152px, 16vh, 190px) 0 0 clamp(20px, 4vw, 68px);
 }
 
 .hero-copy::before,
@@ -2080,7 +2098,7 @@ button {
 .sub-hero {
   position: relative;
   min-height: clamp(620px, 78svh, 800px);
-  padding: clamp(128px, 12vw, 170px) clamp(20px, 5vw, 74px) clamp(116px, 11vw, 150px);
+  padding: clamp(128px, 12vw, 170px) clamp(20px, 4vw, 68px) clamp(116px, 11vw, 150px);
   overflow: hidden;
   isolation: isolate;
   background:
@@ -2124,8 +2142,8 @@ button {
   grid-template-columns: minmax(340px, 520px) minmax(420px, 1fr);
   align-items: center;
   gap: clamp(34px, 6vw, 90px);
-  width: min(100%, 1240px);
-  margin: 0 auto;
+  width: 100%;
+  margin: 0;
 }
 
 .sub-hero-copy {
@@ -2148,18 +2166,23 @@ button {
 }
 
 .sub-kicker {
-  display: block;
-  margin-bottom: 12px;
+  display: inline-block;
+  margin-bottom: 14px;
+  padding: 5px 14px;
+  border-radius: 999px;
   color: var(--pink);
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 1000;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
+  background: rgba(255, 99, 151, .1);
+  border: 1px solid rgba(255, 99, 151, .25);
 }
 
 .sub-hero h1 {
   margin: 0;
   color: var(--navy);
-  font-size: clamp(44px, 4.9vw, 74px);
+  font-size: clamp(28px, 3.0vw, 44px);
   font-weight: 1000;
   line-height: 1.08;
   letter-spacing: 0;
@@ -2169,7 +2192,7 @@ button {
   width: min(100%, 480px);
   margin: 22px 0 0;
   color: #414461;
-  font-size: clamp(17px, 1.35vw, 21px);
+  font-size: clamp(15px, 1.3vw, 19px);
   font-weight: 850;
   line-height: 1.62;
 }
@@ -3119,6 +3142,89 @@ button {
   }
 }
 
+/* ─────────────────────────────────────────────────────────────────────
+   RESPONSIVE — 1920 (min-width: 1441px)
+   ───────────────────────────────────────────────────────────────────── */
+@media (min-width: 1441px) {
+
+  .hero {
+    min-height: clamp(880px, 92svh, 1060px);
+  }
+
+  .hero-copy {
+    width: min(38vw, 700px);
+    padding-left: clamp(20px, 4vw, 68px);
+    padding-top: clamp(180px, 18vh, 244px);
+  }
+
+  .hero h1 {
+    font-size: clamp(100px, 7.6vw, 158px);
+  }
+
+  .eyebrow {
+    font-size: clamp(22px, 1.6vw, 32px);
+  }
+
+  .hero-description {
+    font-size: clamp(20px, 1.5vw, 28px);
+  }
+
+  .primary-button,
+  .secondary-button {
+    min-height: 64px;
+    padding: 0 34px;
+    font-size: 18px;
+  }
+
+  .yumi-main {
+    right: clamp(420px, 27vw, 640px);
+    bottom: clamp(60px, 9vh, 140px);
+    width: clamp(540px, 39vw, 760px);
+  }
+
+  .cell-panels {
+    right: 6%;
+    top: 10%;
+    width: clamp(400px, 31vw, 640px);
+  }
+
+  .cell-love   { width: clamp(140px, 11.5vw, 230px); }
+  .cell-angry  { width: clamp(176px, 14vw,   288px); }
+  .cell-reading{ width: clamp(166px, 13.5vw, 278px); }
+  .cell-chill  { width: clamp(200px, 17vw,   360px); }
+  .cell-artist { width: clamp(200px, 18vw,   380px); }
+
+  .section-heading span { font-size: 16px; }
+  .section-heading h2   { font-size: clamp(44px, 3.4vw, 68px); }
+
+  .relationship    { padding-inline: clamp(60px, 6vw, 140px); }
+  .relationship-map{ max-width: 1720px; }
+  .rel-card        { padding: 48px; }
+  .mini-profile img{ width: 128px; }
+
+  .season-replay { padding-inline: clamp(60px, 6vw, 140px); }
+  .season-grid   { max-width: 1720px; }
+  .season-card   { min-height: 540px; }
+
+  .webtoon-meet { padding-inline: clamp(60px, 6vw, 140px); }
+  .webtoon-art  { min-height: 700px; }
+
+  .news-gallery { padding-inline: clamp(60px, 6vw, 140px); }
+
+  .sub-hero {
+    padding: clamp(128px, 13vh, 188px) clamp(20px, 4vw, 68px) clamp(120px, 12vh, 160px);
+  }
+
+  .sub-hero-inner { gap: 80px; }
+  .sub-hero h1    { font-size: clamp(32px, 2.4vw, 46px); }
+  .sub-section    { padding-inline: clamp(80px, 8vw, 160px); }
+
+  .support-banner  { padding: 80px clamp(80px, 8vw, 160px); }
+  .support-copy h2 { font-size: clamp(30px, 2.5vw, 48px); }
+
+  .site-footer { padding: 32px clamp(80px, 8vw, 160px); }
+}
+
 @media (max-width: 1180px) {
   .site-header {
     grid-template-columns: auto 1fr auto;
@@ -3295,7 +3401,7 @@ button {
 
   .hero-copy {
     width: min(100% - 44px, 520px);
-    padding: 138px 0 0;
+    padding: 162px 0 0;
     margin: 0 auto;
   }
 
@@ -3845,7 +3951,7 @@ button {
   }
 
   .sub-hero h1 {
-    font-size: clamp(38px, 10vw, 48px);
+    font-size: clamp(24px, 6.5vw, 32px);
   }
 
   .sub-hero p {
@@ -3978,7 +4084,7 @@ button {
   }
 
   .sub-hero h1 {
-    font-size: clamp(30px, 9vw, 42px);
+    font-size: clamp(20px, 5.5vw, 28px);
     word-break: keep-all;
   }
 
@@ -3994,6 +4100,63 @@ button {
   .support-buttons a {
     width: 100%;
     justify-content: center;
+  }
+}
+
+/* ── 375px 이하 추가 조정 ─────────────────────── */
+@media (max-width: 375px) {
+  .site-header {
+    padding: 14px 14px;
+  }
+
+  .brand {
+    width: 80px;
+  }
+
+  .sub-hero {
+    padding: 104px 14px 80px;
+  }
+
+  .sub-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .sub-actions .primary-button,
+  .sub-actions .secondary-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .st-cta {
+    flex-direction: column;
+  }
+
+  .st-cta .primary-button,
+  .st-cta .secondary-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .sub-section-heading span {
+    font-size: 11px;
+  }
+
+  .sub-section-heading h2 {
+    font-size: clamp(18px, 5.5vw, 24px);
+  }
+
+  .support-banner {
+    grid-template-columns: 1fr;
+  }
+
+  .support-cells-left,
+  .support-cells-right {
+    display: none;
+  }
+
+  .support-copy h2 {
+    font-size: 18px;
   }
 }
 
