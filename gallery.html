@@ -929,21 +929,30 @@
         const label  = item.querySelector('.gl-emotion-label');
 
         item.addEventListener('click', () => {
+          /* per-emotion colour palette */
+          const emotionColors = {
+            위로:  { ripple: '#a78bfa', glow: '167,139,250', label: '#7c3aed' },
+            설렘:  { ripple: '#ff6b9d', glow: '255,107,157', label: '#e85d82' },
+            흔들림: { ripple: '#5bc4f5', glow: '91,196,245',  label: '#0ea5e9' },
+            성장:  { ripple: '#7ed957', glow: '126,217,87',   label: '#4d9e2e' },
+            기쁨:  { ripple: '#ff9a3c', glow: '255,154,60',   label: '#e07520' },
+          };
+          const ec = emotionColors[item.dataset.emotion] || emotionColors['설렘'];
+
           /* jelly bounce on bubble */
           gsap.timeline()
             .to(bubble, { scale: 1.28, duration: .12, ease: "power2.out",
-                          boxShadow: "0 0 0 8px rgba(255,107,157,.22), 0 20px 48px rgba(255,107,157,.28)" })
+                          boxShadow: `0 0 0 8px rgba(${ec.glow},.22), 0 20px 48px rgba(${ec.glow},.28)` })
             .to(bubble, { scale: 1,    duration: .7,  ease: "elastic.out(1.4, 0.38)",
                           boxShadow: "0 8px 28px rgba(0,0,0,.08)" });
 
           /* label pops up */
           gsap.timeline()
-            .to(label, { y: -9, color: '#e85d82', duration: .1, ease: "power2.out" })
+            .to(label, { y: -9, color: ec.label, duration: .1, ease: "power2.out" })
             .to(label, { y: 0,  color: '',        duration: .6, ease: "elastic.out(1.2, 0.4)" });
 
           /* ripple ring — appended outside bubble (avoids overflow:hidden clip) */
-          const rippleColors = { 위로: '#a78bfa', 설렘: '#ff6b9d', 흔들림: '#5bc4f5', 성장: '#7ed957', 기쁨: '#ff9a3c' };
-          const rippleColor  = rippleColors[item.dataset.emotion] || '#ff6b9d';
+          const rippleColor = ec.ripple;
           const bRect   = bubble.getBoundingClientRect();
           const iRect   = item.getBoundingClientRect();
           const ripple  = document.createElement('div');
