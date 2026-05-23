@@ -942,6 +942,8 @@
             .to(label, { y: 0,  color: '',        duration: .6, ease: "elastic.out(1.2, 0.4)" });
 
           /* ripple ring — appended outside bubble (avoids overflow:hidden clip) */
+          const rippleColors = { 위로: '#a78bfa', 설렘: '#ff6b9d', 흔들림: '#5bc4f5', 성장: '#7ed957', 기쁨: '#ff9a3c' };
+          const rippleColor  = rippleColors[item.dataset.emotion] || '#ff6b9d';
           const bRect   = bubble.getBoundingClientRect();
           const iRect   = item.getBoundingClientRect();
           const ripple  = document.createElement('div');
@@ -955,7 +957,7 @@
             height:        rSize + 'px',
             top:          (bCenterY - iRect.top  - rSize / 2) + 'px',
             left:         (bCenterX - iRect.left - rSize / 2) + 'px',
-            border:       '2.5px solid #ff6b9d',
+            border:       '2.5px solid ' + rippleColor,
             pointerEvents:'none',
             zIndex:       '10',
             willChange:   'transform, opacity'
