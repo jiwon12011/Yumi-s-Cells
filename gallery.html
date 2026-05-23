@@ -942,16 +942,19 @@
             .to(label, { y: 0,  color: '',        duration: .6, ease: "elastic.out(1.2, 0.4)" });
 
           /* ripple ring — appended outside bubble (avoids overflow:hidden clip) */
-          const bRect = bubble.getBoundingClientRect();
-          const iRect = item.getBoundingClientRect();
-          const ripple = document.createElement('div');
+          const bRect   = bubble.getBoundingClientRect();
+          const iRect   = item.getBoundingClientRect();
+          const ripple  = document.createElement('div');
+          const rSize   = Math.max(bubble.offsetWidth, bubble.offsetHeight);
+          const bCenterY = bRect.top  + bRect.height / 2;
+          const bCenterX = bRect.left + bRect.width  / 2;
           Object.assign(ripple.style, {
             position:     'absolute',
             borderRadius: '50%',
-            width:         bubble.offsetWidth  + 'px',
-            height:        bubble.offsetHeight + 'px',
-            top:          (bRect.top  - iRect.top)  + 'px',
-            left:         (bRect.left - iRect.left) + 'px',
+            width:         rSize + 'px',
+            height:        rSize + 'px',
+            top:          (bCenterY - iRect.top  - rSize / 2) + 'px',
+            left:         (bCenterX - iRect.left - rSize / 2) + 'px',
             border:       '2.5px solid #ff6b9d',
             pointerEvents:'none',
             zIndex:       '10',
