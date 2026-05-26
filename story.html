@@ -13,7 +13,7 @@
       /* ── Hero ──────────────────────────────────────────────────── */
       .st-hero {
         position: relative;
-        min-height: clamp(520px, 70svh, 720px);
+        min-height: 90svh;
         overflow: hidden;
         display: flex;
         align-items: center;
@@ -97,6 +97,12 @@
         line-height: 1.7;
         margin: 0;
         max-width: 360px;
+      }
+
+      @media (min-width: 1441px) {
+        .st-hero-copy {
+          padding: clamp(130px, 12vw, 160px) clamp(24px, 5vw, 80px) clamp(60px, 6vw, 80px);
+        }
       }
 
       .st-cta {
