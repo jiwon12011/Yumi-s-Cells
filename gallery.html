@@ -32,8 +32,8 @@
           <!-- Left: copy -->
           <div class="gl-hero-copy">
             <span class="gl-hero-kicker">Gallery</span>
-            <h1 id="gallery-page-title">유미의 모든 순간을<br />기록한 <em>갤러리</em> <span class="gl-heart-deco" aria-hidden="true">♡</span></h1>
-            <p>사랑하고, 흔들리고, 성장했던<br />유미와 세포들의 다양한 순간들을 만나보세요.</p>
+            <h1 id="gallery-page-title"><span>유미의 모든 순간을</span><span>기록한 <em>갤러리</em> <span class="gl-heart-deco" aria-hidden="true">♡</span></span></h1>
+            <p><span>사랑하고, 흔들리고, 성장했던</span><span>유미와 세포들의 다양한 순간들을 만나보세요.</span></p>
           </div>
 
           <!-- Center: floating hearts -->
@@ -282,6 +282,8 @@
         flex-direction: column;
         gap: 20px;
         justify-content: center;
+        min-width: 0;
+        max-width: 560px;
         padding-right: 16px;
       }
 
@@ -306,6 +308,14 @@
         color: #1a1a1a;
         line-height: 1.2;
         letter-spacing: 0;
+        word-break: keep-all;
+        overflow-wrap: normal;
+      }
+
+      .gl-hero-copy h1 > span,
+      .gl-hero-copy p > span {
+        display: block;
+        white-space: nowrap;
       }
 
       .gl-hero-copy h1 em {
@@ -325,6 +335,8 @@
         color: #555;
         line-height: 1.7;
         max-width: 360px;
+        word-break: keep-all;
+        overflow-wrap: normal;
       }
 
       /* ── Floating hearts (center) ───────────────────────────────────── */
@@ -715,7 +727,7 @@
       /* 태블릿 가로 (1100px 이하) — 오른쪽 컬럼 숨김 */
       @media (max-width: 1100px) {
         .gl-hero {
-          grid-template-columns: minmax(280px, 420px) minmax(320px, 1fr);
+          grid-template-columns: minmax(420px, 520px) minmax(260px, 1fr);
           gap: clamp(16px, 4vw, 48px);
         }
 
@@ -804,6 +816,11 @@
         .gl-hero-copy h1 {
           font-size: clamp(20px, 5.5vw, 28px);
           word-break: keep-all;
+        }
+
+        .gl-hero-copy h1 > span,
+        .gl-hero-copy p > span {
+          white-space: normal;
         }
 
         .gl-hero-copy p {
