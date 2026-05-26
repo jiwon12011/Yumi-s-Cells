@@ -249,7 +249,7 @@ if (window.gsap && canAnimate) {
   gsap.from(".rel-card-people, .rel-card-town", {
     scrollTrigger: { trigger: ".relationship-map", start: "top 78%" },
     x: 80,
-    clipPath: "inset(0 0 0 18% round 8px)",
+    clipPath: "inset(-40px 0 -40px 18% round 8px)",
     autoAlpha: 0,
     duration: .78,
     stagger: .14,
