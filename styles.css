@@ -2182,7 +2182,7 @@ button {
 .sub-hero h1 {
   margin: 0;
   color: var(--navy);
-  font-size: clamp(28px, 3.0vw, 44px);
+  font-size: clamp(32px, 3.4vw, 52px);
   font-weight: 1000;
   line-height: 1.08;
   letter-spacing: 0;
@@ -2192,7 +2192,7 @@ button {
   width: min(100%, 480px);
   margin: 22px 0 0;
   color: #414461;
-  font-size: clamp(15px, 1.3vw, 19px);
+  font-size: clamp(16px, 1.45vw, 21px);
   font-weight: 850;
   line-height: 1.62;
 }
@@ -3158,15 +3158,15 @@ button {
   }
 
   .hero h1 {
-    font-size: clamp(100px, 7.6vw, 158px);
+    font-size: clamp(92px, 7vw, 142px);
   }
 
   .eyebrow {
-    font-size: clamp(22px, 1.6vw, 32px);
+    font-size: clamp(20px, 1.4vw, 28px);
   }
 
   .hero-description {
-    font-size: clamp(20px, 1.5vw, 28px);
+    font-size: clamp(18px, 1.35vw, 24px);
   }
 
   .primary-button,
@@ -3178,7 +3178,7 @@ button {
 
   .yumi-main {
     right: clamp(360px, 24vw, 540px);
-    bottom: clamp(60px, 9vh, 140px);
+    bottom: clamp(28px, 6vh, 96px);
     width: clamp(490px, 33vw, 700px);
   }
 
@@ -3217,7 +3217,8 @@ button {
   }
 
   .sub-hero-inner { gap: 80px; }
-  .sub-hero h1    { font-size: clamp(32px, 2.4vw, 46px); }
+  .sub-hero h1    { font-size: clamp(38px, 2.8vw, 56px); }
+  .sub-hero p     { font-size: clamp(17px, 1.3vw, 22px); }
   .sub-section    { padding-inline: clamp(80px, 8vw, 160px); }
 
   .support-banner  { padding: 80px clamp(80px, 8vw, 160px); }
