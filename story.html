@@ -50,30 +50,34 @@
       .st-hero-copy {
         position: relative;
         z-index: 2;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        justify-content: center;
         max-width: 720px;
         padding: clamp(120px, 14vw, 180px) clamp(24px, 5vw, 80px) clamp(100px, 14vw, 160px);
       }
 
       .st-eyebrow {
         display: inline-block;
+        width: fit-content;
         font-size: 12px;
         font-weight: 1000;
         letter-spacing: 0.12em;
         text-transform: uppercase;
-        color: var(--pink);
-        margin-bottom: 14px;
+        color: #fff;
+        margin-bottom: 0;
         padding: 5px 14px;
-        background: rgba(255, 99, 151, 0.1);
+        background: #ff4b8b;
         border-radius: 999px;
-        border: 1px solid rgba(255, 99, 151, 0.25);
       }
 
       .st-title {
         font-size: clamp(32px, 3.4vw, 52px);
-        font-weight: 1000;
-        line-height: 1.15;
-        color: var(--navy);
-        margin: 0 0 20px;
+        font-weight: 900;
+        line-height: 1.2;
+        color: #1a1a1a;
+        margin: 0;
         word-break: keep-all;
         overflow-wrap: break-word;
       }
@@ -83,15 +87,16 @@
       }
 
       .st-title em {
-        color: var(--pink);
+        color: #ff4b8b;
         font-style: normal;
       }
 
       .st-desc {
         font-size: clamp(16px, 1.45vw, 21px);
-        color: #4a4870;
-        line-height: 1.65;
+        color: #555;
+        line-height: 1.7;
         margin: 0;
+        max-width: 360px;
       }
 
       .st-cta {

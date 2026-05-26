@@ -278,48 +278,53 @@
 
       /* ── Hero copy (left) ────────────────────────────────────────────── */
       .gl-hero-copy {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        justify-content: center;
         padding-right: 16px;
       }
 
       .gl-hero-kicker {
         display: inline-block;
-        margin-bottom: 14px;
+        width: fit-content;
+        margin-bottom: 0;
         padding: 5px 14px;
         border-radius: 999px;
-        color: #e85d82;
+        color: #fff;
         font-size: 12px;
         font-weight: 1000;
         letter-spacing: 0.12em;
         text-transform: uppercase;
-        background: rgba(232, 93, 130, .1);
-        border: 1px solid rgba(232, 93, 130, .25);
+        background: #ff4b8b;
       }
 
       .gl-hero-copy h1 {
         margin: 0;
         font-size: clamp(32px, 3.4vw, 52px);
-        font-weight: 1000;
-        color: #2b2d42;
-        line-height: 1.18;
+        font-weight: 900;
+        color: #1a1a1a;
+        line-height: 1.2;
         letter-spacing: 0;
       }
 
       .gl-hero-copy h1 em {
         font-style: normal;
-        color: #e85d82;
+        color: #ff4b8b;
       }
 
       .gl-heart-deco {
-        color: #e85d82;
+        color: #ff4b8b;
         font-size: .85em;
       }
 
       .gl-hero-copy p {
-        margin: 18px 0 28px;
+        margin: 0;
         font-size: clamp(16px, 1.45vw, 21px);
-        font-weight: 700;
-        color: #5a5d7a;
+        font-weight: 400;
+        color: #555;
         line-height: 1.7;
+        max-width: 360px;
       }
 
       /* ── Floating hearts (center) ───────────────────────────────────── */
