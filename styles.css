@@ -3204,11 +3204,11 @@ button {
 
   .season-replay { padding-inline: clamp(60px, 6vw, 140px); }
   .season-grid   { width: min(100%, 1540px); }
-  .season-card   { height: clamp(300px, 22vw, 400px); min-height: 0; }
+  .season-card   { height: auto; aspect-ratio: 5/3; }
 
   .webtoon-meet  { padding-inline: clamp(60px, 6vw, 140px); padding-block: clamp(56px, 5vw, 80px); }
   .webtoon-inner { width: min(100%, 1280px); }
-  .webtoon-art   { min-height: 500px; }
+  .webtoon-art   { min-height: 430px; }
 
   .news-gallery { padding-inline: clamp(60px, 6vw, 140px); }
 
