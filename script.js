@@ -594,6 +594,16 @@ if (window.gsap && canAnimate) {
   });
 })();
 
+/* ── Fixed TOP button ────────────────────────────── */
+(function () {
+  const topButton = document.querySelector(".top-button");
+  if (!topButton) return;
+  topButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    window.scrollTo({ top: 0, behavior: canAnimate ? "smooth" : "auto" });
+  });
+})();
+
 /* ── Page transition: fade out before navigation ──── */
 document.querySelectorAll("a[href]").forEach((a) => {
   const href = a.getAttribute("href");
