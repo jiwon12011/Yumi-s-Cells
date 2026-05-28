@@ -239,6 +239,8 @@ button {
 .menu-button {
   position: relative;
   cursor: pointer;
+  /* only shown on tablet/mobile when the inline nav is hidden */
+  display: none;
 }
 
 .menu-button span {
@@ -247,14 +249,23 @@ button {
   height: 2px;
   border-radius: 999px;
   background: var(--pink);
+  transition: transform .3s ease, opacity .2s ease;
 }
 
 .menu-button span:first-child {
-  transform: rotate(45deg);
+  transform: translateY(-4px);
 }
 
 .menu-button span:last-child {
-  transform: rotate(-45deg);
+  transform: translateY(4px);
+}
+
+.menu-button.is-open span:first-child {
+  transform: translateY(0) rotate(45deg);
+}
+
+.menu-button.is-open span:last-child {
+  transform: translateY(0) rotate(-45deg);
 }
 
 .hero {
@@ -3388,8 +3399,93 @@ button {
     padding: 20px;
   }
 
+  /* keep the logo + hamburger above the slide-down panel */
+  .brand,
+  .menu-button {
+    z-index: 18;
+  }
+
+  .header-actions {
+    position: relative;
+    z-index: 18;
+  }
+
+  .menu-button {
+    display: grid;
+  }
+
+  /* inline nav becomes a slide-down panel toggled by the hamburger */
   .main-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 12;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 0;
+    padding: 88px clamp(20px, 6vw, 40px) 28px;
+    font-size: 18px;
+    text-align: center;
+    background: rgba(255, 252, 253, .97);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 24px 48px rgba(31, 28, 63, .16);
+    border-radius: 0 0 24px 24px;
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform .4s cubic-bezier(.4, 0, .2, 1), opacity .3s ease, visibility .4s;
+  }
+
+  body.nav-open .main-nav {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .main-nav a {
+    padding: 16px 8px;
+    border-bottom: 1px solid rgba(31, 28, 63, .08);
+  }
+
+  .main-nav a:last-child {
+    border-bottom: 0;
+  }
+
+  .main-nav a::after {
     display: none;
+  }
+
+  .main-nav a:hover,
+  .main-nav .is-active {
+    transform: none;
+  }
+
+  /* dimmed backdrop behind the panel */
+  .nav-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 14;
+    background: rgba(31, 28, 63, .38);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity .3s ease, visibility .3s;
+  }
+
+  body.nav-open .nav-overlay {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  body.nav-open {
+    overflow: hidden;
   }
 
   .hero {

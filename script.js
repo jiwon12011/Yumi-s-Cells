@@ -589,6 +589,40 @@ if (window.gsap && canAnimate) {
   onScroll();
 })();
 
+/* ── Mobile nav: hamburger toggles the slide-down panel ── */
+(function () {
+  const button = document.querySelector(".menu-button");
+  const nav = document.querySelector(".main-nav");
+  if (!button || !nav) return;
+
+  const overlay = document.createElement("div");
+  overlay.className = "nav-overlay";
+  overlay.setAttribute("aria-hidden", "true");
+  document.body.appendChild(overlay);
+
+  button.setAttribute("aria-expanded", "false");
+
+  const setOpen = (open) => {
+    document.body.classList.toggle("nav-open", open);
+    button.classList.toggle("is-open", open);
+    button.setAttribute("aria-expanded", String(open));
+    button.setAttribute("aria-label", open ? "메뉴 닫기" : "메뉴 열기");
+  };
+  const close = () => setOpen(false);
+
+  button.addEventListener("click", () => {
+    setOpen(!document.body.classList.contains("nav-open"));
+  });
+  overlay.addEventListener("click", close);
+  nav.querySelectorAll("a").forEach((a) => a.addEventListener("click", close));
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") close();
+  });
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 860) close();
+  });
+})();
+
 /* ── Auto-detect active nav item ──────────────────── */
 (function () {
   const page = location.pathname.split("/").pop() || "index.html";

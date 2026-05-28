@@ -462,7 +462,11 @@
 
       /* ─── RESPONSIVE ──────────────────────────────────── */
       @media (max-width: 900px) {
-        .nw-hero-copy { width: 100%; padding-right: 24px; }
+        .nw-hero { min-height: auto; }
+        .nw-hero-copy {
+          width: 100%;
+          padding: clamp(116px, 20vw, 140px) clamp(20px, 5vw, 40px) clamp(40px, 8vw, 56px);
+        }
         .nw-hero-img { display: none; }
         .nw-featured { grid-template-columns: 1fr; }
         .nw-featured-img img { height: 220px; }
