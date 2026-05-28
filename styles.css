@@ -1256,6 +1256,7 @@ button {
   top: clamp(30px, 4vw, 58px);
   bottom: auto;
   width: clamp(116px, 11.2vw, 174px);
+  animation: seasonLoveFloat 4.8s ease-in-out infinite;
 }
 
 .season-float-happy {
@@ -1263,6 +1264,7 @@ button {
   top: auto;
   bottom: clamp(28px, 3.6vw, 58px);
   width: clamp(92px, 8.6vw, 140px);
+  animation: seasonHappyFloat 5.2s .4s ease-in-out infinite;
 }
 
 .season-decor-heart {
@@ -1274,6 +1276,7 @@ button {
   opacity: .48;
   pointer-events: none;
   filter: drop-shadow(0 14px 18px rgba(255, 94, 151, .16));
+  animation: seasonHeartFloat 5.4s .2s ease-in-out infinite;
 }
 
 .webtoon-meet {
@@ -3038,6 +3041,24 @@ button {
 @keyframes chairDrift {
   50% {
     transform: translate3d(10px, -8px, 0) rotate(2deg);
+  }
+}
+
+@keyframes seasonLoveFloat {
+  50% {
+    transform: translate3d(3px, -8px, 0) rotate(2deg);
+  }
+}
+
+@keyframes seasonHappyFloat {
+  50% {
+    transform: translate3d(-3px, -6px, 0) rotate(-1.4deg);
+  }
+}
+
+@keyframes seasonHeartFloat {
+  50% {
+    transform: translate3d(0, -4px, 0) rotate(1.6deg);
   }
 }
 

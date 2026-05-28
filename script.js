@@ -290,10 +290,6 @@ if (window.gsap && canAnimate) {
     ease: springEase
   });
 
-  gsap.to(".season-float-love",  { y: -3, x: 1.5, rotate: .55, scale: 1.003, duration: 4.4, ease: "sine.inOut", repeat: -1, yoyo: true });
-  gsap.to(".season-float-happy", { y: -3, x: -1.5, rotate: -.55,             duration: 4.8, ease: "sine.inOut", repeat: -1, yoyo: true });
-  gsap.to(".season-decor-heart", { y: -2, rotate: 1.2,                       duration: 4.6, ease: "sine.inOut", repeat: -1, yoyo: true });
-
   gsap.from(".webtoon-copy > *", {
     scrollTrigger: { trigger: ".webtoon-meet", start: "top 76%" },
     y: 22,
