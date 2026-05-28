@@ -290,10 +290,6 @@ if (window.gsap && canAnimate) {
     ease: springEase
   });
 
-  gsap.to(".season-float-love",  { y: -5, x: 3, rotate: 1.2, scale: 1.008, duration: 3.4, ease: "sine.inOut", repeat: -1, yoyo: true });
-  gsap.to(".season-float-happy", { y: -5, x: -3, rotate: -1.2,            duration: 3.7, ease: "sine.inOut", repeat: -1, yoyo: true });
-  gsap.to(".season-decor-heart", { y: -3, rotate: 2.5,                    duration: 3.4, ease: "sine.inOut", repeat: -1, yoyo: true });
-
   gsap.from(".webtoon-copy > *", {
     scrollTrigger: { trigger: ".webtoon-meet", start: "top 76%" },
     y: 22,
@@ -629,6 +625,16 @@ if (window.gsap && canAnimate) {
   document.querySelectorAll(".main-nav a").forEach((a) => {
     const href = a.getAttribute("href").replace("./", "");
     a.classList.toggle("is-active", href === page);
+  });
+})();
+
+/* ── Fixed TOP button ────────────────────────────── */
+(function () {
+  const topButton = document.querySelector(".top-button");
+  if (!topButton) return;
+  topButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    window.scrollTo({ top: 0, behavior: canAnimate ? "smooth" : "auto" });
   });
 })();
 
