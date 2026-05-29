@@ -59,6 +59,11 @@ button {
   to   { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes page-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
 .site-shell {
   min-height: 100vh;
   overflow: hidden;
@@ -66,7 +71,7 @@ button {
 }
 
 .site-shell.sub-page {
-  animation: page-enter .4s ease both;
+  animation: page-fade .4s ease both;
 }
 
 .site-shell.page-exit {
