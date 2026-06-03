@@ -1,0 +1,826 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>통계 | 유미의 세포들</title>
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="stylesheet" href="./styles.css" />
+    <style>
+      /* ── Stats Page ──────────────────────────────────── */
+      .stats-page { background: #fff7fb; }
+
+      /* ── Hero ────────────────────────────────────────── */
+      .st-hero {
+        position: relative;
+        min-height: 52vh;
+        background: linear-gradient(135deg, #fff0f7 0%, #fde8f4 40%, #e8eefb 100%);
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      .st-hero-deco {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      .st-hero-deco::before {
+        content: '';
+        position: absolute;
+        top: -80px;
+        right: -80px;
+        width: 420px;
+        height: 420px;
+        border-radius: 50%;
+        background: rgba(255, 107, 157, .08);
+        filter: blur(60px);
+      }
+
+      .st-hero-deco::after {
+        content: '';
+        position: absolute;
+        bottom: -60px;
+        left: 20%;
+        width: 320px;
+        height: 320px;
+        border-radius: 50%;
+        background: rgba(74, 144, 226, .07);
+        filter: blur(50px);
+      }
+
+      .st-hero-inner {
+        position: relative;
+        z-index: 2;
+        padding: clamp(100px, 11vw, 140px) clamp(20px, 5vw, 80px) clamp(60px, 6vw, 80px);
+        max-width: 900px;
+      }
+
+      .st-eyebrow {
+        display: inline-block;
+        padding: 5px 16px;
+        background: linear-gradient(135deg, #FF6B9D, #ff4f8f);
+        color: #fff;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        border-radius: 999px;
+        margin-bottom: 16px;
+      }
+
+      .st-title {
+        font-size: clamp(32px, 4.2vw, 58px);
+        font-weight: 900;
+        color: #1a1a2e;
+        line-height: 1.15;
+        margin: 0 0 14px;
+        letter-spacing: -0.02em;
+      }
+
+      .st-title em { font-style: normal; color: var(--primary); }
+
+      .st-subtitle {
+        font-size: 16px;
+        color: #666;
+        margin: 0;
+        line-height: 1.6;
+        max-width: 480px;
+      }
+
+      /* ── Counters ────────────────────────────────────── */
+      .st-counters {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 18px;
+        padding: 0 clamp(20px, 5vw, 80px);
+        margin-top: -38px;
+        position: relative;
+        z-index: 10;
+        max-width: 1100px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .st-counter-card {
+        background: #fff;
+        border-radius: 20px;
+        padding: 26px 24px 22px;
+        box-shadow: 0 8px 32px rgba(255, 107, 157, .10);
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        transition: transform .28s ease, box-shadow .28s ease;
+      }
+
+      .st-counter-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 16px 44px rgba(255, 107, 157, .18);
+      }
+
+      .st-counter-icon {
+        font-size: 28px;
+        line-height: 1;
+        margin-bottom: 4px;
+      }
+
+      .st-counter-num {
+        font-size: clamp(28px, 3.2vw, 40px);
+        font-weight: 900;
+        color: #1a1a2e;
+        letter-spacing: -0.02em;
+        line-height: 1;
+      }
+
+      .st-counter-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: #888;
+      }
+
+      /* ── Section ─────────────────────────────────────── */
+      .st-section {
+        padding: 72px clamp(20px, 5vw, 80px);
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+
+      .st-section-title {
+        font-size: clamp(20px, 2.4vw, 28px);
+        font-weight: 900;
+        color: #1a1a2e;
+        margin: 0 0 6px;
+      }
+
+      .st-section-sub {
+        font-size: 14px;
+        color: #999;
+        margin: 0 0 36px;
+      }
+
+      /* ── Charts Grid ─────────────────────────────────── */
+      .st-charts-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 24px;
+      }
+
+      .st-chart-card {
+        background: #fff;
+        border-radius: 24px;
+        padding: 32px 28px;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, .06);
+        transition: transform .28s ease, box-shadow .28s ease;
+      }
+
+      .st-chart-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 36px rgba(0, 0, 0, .1);
+      }
+
+      .st-chart-card.wide { grid-column: 1 / -1; }
+
+      .st-chart-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 24px;
+      }
+
+      .st-chart-title {
+        font-size: 16px;
+        font-weight: 800;
+        color: #1a1a2e;
+        margin: 0 0 4px;
+      }
+
+      .st-chart-desc { font-size: 13px; color: #aaa; margin: 0; }
+
+      .st-chart-tag {
+        flex-shrink: 0;
+        padding: 4px 12px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 700;
+        background: #fff0f6;
+        color: var(--primary);
+      }
+
+      .st-chart-wrap { position: relative; }
+
+      canvas { display: block; max-width: 100%; }
+
+      /* ── Cell Bar List ───────────────────────────────── */
+      .st-bar-list {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .st-bar-row {
+        display: grid;
+        grid-template-columns: 110px 1fr 48px;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .st-bar-label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        font-weight: 700;
+        color: #333;
+      }
+
+      .st-bar-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+
+      .st-bar-track {
+        height: 10px;
+        background: #f4f4f8;
+        border-radius: 999px;
+        overflow: hidden;
+      }
+
+      .st-bar-fill {
+        height: 100%;
+        border-radius: 999px;
+        width: 0%;
+        transition: width 1.2s cubic-bezier(.4, 0, .2, 1);
+      }
+
+      .st-bar-val {
+        font-size: 13px;
+        font-weight: 700;
+        color: #666;
+        text-align: right;
+      }
+
+      /* ── Timeline ────────────────────────────────────── */
+      .st-timeline {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        position: relative;
+        padding-left: 28px;
+      }
+
+      .st-timeline::before {
+        content: '';
+        position: absolute;
+        left: 9px;
+        top: 12px;
+        bottom: 12px;
+        width: 2px;
+        background: linear-gradient(180deg, #FF6B9D, #4A90E2, #FFB347);
+        border-radius: 999px;
+      }
+
+      .st-tl-item {
+        position: relative;
+        padding: 0 0 28px 20px;
+      }
+
+      .st-tl-item::before {
+        content: '';
+        position: absolute;
+        left: -28px;
+        top: 8px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: #fff;
+        border: 3px solid var(--primary);
+        z-index: 1;
+      }
+
+      .st-tl-item:nth-child(2)::before { border-color: #4A90E2; }
+      .st-tl-item:nth-child(3)::before { border-color: #FFB347; }
+      .st-tl-item:nth-child(4)::before { border-color: #38C172; }
+      .st-tl-item:nth-child(5)::before { border-color: #B388FF; }
+
+      .st-tl-year {
+        font-size: 12px;
+        font-weight: 800;
+        color: var(--primary);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 4px;
+      }
+
+      .st-tl-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: #1a1a2e;
+        margin: 0 0 4px;
+      }
+
+      .st-tl-desc { font-size: 13px; color: #888; margin: 0; }
+
+      /* ── Legend ──────────────────────────────────────── */
+      .st-legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .st-legend-item {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #555;
+      }
+
+      .st-legend-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+
+      /* ── Support Banner ──────────────────────────────── */
+      .st-cta {
+        margin: 0 clamp(20px, 5vw, 80px) 80px;
+        max-width: 1060px;
+        margin-left: auto;
+        margin-right: auto;
+        background: linear-gradient(135deg, #FF6B9D, #ff4f8f 50%, #f9677d);
+        border-radius: 28px;
+        padding: 48px 44px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 32px;
+        flex-wrap: wrap;
+      }
+
+      .st-cta-copy h3 {
+        font-size: clamp(20px, 2.8vw, 28px);
+        font-weight: 900;
+        color: #fff;
+        margin: 0 0 8px;
+      }
+
+      .st-cta-copy p { font-size: 14px; color: rgba(255,255,255,.78); margin: 0; }
+
+      .st-cta-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 28px;
+        background: #fff;
+        color: var(--primary);
+        font-size: 15px;
+        font-weight: 800;
+        border-radius: 999px;
+        transition: transform .25s ease, box-shadow .25s ease;
+        flex-shrink: 0;
+      }
+
+      .st-cta-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(0,0,0,.12); }
+    </style>
+  </head>
+  <body>
+    <div class="scroll-progress" aria-hidden="true"></div>
+    <div class="site-shell sub-page stats-page">
+
+      <header class="site-header" aria-label="주요 메뉴">
+        <a class="brand" href="./index.html" aria-label="유미의 세포들 홈">
+          <img src="./assets/images/logo/yumi-cells-logo.png" alt="유미의 세포들" />
+        </a>
+        <nav class="main-nav" aria-label="페이지 메뉴">
+          <a href="./index.html">Home</a>
+          <a href="./story.html">Story</a>
+          <a href="./gallery.html">Gallery</a>
+          <a href="./news.html">News</a>
+        </nav>
+        <div class="header-actions" aria-label="소셜 메뉴">
+          <a href="https://www.instagram.com/juicysmile/" target="_blank" rel="noopener" aria-label="Instagram">
+            <span class="icon-instagram"></span>
+          </a>
+          <a href="https://www.youtube.com/hashtag/%EC%9C%A0%EB%AF%B8%EC%9D%98%EC%84%B8%ED%8F%AC%EB%93%A4" aria-label="YouTube" target="_blank" rel="noopener">
+            <span class="icon-youtube"></span>
+          </a>
+          <button class="menu-button" type="button" aria-label="메뉴 열기">
+            <span></span><span></span>
+          </button>
+        </div>
+      </header>
+
+      <main>
+        <!-- ── Hero ──────────────────────────────────── -->
+        <section class="st-hero" aria-labelledby="stats-title">
+          <div class="st-hero-deco" aria-hidden="true"></div>
+          <div class="st-hero-inner">
+            <nav class="sub-breadcrumb" aria-label="현재 위치">Home / Stats</nav>
+            <span class="st-eyebrow">Data &amp; Insights</span>
+            <h1 class="st-title" id="stats-title">유미의 세포들<br /><em>데이터로 보기</em></h1>
+            <p class="st-subtitle">웹툰 연재 5년간의 기록, 등장 세포, 팬 반응 데이터를 한눈에 확인하세요.</p>
+          </div>
+        </section>
+
+        <!-- ── Counters ───────────────────────────────── -->
+        <div class="st-counters" role="list" aria-label="주요 통계">
+          <article class="st-counter-card" role="listitem">
+            <div class="st-counter-icon" aria-hidden="true">📖</div>
+            <div class="st-counter-num" data-target="321" data-suffix="화">0화</div>
+            <div class="st-counter-label">웹툰 총 에피소드</div>
+          </article>
+          <article class="st-counter-card" role="listitem">
+            <div class="st-counter-icon" aria-hidden="true">✨</div>
+            <div class="st-counter-num" data-target="23" data-suffix="종">0종</div>
+            <div class="st-counter-label">등장 세포 종류</div>
+          </article>
+          <article class="st-counter-card" role="listitem">
+            <div class="st-counter-icon" aria-hidden="true">👁️</div>
+            <div class="st-counter-num" data-target="320" data-suffix="M+">0M+</div>
+            <div class="st-counter-label">누적 조회수</div>
+          </article>
+          <article class="st-counter-card" role="listitem">
+            <div class="st-counter-icon" aria-hidden="true">📅</div>
+            <div class="st-counter-num" data-target="5" data-suffix="년 연재">0년 연재</div>
+            <div class="st-counter-label">2015 – 2020</div>
+          </article>
+          <article class="st-counter-card" role="listitem">
+            <div class="st-counter-icon" aria-hidden="true">🎬</div>
+            <div class="st-counter-num" data-target="2" data-suffix="시즌">0시즌</div>
+            <div class="st-counter-label">드라마 시즌</div>
+          </article>
+        </div>
+
+        <!-- ── Charts Section ─────────────────────────── -->
+        <section class="st-section" aria-labelledby="chart-title">
+          <h2 class="st-section-title" id="chart-title">세포 등장 분석</h2>
+          <p class="st-section-sub">웹툰 전 에피소드에서 주요 세포들의 등장 횟수와 감정 분포를 분석했어요.</p>
+
+          <div class="st-charts-grid">
+
+            <!-- 세포 등장 Bar 리스트 -->
+            <div class="st-chart-card">
+              <div class="st-chart-head">
+                <div>
+                  <p class="st-chart-title">세포 등장 횟수 TOP 7</p>
+                  <p class="st-chart-desc">전체 에피소드 기준</p>
+                </div>
+                <span class="st-chart-tag">등장</span>
+              </div>
+              <div class="st-bar-list" id="cell-bar-list" role="list"></div>
+            </div>
+
+            <!-- 감정 분포 Doughnut -->
+            <div class="st-chart-card">
+              <div class="st-chart-head">
+                <div>
+                  <p class="st-chart-title">스토리 감정 분포</p>
+                  <p class="st-chart-desc">전체 에피소드 기준 감정 비율</p>
+                </div>
+                <span class="st-chart-tag">감정</span>
+              </div>
+              <div class="st-chart-wrap" style="max-width:280px;margin:0 auto;">
+                <canvas id="donutChart" height="280"></canvas>
+              </div>
+              <div class="st-legend" id="donut-legend"></div>
+            </div>
+
+            <!-- 연도별 에피소드 Bar -->
+            <div class="st-chart-card wide">
+              <div class="st-chart-head">
+                <div>
+                  <p class="st-chart-title">연도별 에피소드 발행 수</p>
+                  <p class="st-chart-desc">2015년 3월 연재 시작 기준</p>
+                </div>
+                <span class="st-chart-tag">에피소드</span>
+              </div>
+              <div class="st-chart-wrap">
+                <canvas id="barChart" height="200"></canvas>
+              </div>
+            </div>
+
+            <!-- 팬사이트 방문 Line -->
+            <div class="st-chart-card wide">
+              <div class="st-chart-head">
+                <div>
+                  <p class="st-chart-title">팬사이트 월간 방문자</p>
+                  <p class="st-chart-desc">최근 12개월 집계 (단위: 천 명)</p>
+                </div>
+                <span class="st-chart-tag">방문자</span>
+              </div>
+              <div class="st-chart-wrap">
+                <canvas id="lineChart" height="180"></canvas>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ── Timeline ───────────────────────────────── -->
+        <section class="st-section" aria-labelledby="timeline-title" style="padding-top:0;">
+          <h2 class="st-section-title" id="timeline-title">연재 히스토리</h2>
+          <p class="st-section-sub">유미의 세포들이 걸어온 발자취를 시간순으로 정리했어요.</p>
+
+          <div class="st-charts-grid">
+            <div class="st-chart-card">
+              <nav class="st-timeline" aria-label="연재 타임라인">
+                <div class="st-tl-item">
+                  <p class="st-tl-year">2015.03</p>
+                  <h3 class="st-tl-title">웹툰 연재 시작</h3>
+                  <p class="st-tl-desc">네이버 웹툰에서 연재 개시, 첫 화 조회수 100만 돌파</p>
+                </div>
+                <div class="st-tl-item">
+                  <p class="st-tl-year" style="color:#4A90E2">2016</p>
+                  <h3 class="st-tl-title">연간 최다 에피소드</h3>
+                  <p class="st-tl-desc">68화 발행, 누적 조회수 1억 달성</p>
+                </div>
+                <div class="st-tl-item">
+                  <p class="st-tl-year" style="color:#FFB347">2017</p>
+                  <h3 class="st-tl-title">웹툰 어워즈 수상</h3>
+                  <p class="st-tl-desc">네이버 웹툰 독자 선정 최고 작품상 수상</p>
+                </div>
+                <div class="st-tl-item">
+                  <p class="st-tl-year" style="color:#38C172">2020.09</p>
+                  <h3 class="st-tl-title">웹툰 완결</h3>
+                  <p class="st-tl-desc">321화로 대단원의 막을 내림</p>
+                </div>
+                <div class="st-tl-item">
+                  <p class="st-tl-year" style="color:#B388FF">2021 – 2022</p>
+                  <h3 class="st-tl-title">드라마 방영</h3>
+                  <p class="st-tl-desc">tvN 드라마 시즌 1·2 방영, 김고은·안보현 주연</p>
+                </div>
+              </nav>
+            </div>
+
+            <!-- 인기 세포 순위 -->
+            <div class="st-chart-card">
+              <div class="st-chart-head">
+                <div>
+                  <p class="st-chart-title">팬 투표 인기 세포 TOP 5</p>
+                  <p class="st-chart-desc">팬사이트 투표 기준</p>
+                </div>
+                <span class="st-chart-tag">인기</span>
+              </div>
+              <div class="st-chart-wrap" style="max-width:260px;margin:0 auto;">
+                <canvas id="radarChart" height="260"></canvas>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── CTA ────────────────────────────────────── -->
+        <div class="st-cta">
+          <div class="st-cta-copy">
+            <h3>나의 감정 세포는 무엇일까요?</h3>
+            <p>5가지 질문으로 지금 내 마음속 대표 세포를 찾아보세요.</p>
+          </div>
+          <a class="st-cta-btn" href="./emotion-test.html">감정 테스트 시작 →</a>
+        </div>
+
+        <section class="support-banner" aria-label="공식 채널">
+          <img class="support-cells-left" src="./assets/images/gallery/support-cells-group.png" alt="" aria-hidden="true" />
+          <div class="support-copy">
+            <h2>유미와 세포들의 이야기를<br />함께 응원해 주세요!</h2>
+            <div class="support-buttons">
+              <a href="https://www.instagram.com/juicysmile/" target="_blank" rel="noopener"><span class="support-icon instagram-dot"></span>공식 인스타그램</a>
+              <a href="https://www.youtube.com/hashtag/%EC%9C%A0%EB%AF%B8%EC%9D%98%EC%84%B8%ED%8F%AC%EB%93%A4" target="_blank" rel="noopener"><span class="support-icon youtube-dot"></span>공식 유튜브</a>
+              <a href="https://comic.naver.com/webtoon/list?titleId=651673" target="_blank" rel="noopener"><span class="support-icon naver-dot"></span>네이버 웹툰</a>
+            </div>
+          </div>
+          <img class="support-cells-right" src="./assets/images/gallery/three-happy-cells.png" alt="" aria-hidden="true" />
+        </section>
+
+        <footer class="site-footer">
+          <a class="footer-brand" href="./index.html">
+            <img src="./assets/images/logo/yumi-cells-logo.png" alt="유미의 세포들" />
+          </a>
+          <nav aria-label="푸터 메뉴">
+            <a href="#">이용약관</a>
+            <a href="#">개인정보처리방침</a>
+            <a href="#">문의하기</a>
+          </nav>
+          <p>© 2024 YUMI'S CELLS OFFICIAL FANPAGE. ALL RIGHTS RESERVED.</p>
+        </footer>
+      </main>
+    </div>
+    <a class="top-button" href="#" aria-label="맨 위로">Top</a>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="./script.js"></script>
+    <script>
+      /* ── 숫자 카운터 ──────────────────────────────────── */
+      function animateCounter(el) {
+        const target = parseInt(el.dataset.target, 10);
+        const suffix = el.dataset.suffix || '';
+        let current = 0;
+        const step = Math.ceil(target / 55);
+        const timer = setInterval(() => {
+          current = Math.min(current + step, target);
+          el.textContent = current + suffix;
+          if (current >= target) clearInterval(timer);
+        }, 28);
+      }
+
+      const counterEls = document.querySelectorAll('.st-counter-num[data-target]');
+      const counterObs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            animateCounter(e.target);
+            counterObs.unobserve(e.target);
+          }
+        });
+      }, { threshold: .6 });
+      counterEls.forEach(el => counterObs.observe(el));
+
+      /* ── 세포 바 리스트 ────────────────────────────────── */
+      const cellBars = [
+        { name: '사랑세포', color: '#FF6B9D', count: 186, max: 186 },
+        { name: '이성세포', color: '#4A90E2', count: 142, max: 186 },
+        { name: '겁쟁이세포', color: '#B388FF', count: 118, max: 186 },
+        { name: '감성세포', color: '#FFB347', count: 97, max: 186 },
+        { name: '식욕세포', color: '#FF7043', count: 89, max: 186 },
+        { name: '열정세포', color: '#38C172', count: 74, max: 186 },
+        { name: '예술세포', color: '#26C6DA', count: 63, max: 186 },
+      ];
+
+      const barList = document.getElementById('cell-bar-list');
+      cellBars.forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'st-bar-row';
+        row.setAttribute('role', 'listitem');
+        row.innerHTML = `
+          <div class="st-bar-label">
+            <span class="st-bar-dot" style="background:${item.color}" aria-hidden="true"></span>
+            ${item.name}
+          </div>
+          <div class="st-bar-track">
+            <div class="st-bar-fill" style="background:${item.color}" data-pct="${(item.count / item.max * 100).toFixed(0)}"></div>
+          </div>
+          <div class="st-bar-val">${item.count}</div>
+        `;
+        barList.appendChild(row);
+      });
+
+      const barObs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.querySelectorAll('.st-bar-fill').forEach(fill => {
+              fill.style.width = fill.dataset.pct + '%';
+            });
+            barObs.unobserve(e.target);
+          }
+        });
+      }, { threshold: .3 });
+      barObs.observe(barList);
+
+      /* ── Chart.js 공통 폰트 설정 ─────────────────────── */
+      Chart.defaults.font.family = 'Pretendard, -apple-system, sans-serif';
+      Chart.defaults.color = '#888';
+
+      /* ── Donut 차트 ───────────────────────────────────── */
+      const donutData = {
+        labels: ['사랑·설렘', '불안·걱정', '행복·기쁨', '슬픔', '분노·답답'],
+        values: [34, 22, 18, 14, 12],
+        colors: ['#FF6B9D', '#B388FF', '#FFB347', '#4A90E2', '#FF7043'],
+      };
+
+      new Chart(document.getElementById('donutChart'), {
+        type: 'doughnut',
+        data: {
+          labels: donutData.labels,
+          datasets: [{
+            data: donutData.values,
+            backgroundColor: donutData.colors,
+            borderWidth: 2,
+            borderColor: '#fff',
+            hoverOffset: 8,
+          }]
+        },
+        options: {
+          cutout: '64%',
+          plugins: { legend: { display: false }, tooltip: {
+            callbacks: { label: ctx => ` ${ctx.label}: ${ctx.parsed}%` }
+          }},
+          animation: { animateRotate: true, duration: 1000 }
+        }
+      });
+
+      const donutLegend = document.getElementById('donut-legend');
+      donutData.labels.forEach((label, i) => {
+        donutLegend.innerHTML += `
+          <div class="st-legend-item">
+            <span class="st-legend-dot" style="background:${donutData.colors[i]}" aria-hidden="true"></span>
+            ${label} <strong style="color:${donutData.colors[i]};margin-left:3px">${donutData.values[i]}%</strong>
+          </div>
+        `;
+      });
+
+      /* ── Bar 차트 (연도별 에피소드) ────────────────────── */
+      new Chart(document.getElementById('barChart'), {
+        type: 'bar',
+        data: {
+          labels: ['2015', '2016', '2017', '2018', '2019', '2020'],
+          datasets: [{
+            label: '에피소드 수',
+            data: [52, 68, 72, 65, 48, 16],
+            backgroundColor: [
+              'rgba(255,107,157,.72)',
+              'rgba(255,107,157,.85)',
+              'rgba(255,107,157,1)',
+              'rgba(74,144,226,.85)',
+              'rgba(74,144,226,.72)',
+              'rgba(74,144,226,.55)',
+            ],
+            borderRadius: 8,
+            borderSkipped: false,
+          }]
+        },
+        options: {
+          plugins: { legend: { display: false } },
+          scales: {
+            y: {
+              beginAtZero: true,
+              grid: { color: 'rgba(0,0,0,.05)' },
+              ticks: { stepSize: 20 },
+            },
+            x: { grid: { display: false } }
+          },
+          animation: { duration: 1000, easing: 'easeOutQuart' }
+        }
+      });
+
+      /* ── Line 차트 (팬사이트 방문자) ──────────────────── */
+      new Chart(document.getElementById('lineChart'), {
+        type: 'line',
+        data: {
+          labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+          datasets: [{
+            label: '방문자 (천 명)',
+            data: [42, 38, 55, 62, 71, 68, 88, 95, 84, 76, 91, 104],
+            borderColor: '#FF6B9D',
+            backgroundColor: 'rgba(255,107,157,.08)',
+            borderWidth: 2.5,
+            pointBackgroundColor: '#FF6B9D',
+            pointRadius: 4,
+            pointHoverRadius: 7,
+            fill: true,
+            tension: .42,
+          }]
+        },
+        options: {
+          plugins: { legend: { display: false } },
+          scales: {
+            y: {
+              beginAtZero: false,
+              grid: { color: 'rgba(0,0,0,.05)' },
+            },
+            x: { grid: { display: false } }
+          },
+          animation: { duration: 1200 }
+        }
+      });
+
+      /* ── Radar 차트 (인기 세포) ───────────────────────── */
+      new Chart(document.getElementById('radarChart'), {
+        type: 'radar',
+        data: {
+          labels: ['사랑세포', '이성세포', '열정세포', '편안세포', '예술세포'],
+          datasets: [{
+            label: '팬 선호도',
+            data: [95, 72, 68, 84, 60],
+            backgroundColor: 'rgba(255,107,157,.15)',
+            borderColor: '#FF6B9D',
+            borderWidth: 2,
+            pointBackgroundColor: '#FF6B9D',
+            pointRadius: 4,
+          }]
+        },
+        options: {
+          plugins: { legend: { display: false } },
+          scales: {
+            r: {
+              min: 0,
+              max: 100,
+              ticks: { stepSize: 25, display: false },
+              grid: { color: 'rgba(0,0,0,.07)' },
+              angleLines: { color: 'rgba(0,0,0,.07)' },
+              pointLabels: { font: { size: 12, weight: 'bold' }, color: '#555' }
+            }
+          },
+          animation: { duration: 1000 }
+        }
+      });
+    </script>
+  </body>
+</html>

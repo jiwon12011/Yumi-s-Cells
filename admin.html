@@ -1,0 +1,1003 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>관리자 | 유미의 세포들</title>
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; }
+
+      :root {
+        --pink: #FF6B9D;
+        --hot-pink: #ff4f8f;
+        --blue: #4A90E2;
+        --navy: #1a1a2e;
+        --bg: #f5f6fa;
+        --sidebar-w: 240px;
+        --card-r: 16px;
+      }
+
+      body {
+        margin: 0;
+        font-family: Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: var(--bg);
+        color: #333;
+        overflow-x: hidden;
+      }
+
+      a { color: inherit; text-decoration: none; }
+      button { font: inherit; cursor: pointer; }
+
+
+      /* ── Admin Shell ──────────────────────────────────── */
+      #admin-shell { display: flex; min-height: 100vh; padding-top: 36px; }
+
+      /* ── Sidebar ──────────────────────────────────────── */
+      .adm-sidebar {
+        width: var(--sidebar-w);
+        min-height: 100vh;
+        background: var(--navy);
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 20;
+        transition: transform .3s ease;
+      }
+
+      .adm-sidebar-logo {
+        padding: 28px 22px 20px;
+        border-bottom: 1px solid rgba(255,255,255,.08);
+      }
+
+      .adm-sidebar-logo img { width: 110px; height: auto; }
+
+      .adm-sidebar-badge {
+        display: inline-block;
+        margin-top: 8px;
+        padding: 3px 10px;
+        background: rgba(255,107,157,.22);
+        color: var(--pink);
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        border-radius: 999px;
+      }
+
+      .adm-nav {
+        flex: 1;
+        padding: 18px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .adm-nav-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 22px;
+        font-size: 13px;
+        font-weight: 700;
+        color: rgba(255,255,255,.55);
+        border-radius: 0;
+        border: none;
+        background: transparent;
+        text-align: left;
+        transition: all .2s;
+        cursor: pointer;
+      }
+
+      .adm-nav-item:hover { color: #fff; background: rgba(255,255,255,.06); }
+
+      .adm-nav-item.is-active {
+        color: #fff;
+        background: rgba(255,107,157,.18);
+        border-right: 3px solid var(--pink);
+      }
+
+      .adm-nav-icon { font-size: 16px; flex-shrink: 0; }
+
+      .adm-sidebar-footer {
+        padding: 20px 22px;
+        border-top: 1px solid rgba(255,255,255,.08);
+      }
+
+      .adm-logout-btn {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        padding: 11px 14px;
+        background: rgba(255,255,255,.07);
+        border: none;
+        border-radius: 10px;
+        color: rgba(255,255,255,.55);
+        font-size: 13px;
+        font-weight: 700;
+        transition: all .2s;
+      }
+
+      .adm-logout-btn:hover { background: rgba(255, 79, 143, .18); color: var(--pink); }
+
+      /* ── Main Content ─────────────────────────────────── */
+      .adm-main {
+        margin-left: var(--sidebar-w);
+        flex: 1;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ── Topbar ───────────────────────────────────────── */
+      .adm-topbar {
+        background: #fff;
+        padding: 18px 32px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #f0f0f5;
+        gap: 16px;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+
+      .adm-topbar-title {
+        font-size: 18px;
+        font-weight: 900;
+        color: var(--navy);
+      }
+
+      .adm-topbar-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .adm-avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--pink), var(--hot-pink));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 800;
+      }
+
+      .adm-user-name { font-size: 13px; font-weight: 700; color: #555; }
+
+      /* ── Content Area ─────────────────────────────────── */
+      .adm-content {
+        flex: 1;
+        padding: 32px;
+        overflow-y: auto;
+      }
+
+      /* ── Tab Panel ────────────────────────────────────── */
+      .adm-tab-panel { display: none; }
+      .adm-tab-panel.is-active { display: block; }
+
+      /* ── Stats Cards ──────────────────────────────────── */
+      .adm-stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-bottom: 32px;
+      }
+
+      .adm-stat-card {
+        background: #fff;
+        border-radius: var(--card-r);
+        padding: 24px 22px;
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        box-shadow: 0 2px 12px rgba(0,0,0,.05);
+        transition: transform .25s, box-shadow .25s;
+      }
+
+      .adm-stat-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+
+      .adm-stat-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        flex-shrink: 0;
+      }
+
+      .adm-stat-info { display: flex; flex-direction: column; gap: 2px; }
+
+      .adm-stat-num {
+        font-size: 26px;
+        font-weight: 900;
+        color: var(--navy);
+        line-height: 1;
+      }
+
+      .adm-stat-label { font-size: 12px; color: #aaa; font-weight: 600; margin-top: 4px; }
+
+      .adm-stat-delta {
+        font-size: 12px;
+        font-weight: 700;
+        color: #38C172;
+        margin-top: 2px;
+      }
+
+      .adm-stat-delta.down { color: #f44; }
+
+      /* ── Section Header ───────────────────────────────── */
+      .adm-sec-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .adm-sec-header h2 {
+        font-size: 16px;
+        font-weight: 800;
+        color: var(--navy);
+        margin: 0;
+      }
+
+      .adm-add-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 9px 18px;
+        background: linear-gradient(135deg, var(--pink), var(--hot-pink));
+        color: #fff;
+        font-size: 13px;
+        font-weight: 800;
+        border: none;
+        border-radius: 999px;
+        box-shadow: 0 6px 16px rgba(255,107,157,.28);
+        transition: transform .2s, box-shadow .2s;
+      }
+
+      .adm-add-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(255,107,157,.36); }
+
+      /* ── Table ────────────────────────────────────────── */
+      .adm-table-wrap {
+        background: #fff;
+        border-radius: var(--card-r);
+        box-shadow: 0 2px 12px rgba(0,0,0,.05);
+        overflow: hidden;
+        margin-bottom: 28px;
+      }
+
+      .adm-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+
+      .adm-table thead { background: #fafafa; }
+
+      .adm-table th {
+        padding: 14px 18px;
+        text-align: left;
+        font-size: 11px;
+        font-weight: 800;
+        color: #aaa;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        border-bottom: 1px solid #f0f0f5;
+        white-space: nowrap;
+      }
+
+      .adm-table td {
+        padding: 14px 18px;
+        border-bottom: 1px solid #f9f9fb;
+        color: #444;
+        vertical-align: middle;
+      }
+
+      .adm-table tr:last-child td { border-bottom: none; }
+
+      .adm-table tr:hover td { background: #fefafc; }
+
+      .adm-status {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      .adm-status.published { background: #e8faf0; color: #38C172; }
+      .adm-status.draft { background: #fff4e0; color: #FFB347; }
+      .adm-status.hidden { background: #f0f0f5; color: #aaa; }
+
+      .adm-row-actions { display: flex; gap: 6px; }
+
+      .adm-btn-edit, .adm-btn-del {
+        padding: 5px 12px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 700;
+        border: none;
+        transition: all .18s;
+      }
+
+      .adm-btn-edit { background: #eef4ff; color: var(--blue); }
+      .adm-btn-edit:hover { background: var(--blue); color: #fff; }
+
+      .adm-btn-del { background: #fff0f0; color: #f44; }
+      .adm-btn-del:hover { background: #f44; color: #fff; }
+
+      /* ── Recent Activity ──────────────────────────────── */
+      .adm-activity {
+        background: #fff;
+        border-radius: var(--card-r);
+        box-shadow: 0 2px 12px rgba(0,0,0,.05);
+        padding: 22px 24px;
+        margin-bottom: 28px;
+      }
+
+      .adm-activity h3 {
+        font-size: 15px;
+        font-weight: 800;
+        color: var(--navy);
+        margin: 0 0 18px;
+      }
+
+      .adm-activity-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+
+      .adm-activity-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 12px 0;
+        border-bottom: 1px solid #f4f4f8;
+      }
+
+      .adm-activity-item:last-child { border-bottom: none; }
+
+      .adm-activity-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        margin-top: 5px;
+        flex-shrink: 0;
+      }
+
+      .adm-activity-text { font-size: 13px; color: #555; line-height: 1.5; }
+
+      .adm-activity-time { font-size: 11px; color: #ccc; font-weight: 600; margin-top: 2px; }
+
+      /* ── Visit Chart Mini ─────────────────────────────── */
+      .adm-mini-chart-wrap {
+        background: #fff;
+        border-radius: var(--card-r);
+        padding: 22px 24px;
+        box-shadow: 0 2px 12px rgba(0,0,0,.05);
+        margin-bottom: 28px;
+      }
+
+      .adm-mini-chart-wrap h3 {
+        font-size: 15px;
+        font-weight: 800;
+        color: var(--navy);
+        margin: 0 0 18px;
+      }
+
+      /* ── Modal ────────────────────────────────────────── */
+      .adm-modal-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,.45);
+        z-index: 200;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .adm-modal-backdrop.open { display: flex; }
+
+      .adm-modal {
+        background: #fff;
+        border-radius: 20px;
+        padding: 32px 28px 28px;
+        width: min(480px, 100%);
+        box-shadow: 0 32px 80px rgba(0,0,0,.18);
+        animation: modalIn .28s cubic-bezier(.2,.9,.2,1) both;
+      }
+
+      @keyframes modalIn {
+        from { opacity: 0; transform: scale(.93) translateY(12px); }
+        to { opacity: 1; transform: scale(1) translateY(0); }
+      }
+
+      .adm-modal h3 {
+        font-size: 18px;
+        font-weight: 900;
+        color: var(--navy);
+        margin: 0 0 22px;
+      }
+
+      .adm-form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin-bottom: 16px;
+      }
+
+      .adm-form-group label {
+        font-size: 12px;
+        font-weight: 800;
+        color: #888;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      .adm-form-group input,
+      .adm-form-group select,
+      .adm-form-group textarea {
+        padding: 11px 14px;
+        border: 2px solid #eee;
+        border-radius: 10px;
+        font-family: inherit;
+        font-size: 14px;
+        color: #333;
+        outline: none;
+        transition: border-color .18s;
+        resize: vertical;
+      }
+
+      .adm-form-group input:focus,
+      .adm-form-group select:focus,
+      .adm-form-group textarea:focus { border-color: var(--pink); }
+
+      .adm-modal-actions {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        margin-top: 20px;
+      }
+
+      .adm-btn-cancel {
+        padding: 11px 20px;
+        background: #f5f5f8;
+        border: none;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 700;
+        color: #888;
+      }
+
+      .adm-btn-save {
+        padding: 11px 24px;
+        background: linear-gradient(135deg, var(--pink), var(--hot-pink));
+        border: none;
+        border-radius: 10px;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 800;
+        box-shadow: 0 6px 16px rgba(255,107,157,.28);
+        transition: transform .18s, box-shadow .18s;
+      }
+
+      .adm-btn-save:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(255,107,157,.38); }
+
+      /* ── Toast ────────────────────────────────────────── */
+      .adm-toast {
+        position: fixed;
+        bottom: 28px;
+        right: 28px;
+        padding: 14px 22px;
+        background: #1a1a2e;
+        color: #fff;
+        font-size: 13px;
+        font-weight: 700;
+        border-radius: 12px;
+        box-shadow: 0 12px 32px rgba(0,0,0,.18);
+        z-index: 999;
+        transform: translateY(80px);
+        opacity: 0;
+        transition: all .35s cubic-bezier(.2,.9,.2,1);
+        pointer-events: none;
+      }
+
+      .adm-toast.show { transform: translateY(0); opacity: 1; }
+
+      /* ── Responsive ───────────────────────────────────── */
+      @media (max-width: 768px) {
+        .adm-sidebar { transform: translateX(-100%); }
+        .adm-sidebar.open { transform: translateX(0); }
+        .adm-main { margin-left: 0; }
+        .adm-topbar { padding: 16px 20px; }
+        .adm-content { padding: 20px; }
+        :root { --sidebar-w: 220px; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- ── 데모 배너 ──────────────────────────────────── -->
+    <div id="demo-banner" style="position:fixed;top:0;left:0;right:0;z-index:999;background:linear-gradient(90deg,#FF6B9D,#ff4f8f);color:#fff;font-size:12px;font-weight:800;text-align:center;padding:9px 20px;letter-spacing:0.04em;">
+      🔓 DEMO MODE — 실제 서비스에서는 로그인 인증이 적용됩니다
+    </div>
+
+    <!-- ── 관리자 대시보드 ─────────────────────────────── -->
+    <div id="admin-shell">
+      <!-- Sidebar -->
+      <aside class="adm-sidebar" id="adm-sidebar" aria-label="관리자 메뉴">
+        <div class="adm-sidebar-logo">
+          <img src="./assets/images/logo/yumi-cells-logo.png" alt="유미의 세포들" />
+          <div>
+            <span class="adm-sidebar-badge">ADMIN</span>
+          </div>
+        </div>
+        <nav class="adm-nav" role="navigation" aria-label="관리 메뉴">
+          <button class="adm-nav-item is-active" data-panel="dashboard">
+            <span class="adm-nav-icon" aria-hidden="true">📊</span>대시보드
+          </button>
+          <button class="adm-nav-item" data-panel="gallery">
+            <span class="adm-nav-icon" aria-hidden="true">🖼️</span>갤러리 관리
+          </button>
+          <button class="adm-nav-item" data-panel="news">
+            <span class="adm-nav-icon" aria-hidden="true">📰</span>뉴스 관리
+          </button>
+          <button class="adm-nav-item" data-panel="events">
+            <span class="adm-nav-icon" aria-hidden="true">🎉</span>이벤트 관리
+          </button>
+          <button class="adm-nav-item" data-panel="settings">
+            <span class="adm-nav-icon" aria-hidden="true">⚙️</span>사이트 설정
+          </button>
+        </nav>
+        <div class="adm-sidebar-footer">
+          <button class="adm-logout-btn" id="logout-btn" type="button">
+            <span aria-hidden="true">🚪</span> 로그아웃
+          </button>
+        </div>
+      </aside>
+
+      <!-- Main -->
+      <div class="adm-main">
+        <!-- Topbar -->
+        <header class="adm-topbar">
+          <h1 class="adm-topbar-title" id="adm-panel-title">대시보드</h1>
+          <div class="adm-topbar-right">
+            <a href="./index.html" target="_blank" style="font-size:12px;color:#aaa;font-weight:700;">사이트 보기 →</a>
+            <div class="adm-avatar" aria-hidden="true">관</div>
+            <span class="adm-user-name">관리자</span>
+          </div>
+        </header>
+
+        <!-- Content -->
+        <div class="adm-content">
+
+          <!-- ── 대시보드 ─────────────────────────────── -->
+          <section class="adm-tab-panel is-active" id="panel-dashboard" aria-labelledby="dash-title">
+            <div class="adm-stats-grid">
+              <div class="adm-stat-card">
+                <div class="adm-stat-icon" style="background:#fff0f6" aria-hidden="true">👁️</div>
+                <div class="adm-stat-info">
+                  <div class="adm-stat-num">2,841</div>
+                  <div class="adm-stat-label">오늘 방문자</div>
+                  <div class="adm-stat-delta">▲ 12.4% 어제 대비</div>
+                </div>
+              </div>
+              <div class="adm-stat-card">
+                <div class="adm-stat-icon" style="background:#f0f4ff" aria-hidden="true">📄</div>
+                <div class="adm-stat-info">
+                  <div class="adm-stat-num">48</div>
+                  <div class="adm-stat-label">총 게시물</div>
+                  <div class="adm-stat-delta">▲ 2 신규</div>
+                </div>
+              </div>
+              <div class="adm-stat-card">
+                <div class="adm-stat-icon" style="background:#fff8e1" aria-hidden="true">🎉</div>
+                <div class="adm-stat-info">
+                  <div class="adm-stat-num">3</div>
+                  <div class="adm-stat-label">진행 중 이벤트</div>
+                  <div class="adm-stat-delta">▲ 1 신규</div>
+                </div>
+              </div>
+              <div class="adm-stat-card">
+                <div class="adm-stat-icon" style="background:#e8faf0" aria-hidden="true">🧪</div>
+                <div class="adm-stat-info">
+                  <div class="adm-stat-num">1,203</div>
+                  <div class="adm-stat-label">감정 테스트 참여</div>
+                  <div class="adm-stat-delta">▲ 88 오늘</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="adm-mini-chart-wrap">
+              <h3>주간 방문자 추이</h3>
+              <canvas id="adm-visit-chart" height="130"></canvas>
+            </div>
+
+            <div class="adm-activity">
+              <h3>최근 활동</h3>
+              <div class="adm-activity-list" role="list">
+                <div class="adm-activity-item" role="listitem">
+                  <div class="adm-activity-dot" style="background:#FF6B9D" aria-hidden="true"></div>
+                  <div>
+                    <div class="adm-activity-text">갤러리에 새 이미지 <strong>bedtime-cells.png</strong> 업로드됨</div>
+                    <div class="adm-activity-time">5분 전</div>
+                  </div>
+                </div>
+                <div class="adm-activity-item" role="listitem">
+                  <div class="adm-activity-dot" style="background:#4A90E2" aria-hidden="true"></div>
+                  <div>
+                    <div class="adm-activity-text">뉴스 <strong>'드라마 시즌3 제작 확정 소식'</strong> 게시글 발행</div>
+                    <div class="adm-activity-time">2시간 전</div>
+                  </div>
+                </div>
+                <div class="adm-activity-item" role="listitem">
+                  <div class="adm-activity-dot" style="background:#FFB347" aria-hidden="true"></div>
+                  <div>
+                    <div class="adm-activity-text">이벤트 <strong>'나의 대표 세포 찾기'</strong> 참여자 1,000명 돌파</div>
+                    <div class="adm-activity-time">어제 18:22</div>
+                  </div>
+                </div>
+                <div class="adm-activity-item" role="listitem">
+                  <div class="adm-activity-dot" style="background:#38C172" aria-hidden="true"></div>
+                  <div>
+                    <div class="adm-activity-text">사이트 유지보수 완료 — 갤러리 필터 버그 수정</div>
+                    <div class="adm-activity-time">어제 10:05</div>
+                  </div>
+                </div>
+                <div class="adm-activity-item" role="listitem">
+                  <div class="adm-activity-dot" style="background:#B388FF" aria-hidden="true"></div>
+                  <div>
+                    <div class="adm-activity-text">통계 페이지 신규 오픈</div>
+                    <div class="adm-activity-time">2일 전</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ── 갤러리 관리 ─────────────────────────── -->
+          <section class="adm-tab-panel" id="panel-gallery">
+            <div class="adm-sec-header">
+              <h2>갤러리 이미지 관리</h2>
+              <button class="adm-add-btn" onclick="openModal('gallery')">+ 이미지 추가</button>
+            </div>
+            <div class="adm-table-wrap">
+              <table class="adm-table">
+                <thead>
+                  <tr>
+                    <th>파일명</th>
+                    <th>카테고리</th>
+                    <th>상태</th>
+                    <th>등록일</th>
+                    <th>관리</th>
+                  </tr>
+                </thead>
+                <tbody id="gallery-tbody">
+                  <!-- JS로 렌더링 -->
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- ── 뉴스 관리 ───────────────────────────── -->
+          <section class="adm-tab-panel" id="panel-news">
+            <div class="adm-sec-header">
+              <h2>뉴스 게시글 관리</h2>
+              <button class="adm-add-btn" onclick="openModal('news')">+ 글 작성</button>
+            </div>
+            <div class="adm-table-wrap">
+              <table class="adm-table">
+                <thead>
+                  <tr>
+                    <th>제목</th>
+                    <th>카테고리</th>
+                    <th>상태</th>
+                    <th>작성일</th>
+                    <th>관리</th>
+                  </tr>
+                </thead>
+                <tbody id="news-tbody">
+                  <!-- JS로 렌더링 -->
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- ── 이벤트 관리 ──────────────────────────── -->
+          <section class="adm-tab-panel" id="panel-events">
+            <div class="adm-sec-header">
+              <h2>이벤트 관리</h2>
+              <button class="adm-add-btn" onclick="openModal('events')">+ 이벤트 추가</button>
+            </div>
+            <div class="adm-table-wrap">
+              <table class="adm-table">
+                <thead>
+                  <tr>
+                    <th>이벤트명</th>
+                    <th>유형</th>
+                    <th>상태</th>
+                    <th>기간</th>
+                    <th>관리</th>
+                  </tr>
+                </thead>
+                <tbody id="events-tbody">
+                  <!-- JS로 렌더링 -->
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- ── 사이트 설정 ──────────────────────────── -->
+          <section class="adm-tab-panel" id="panel-settings">
+            <h2 style="font-size:16px;font-weight:900;color:var(--navy);margin:0 0 24px">사이트 설정</h2>
+            <div style="background:#fff;border-radius:var(--card-r);padding:28px;box-shadow:0 2px 12px rgba(0,0,0,.05);max-width:520px;">
+              <div class="adm-form-group">
+                <label>사이트 제목</label>
+                <input type="text" value="유미의 세포들 팬페이지" />
+              </div>
+              <div class="adm-form-group">
+                <label>관리자 이메일</label>
+                <input type="email" value="admin@yumicells.com" />
+              </div>
+              <div class="adm-form-group">
+                <label>비밀번호 변경</label>
+                <input type="password" placeholder="새 비밀번호 입력" />
+              </div>
+              <div class="adm-form-group">
+                <label>메인 공지사항</label>
+                <textarea rows="3" placeholder="메인 페이지에 표시할 공지사항을 입력하세요."></textarea>
+              </div>
+              <button class="adm-btn-save" type="button" onclick="showToast('설정이 저장되었어요 ✓')" style="margin-top:8px">저장하기</button>
+            </div>
+          </section>
+
+        </div><!-- /adm-content -->
+      </div><!-- /adm-main -->
+    </div><!-- /admin-shell -->
+
+    <!-- ── 모달 ────────────────────────────────────────── -->
+    <div class="adm-modal-backdrop" id="adm-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="adm-modal">
+        <h3 id="modal-title">항목 추가</h3>
+        <div id="modal-body"></div>
+        <div class="adm-modal-actions">
+          <button class="adm-btn-cancel" onclick="closeModal()">취소</button>
+          <button class="adm-btn-save" onclick="saveModal()">저장</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Toast ───────────────────────────────────────── -->
+    <div class="adm-toast" id="adm-toast" role="status" aria-live="polite"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script>
+      /* ── 초기화 ────────────────────────────────────────── */
+      document.getElementById('logout-btn').addEventListener('click', () => {
+        showToast('데모 모드에서는 로그아웃이 지원되지 않아요');
+      });
+
+      initDashboard();
+
+      /* ── 탭 전환 ──────────────────────────────────────── */
+      const PANEL_TITLES = {
+        dashboard: '대시보드',
+        gallery: '갤러리 관리',
+        news: '뉴스 관리',
+        events: '이벤트 관리',
+        settings: '사이트 설정',
+      };
+
+      document.querySelectorAll('.adm-nav-item').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const panel = btn.dataset.panel;
+          document.querySelectorAll('.adm-nav-item').forEach(b => b.classList.remove('is-active'));
+          btn.classList.add('is-active');
+          document.querySelectorAll('.adm-tab-panel').forEach(p => p.classList.remove('is-active'));
+          document.getElementById('panel-' + panel).classList.add('is-active');
+          document.getElementById('adm-panel-title').textContent = PANEL_TITLES[panel];
+        });
+      });
+
+      /* ── 초기 데이터 ───────────────────────────────────── */
+      const galleryData = [
+        { file: 'cell-character-pink.png', category: '캐릭터', status: 'published', date: '2024.11.20' },
+        { file: 'emotion-joy.png', category: '감정', status: 'published', date: '2024.11.18' },
+        { file: 'cafe-date-cells.png', category: '장면', status: 'published', date: '2024.11.15' },
+        { file: 'bedtime-cells.png', category: '장면', status: 'draft', date: '2024.11.12' },
+        { file: 'yumi-daydream.png', category: '캐릭터', status: 'hidden', date: '2024.11.10' },
+      ];
+
+      const newsData = [
+        { title: '유미의 세포들 팬미팅 개최 소식', category: '이벤트', status: 'published', date: '2024.11.22' },
+        { title: '드라마 시즌 2 OST 전곡 스트리밍 시작', category: '음악', status: 'published', date: '2024.11.19' },
+        { title: '웹툰 전권 한정판 단행본 출시 예정', category: '굿즈', status: 'draft', date: '2024.11.16' },
+        { title: '주인공 세포들 일러스트 카드 증정 이벤트', category: '이벤트', status: 'published', date: '2024.11.10' },
+      ];
+
+      const eventsData = [
+        { name: '나의 대표 세포 찾기', type: '테스트', status: 'published', period: '상시' },
+        { name: '응원 메시지 남기기', type: '참여형', status: 'published', period: '2024.11 ~ 12' },
+        { name: '세포 굿즈 드로우', type: '굿즈', status: 'draft', period: '2024.12.01 ~' },
+      ];
+
+      function statusBadge(s) {
+        const map = { published: '게시됨', draft: '임시저장', hidden: '숨김' };
+        return `<span class="adm-status ${s}">${map[s] || s}</span>`;
+      }
+
+      function rowActions(id, type) {
+        return `<div class="adm-row-actions">
+          <button class="adm-btn-edit" onclick="showToast('편집 기능은 준비 중이에요')">편집</button>
+          <button class="adm-btn-del" onclick="deleteRow(this, '${type}')">삭제</button>
+        </div>`;
+      }
+
+      function renderTable(tbodyId, rows) {
+        const tbody = document.getElementById(tbodyId);
+        if (!tbody) return;
+        tbody.innerHTML = rows.map((r, i) => {
+          const type = tbodyId.replace('-tbody', '');
+          if (type === 'gallery') {
+            return `<tr>
+              <td>${r.file}</td><td>${r.category}</td>
+              <td>${statusBadge(r.status)}</td><td>${r.date}</td>
+              <td>${rowActions(i, type)}</td>
+            </tr>`;
+          }
+          if (type === 'news') {
+            return `<tr>
+              <td style="max-width:240px">${r.title}</td><td>${r.category}</td>
+              <td>${statusBadge(r.status)}</td><td>${r.date}</td>
+              <td>${rowActions(i, type)}</td>
+            </tr>`;
+          }
+          if (type === 'events') {
+            return `<tr>
+              <td>${r.name}</td><td>${r.type}</td>
+              <td>${statusBadge(r.status)}</td><td>${r.period}</td>
+              <td>${rowActions(i, type)}</td>
+            </tr>`;
+          }
+          return '';
+        }).join('');
+      }
+
+      function deleteRow(btn, type) {
+        if (!confirm('정말 삭제하시겠어요?')) return;
+        btn.closest('tr').style.transition = 'opacity .3s';
+        btn.closest('tr').style.opacity = '0';
+        setTimeout(() => { btn.closest('tr').remove(); showToast('삭제되었어요 ✓'); }, 320);
+      }
+
+      /* ── 대시보드 차트 ─────────────────────────────────── */
+      let visitChartInst = null;
+
+      function initDashboard() {
+        renderTable('gallery-tbody', galleryData);
+        renderTable('news-tbody', newsData);
+        renderTable('events-tbody', eventsData);
+
+        if (visitChartInst) { visitChartInst.destroy(); }
+
+        const ctx = document.getElementById('adm-visit-chart');
+        if (!ctx) return;
+
+        Chart.defaults.font.family = 'Pretendard, -apple-system, sans-serif';
+        Chart.defaults.color = '#bbb';
+
+        visitChartInst = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: ['월', '화', '수', '목', '금', '토', '일'],
+            datasets: [{
+              label: '방문자',
+              data: [1820, 2100, 1950, 2680, 2430, 3100, 2841],
+              borderColor: '#FF6B9D',
+              backgroundColor: 'rgba(255,107,157,.08)',
+              borderWidth: 2.5,
+              pointBackgroundColor: '#FF6B9D',
+              pointRadius: 4,
+              pointHoverRadius: 6,
+              fill: true,
+              tension: .42,
+            }]
+          },
+          options: {
+            plugins: { legend: { display: false } },
+            scales: {
+              y: {
+                beginAtZero: false,
+                grid: { color: 'rgba(0,0,0,.04)' },
+                ticks: { maxTicksLimit: 5 }
+              },
+              x: { grid: { display: false } }
+            },
+            animation: { duration: 800 }
+          }
+        });
+      }
+
+      /* ── 모달 ──────────────────────────────────────────── */
+      const MODAL_FORMS = {
+        gallery: `
+          <div class="adm-form-group"><label>파일명</label><input type="text" placeholder="예: cell-new.png" /></div>
+          <div class="adm-form-group"><label>카테고리</label>
+            <select><option>캐릭터</option><option>감정</option><option>장면</option></select>
+          </div>
+          <div class="adm-form-group"><label>상태</label>
+            <select><option value="published">게시됨</option><option value="draft">임시저장</option><option value="hidden">숨김</option></select>
+          </div>`,
+        news: `
+          <div class="adm-form-group"><label>제목</label><input type="text" placeholder="뉴스 제목을 입력하세요" /></div>
+          <div class="adm-form-group"><label>카테고리</label>
+            <select><option>이벤트</option><option>음악</option><option>굿즈</option><option>소식</option></select>
+          </div>
+          <div class="adm-form-group"><label>내용</label><textarea rows="4" placeholder="내용을 입력하세요"></textarea></div>
+          <div class="adm-form-group"><label>상태</label>
+            <select><option value="published">게시됨</option><option value="draft">임시저장</option></select>
+          </div>`,
+        events: `
+          <div class="adm-form-group"><label>이벤트명</label><input type="text" placeholder="이벤트 이름을 입력하세요" /></div>
+          <div class="adm-form-group"><label>유형</label>
+            <select><option>테스트</option><option>참여형</option><option>굿즈</option></select>
+          </div>
+          <div class="adm-form-group"><label>기간</label><input type="text" placeholder="예: 2024.12.01 ~ 2024.12.31" /></div>
+          <div class="adm-form-group"><label>상태</label>
+            <select><option value="published">게시됨</option><option value="draft">임시저장</option></select>
+          </div>`,
+      };
+
+      const MODAL_TITLES = { gallery: '이미지 추가', news: '뉴스 작성', events: '이벤트 추가' };
+
+      function openModal(type) {
+        document.getElementById('modal-title').textContent = MODAL_TITLES[type] || '추가';
+        document.getElementById('modal-body').innerHTML = MODAL_FORMS[type] || '';
+        document.getElementById('adm-modal').classList.add('open');
+        document.getElementById('adm-modal').dataset.type = type;
+      }
+
+      function closeModal() {
+        document.getElementById('adm-modal').classList.remove('open');
+      }
+
+      function saveModal() {
+        closeModal();
+        showToast('저장되었어요 ✓');
+      }
+
+      document.getElementById('adm-modal').addEventListener('click', e => {
+        if (e.target === document.getElementById('adm-modal')) closeModal();
+      });
+
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') closeModal();
+      });
+
+      /* ── 토스트 ─────────────────────────────────────────── */
+      let toastTimer = null;
+
+      function showToast(msg) {
+        const toast = document.getElementById('adm-toast');
+        toast.textContent = msg;
+        toast.classList.add('show');
+        if (toastTimer) clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => { toast.classList.remove('show'); }, 2800);
+      }
+    </script>
+  </body>
+</html>

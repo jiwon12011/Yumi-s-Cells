@@ -1,0 +1,865 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>나의 감정 세포 찾기 | 유미의 세포들</title>
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="stylesheet" href="./styles.css" />
+    <style>
+      /* ── Emotion Test Page ──────────────────────────────── */
+      .et-page { background: linear-gradient(180deg, #fff0f7 0%, #fff7fb 100%); min-height: 100vh; }
+
+      .et-screen { display: none; flex-direction: column; align-items: center; }
+      .et-screen.is-active { display: flex; }
+
+      /* ── Intro ──────────────────────────────────────────── */
+      .et-intro {
+        justify-content: center;
+        min-height: 100vh;
+        padding: 120px 20px 80px;
+        text-align: center;
+        gap: 26px;
+      }
+
+      .et-badge {
+        display: inline-block;
+        padding: 6px 18px;
+        background: linear-gradient(135deg, #FF6B9D, #ff4f8f);
+        color: #fff;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        border-radius: 999px;
+      }
+
+      .et-intro h1 {
+        font-size: clamp(28px, 5vw, 52px);
+        font-weight: 900;
+        color: #1a1a2e;
+        line-height: 1.2;
+        margin: 0;
+      }
+
+      .et-intro h1 em {
+        font-style: normal;
+        color: var(--primary);
+      }
+
+      .et-intro-desc {
+        font-size: 16px;
+        color: #666;
+        max-width: 440px;
+        line-height: 1.75;
+        margin: 0;
+      }
+
+      .et-cells-preview {
+        display: flex;
+        gap: 18px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin: 8px 0;
+      }
+
+      .et-cells-preview img {
+        width: 72px;
+        height: 72px;
+        object-fit: contain;
+        animation: etFloat 3.2s ease-in-out infinite;
+        filter: drop-shadow(0 8px 18px rgba(255, 107, 157, .18));
+      }
+
+      .et-cells-preview img:nth-child(2) { animation-delay: .4s; }
+      .et-cells-preview img:nth-child(3) { animation-delay: .8s; }
+      .et-cells-preview img:nth-child(4) { animation-delay: 1.2s; }
+      .et-cells-preview img:nth-child(5) { animation-delay: 1.6s; }
+
+      @keyframes etFloat {
+        0%, 100% { transform: translateY(0) rotate(-2deg); }
+        50% { transform: translateY(-10px) rotate(2deg); }
+      }
+
+      .et-start-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 18px 38px;
+        background: linear-gradient(135deg, #FF6B9D, #ff4f8f);
+        color: #fff;
+        font-size: 17px;
+        font-weight: 800;
+        border: none;
+        border-radius: 999px;
+        cursor: pointer;
+        box-shadow: 0 20px 44px rgba(255, 79, 143, .32);
+        transition: transform .25s ease, box-shadow .25s ease;
+        font-family: inherit;
+      }
+
+      .et-start-btn:hover { transform: translateY(-4px); box-shadow: 0 28px 52px rgba(255, 79, 143, .42); }
+
+      /* ── Quiz ───────────────────────────────────────────── */
+      .et-quiz {
+        min-height: 100vh;
+        padding: 104px 20px 60px;
+        gap: 28px;
+      }
+
+      .et-progress-wrap { width: 100%; max-width: 580px; }
+
+      .et-progress-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .et-progress-label {
+        font-size: 11px;
+        font-weight: 800;
+        color: var(--primary);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      .et-progress-count { font-size: 13px; font-weight: 600; color: #aaa; }
+
+      .et-progress-bar {
+        height: 6px;
+        background: #ffe0ee;
+        border-radius: 999px;
+        overflow: hidden;
+      }
+
+      .et-progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #FF6B9D, #ff4f8f);
+        border-radius: 999px;
+        transition: width .55s cubic-bezier(.4, 0, .2, 1);
+        width: 0%;
+      }
+
+      .et-question-card {
+        width: 100%;
+        max-width: 580px;
+        background: #fff;
+        border-radius: 28px;
+        padding: 38px 34px 34px;
+        box-shadow: 0 8px 40px rgba(255, 107, 157, .10);
+      }
+
+      .et-q-num {
+        display: inline-flex;
+        width: 32px;
+        height: 32px;
+        align-items: center;
+        justify-content: center;
+        background: var(--primary);
+        color: #fff;
+        font-size: 13px;
+        font-weight: 800;
+        border-radius: 50%;
+        margin-bottom: 14px;
+      }
+
+      .et-q-text {
+        font-size: clamp(16px, 2.4vw, 21px);
+        font-weight: 800;
+        color: #1a1a2e;
+        line-height: 1.45;
+        margin: 0 0 22px;
+      }
+
+      .et-options { display: flex; flex-direction: column; gap: 10px; }
+
+      .et-option {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 15px 18px;
+        background: #fff7fb;
+        border: 2px solid #ffe0ee;
+        border-radius: 16px;
+        cursor: pointer;
+        transition: all .22s ease;
+        text-align: left;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        color: #444;
+        width: 100%;
+      }
+
+      .et-option:hover {
+        border-color: var(--primary);
+        background: #fff0f5;
+        transform: translateX(6px);
+      }
+
+      .et-option.is-selected {
+        border-color: var(--primary);
+        background: linear-gradient(135deg, #fff0f6, #ffe8f2);
+        color: var(--primary);
+      }
+
+      .et-option-emoji { font-size: 20px; flex-shrink: 0; }
+      .et-option-text { flex: 1; }
+
+      .et-next-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 30px;
+        background: var(--primary);
+        color: #fff;
+        font-size: 15px;
+        font-weight: 800;
+        border: none;
+        border-radius: 999px;
+        cursor: pointer;
+        box-shadow: 0 14px 32px rgba(255, 107, 157, .28);
+        transition: all .25s ease;
+        font-family: inherit;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(8px);
+      }
+
+      .et-next-btn.is-ready {
+        opacity: 1;
+        pointer-events: all;
+        transform: translateY(0);
+      }
+
+      .et-next-btn:hover { transform: translateY(-3px); box-shadow: 0 20px 38px rgba(255, 107, 157, .36); }
+
+      /* ── Loading ────────────────────────────────────────── */
+      .et-loading {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        gap: 28px;
+        text-align: center;
+        padding: 20px;
+      }
+
+      .et-loading-orbit {
+        position: relative;
+        width: 140px;
+        height: 140px;
+      }
+
+      .et-loading-orbit img {
+        position: absolute;
+        width: 56px;
+        height: 56px;
+        object-fit: contain;
+      }
+
+      .et-loading-orbit img:nth-child(1) { top: 0; left: 42px; animation: orbitBounce 1.8s 0s ease-in-out infinite; }
+      .et-loading-orbit img:nth-child(2) { top: 42px; left: 84px; animation: orbitBounce 1.8s .45s ease-in-out infinite; }
+      .et-loading-orbit img:nth-child(3) { top: 84px; left: 42px; animation: orbitBounce 1.8s .9s ease-in-out infinite; }
+      .et-loading-orbit img:nth-child(4) { top: 42px; left: 0; animation: orbitBounce 1.8s 1.35s ease-in-out infinite; }
+
+      @keyframes orbitBounce {
+        0%, 100% { transform: scale(1); opacity: .6; }
+        50% { transform: scale(1.35) rotate(15deg); opacity: 1; }
+      }
+
+      .et-loading-text { font-size: 18px; font-weight: 700; color: #1a1a2e; }
+
+      .et-dots {
+        display: inline-flex;
+        gap: 4px;
+        margin-left: 4px;
+      }
+
+      .et-dots span {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--primary);
+        animation: dotBlink 1.2s ease-in-out infinite;
+      }
+
+      .et-dots span:nth-child(2) { animation-delay: .2s; }
+      .et-dots span:nth-child(3) { animation-delay: .4s; }
+
+      @keyframes dotBlink {
+        0%, 100% { transform: scale(.6); opacity: .4; }
+        50% { transform: scale(1.2); opacity: 1; }
+      }
+
+      /* ── Result ─────────────────────────────────────────── */
+      .et-result {
+        min-height: 100vh;
+        padding: 100px 20px 80px;
+        gap: 0;
+        text-align: center;
+      }
+
+      .et-result-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 22px;
+        max-width: 540px;
+        width: 100%;
+      }
+
+      .et-result-badge {
+        display: inline-block;
+        padding: 6px 18px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        color: #fff;
+        animation: badgePop .5s cubic-bezier(.2, .9, .2, 1) both;
+      }
+
+      @keyframes badgePop {
+        from { opacity: 0; transform: scale(.6) translateY(10px); }
+        to { opacity: 1; transform: scale(1) translateY(0); }
+      }
+
+      .et-result-cell-wrap {
+        position: relative;
+        width: 220px;
+        height: 220px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .et-result-ring {
+        position: absolute;
+        inset: -16px;
+        border-radius: 50%;
+        border: 2px solid rgba(255, 107, 157, .25);
+        animation: ringOut 2.2s ease-out infinite;
+      }
+
+      .et-result-ring::before {
+        content: '';
+        position: absolute;
+        inset: 22px;
+        border-radius: 50%;
+        border: 2px solid rgba(255, 107, 157, .15);
+      }
+
+      @keyframes ringOut {
+        0% { transform: scale(.82); opacity: .9; }
+        100% { transform: scale(1.45); opacity: 0; }
+      }
+
+      .et-result-cell {
+        width: 200px;
+        height: 200px;
+        object-fit: contain;
+        filter: drop-shadow(0 24px 44px rgba(255, 107, 157, .22));
+        animation: cellPop .85s cubic-bezier(.2, .9, .2, 1) both;
+        animation-delay: .2s;
+      }
+
+      @keyframes cellPop {
+        from { opacity: 0; transform: scale(.3) rotate(-18deg); }
+        to { opacity: 1; transform: scale(1) rotate(0deg); }
+      }
+
+      .et-result-name {
+        font-size: clamp(22px, 4vw, 34px);
+        font-weight: 900;
+        color: #1a1a2e;
+        line-height: 1.3;
+        margin: 0;
+        animation: fadeUp .5s .4s both;
+      }
+
+      .et-result-name em { font-style: normal; }
+
+      @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(16px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      .et-result-card {
+        width: 100%;
+        background: #fff;
+        border-radius: 24px;
+        padding: 28px 26px;
+        box-shadow: 0 8px 40px rgba(255, 107, 157, .10);
+        text-align: left;
+        animation: fadeUp .5s .55s both;
+      }
+
+      .et-keywords {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 14px;
+      }
+
+      .et-kw {
+        padding: 4px 12px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .et-result-desc {
+        font-size: 14px;
+        line-height: 1.78;
+        color: #555;
+        margin: 0;
+      }
+
+      .et-result-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+        animation: fadeUp .5s .7s both;
+      }
+
+      .et-retry-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 13px 24px;
+        background: transparent;
+        border: 2px solid var(--primary);
+        color: var(--primary);
+        font-size: 14px;
+        font-weight: 800;
+        border-radius: 999px;
+        cursor: pointer;
+        transition: all .25s ease;
+        font-family: inherit;
+      }
+
+      .et-retry-btn:hover { background: var(--primary); color: #fff; transform: translateY(-2px); }
+
+      .et-share-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 13px 24px;
+        background: linear-gradient(135deg, #FF6B9D, #ff4f8f);
+        color: #fff;
+        font-size: 14px;
+        font-weight: 800;
+        border-radius: 999px;
+        cursor: pointer;
+        border: none;
+        box-shadow: 0 12px 28px rgba(255, 107, 157, .28);
+        transition: all .25s ease;
+        font-family: inherit;
+      }
+
+      .et-share-btn:hover { transform: translateY(-3px); box-shadow: 0 18px 36px rgba(255, 107, 157, .38); }
+
+      /* ── Confetti ───────────────────────────────────────── */
+      .et-confetti {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 999;
+        overflow: hidden;
+      }
+
+      .et-confetti-bit {
+        position: absolute;
+        top: -12px;
+        border-radius: 2px;
+        animation: confettiFall linear forwards;
+      }
+
+      @keyframes confettiFall {
+        0% { transform: translateY(0) rotate(0deg) translateX(0); opacity: 1; }
+        80% { opacity: 1; }
+        100% { transform: translateY(105vh) rotate(720deg) translateX(var(--drift, 0px)); opacity: 0; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="scroll-progress" aria-hidden="true"></div>
+    <div class="site-shell sub-page et-page">
+
+      <header class="site-header" aria-label="주요 메뉴">
+        <a class="brand" href="./index.html" aria-label="유미의 세포들 홈">
+          <img src="./assets/images/logo/yumi-cells-logo.png" alt="유미의 세포들" />
+        </a>
+        <nav class="main-nav" aria-label="페이지 메뉴">
+          <a href="./index.html">Home</a>
+          <a href="./story.html">Story</a>
+          <a href="./gallery.html">Gallery</a>
+          <a href="./news.html">News</a>
+        </nav>
+        <div class="header-actions" aria-label="소셜 메뉴">
+          <a href="https://www.instagram.com/juicysmile/" target="_blank" rel="noopener" aria-label="Instagram">
+            <span class="icon-instagram"></span>
+          </a>
+          <a href="https://www.youtube.com/hashtag/%EC%9C%A0%EB%AF%B8%EC%9D%98%EC%84%B8%ED%8F%AC%EB%93%A4" aria-label="YouTube" target="_blank" rel="noopener">
+            <span class="icon-youtube"></span>
+          </a>
+          <button class="menu-button" type="button" aria-label="메뉴 열기">
+            <span></span><span></span>
+          </button>
+        </div>
+      </header>
+
+      <main>
+        <!-- ── INTRO ─────────────────────────────────── -->
+        <section class="et-screen et-intro is-active" id="et-intro" aria-labelledby="et-main-title">
+          <span class="et-badge">Emotion Test</span>
+          <h1 id="et-main-title">나의 감정 세포를<br /><em>찾아보세요</em></h1>
+          <p class="et-intro-desc">
+            5가지 질문에 솔직하게 답해보세요.<br />
+            지금 당신 마음속에서 가장 활발하게 움직이는 세포를 찾아드릴게요!
+          </p>
+          <div class="et-cells-preview" aria-hidden="true">
+            <img src="./assets/images/cells/cell-love.png" alt="" />
+            <img src="./assets/images/cells/cell-reading.png" alt="" />
+            <img src="./assets/images/cells/cell-angry.png" alt="" />
+            <img src="./assets/images/cells/cell-chill.png" alt="" />
+            <img src="./assets/images/cells/cell-artist.png" alt="" />
+          </div>
+          <button class="et-start-btn" id="et-start-btn" type="button">
+            테스트 시작하기 →
+          </button>
+        </section>
+
+        <!-- ── QUIZ ──────────────────────────────────── -->
+        <section class="et-screen et-quiz" id="et-quiz" aria-live="polite">
+          <div class="et-progress-wrap">
+            <div class="et-progress-meta">
+              <span class="et-progress-label">세포 분석 중</span>
+              <span class="et-progress-count" id="et-q-counter">1 / 5</span>
+            </div>
+            <div class="et-progress-bar">
+              <div class="et-progress-fill" id="et-progress-fill"></div>
+            </div>
+          </div>
+          <div class="et-question-card" id="et-question-card">
+            <div class="et-q-num" id="et-q-num" aria-hidden="true">1</div>
+            <p class="et-q-text" id="et-q-text"></p>
+            <div class="et-options" id="et-options" role="group" aria-labelledby="et-q-text"></div>
+          </div>
+          <button class="et-next-btn" id="et-next-btn" type="button">
+            다음 →
+          </button>
+        </section>
+
+        <!-- ── LOADING ───────────────────────────────── -->
+        <section class="et-screen et-loading" id="et-loading" aria-live="polite" aria-label="결과 분석 중">
+          <div class="et-loading-orbit" aria-hidden="true">
+            <img src="./assets/images/cells/cell-love.png" alt="" />
+            <img src="./assets/images/cells/cell-reading.png" alt="" />
+            <img src="./assets/images/cells/cell-chill.png" alt="" />
+            <img src="./assets/images/cells/cell-angry.png" alt="" />
+          </div>
+          <p class="et-loading-text">
+            세포들이 분석 중이에요
+            <span class="et-dots" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </span>
+          </p>
+        </section>
+
+        <!-- ── RESULT ────────────────────────────────── -->
+        <section class="et-screen et-result" id="et-result" aria-live="polite">
+          <div class="et-result-inner">
+            <span class="et-result-badge" id="et-result-badge">결과</span>
+            <div class="et-result-cell-wrap" aria-hidden="true">
+              <div class="et-result-ring"></div>
+              <img class="et-result-cell" id="et-result-img" src="" alt="" />
+            </div>
+            <h2 class="et-result-name" id="et-result-name"></h2>
+            <div class="et-result-card">
+              <div class="et-keywords" id="et-result-keywords"></div>
+              <p class="et-result-desc" id="et-result-desc"></p>
+            </div>
+            <div class="et-result-actions">
+              <button class="et-retry-btn" id="et-retry-btn" type="button">🔄 다시하기</button>
+              <button class="et-share-btn" id="et-share-btn" type="button">💬 결과 공유하기</button>
+            </div>
+          </div>
+        </section>
+
+        <div class="et-confetti" id="et-confetti" aria-hidden="true"></div>
+      </main>
+
+      <footer class="site-footer">
+        <a class="footer-brand" href="./index.html">
+          <img src="./assets/images/logo/yumi-cells-logo.png" alt="유미의 세포들" />
+        </a>
+        <nav aria-label="푸터 메뉴">
+          <a href="#">이용약관</a>
+          <a href="#">개인정보처리방침</a>
+          <a href="#">문의하기</a>
+        </nav>
+        <p>© 2024 YUMI'S CELLS OFFICIAL FANPAGE. ALL RIGHTS RESERVED.</p>
+      </footer>
+    </div>
+    <a class="top-button" href="#" aria-label="맨 위로">Top</a>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="./script.js"></script>
+    <script>
+      /* ── 질문 데이터 ──────────────────────────────────── */
+      const QUESTIONS = [
+        {
+          text: "오늘 하루 가장 먼저 떠오르는 감정은 무엇인가요?",
+          options: [
+            { emoji: "💗", text: "보고 싶은 사람이 생각난다", cell: "love" },
+            { emoji: "📚", text: "해야 할 일이 머릿속을 맴돈다", cell: "reason" },
+            { emoji: "🔥", text: "뭔가를 해내고 싶은 에너지가 느껴진다", cell: "passion" },
+            { emoji: "😌", text: "그냥 조용히 쉬고 싶다", cell: "chill" },
+            { emoji: "🎨", text: "무언가를 만들고 표현하고 싶다", cell: "artist" },
+          ]
+        },
+        {
+          text: "친구가 갑자기 약속을 취소했어요. 내 반응은?",
+          options: [
+            { emoji: "🥺", text: "많이 서운하고 속상하다", cell: "love" },
+            { emoji: "🤔", text: "왜 취소했는지 이유를 분석하게 된다", cell: "reason" },
+            { emoji: "😤", text: "순간적으로 짜증이 치민다", cell: "passion" },
+            { emoji: "🌿", text: "오히려 혼자만의 시간이 생겨서 좋다", cell: "chill" },
+            { emoji: "✏️", text: "생긴 시간에 뭔가를 그리거나 만든다", cell: "artist" },
+          ]
+        },
+        {
+          text: "이상형에게서 갑자기 연락이 왔어요! 나는?",
+          options: [
+            { emoji: "💓", text: "심장이 두근거려 바로 답장을 보낸다", cell: "love" },
+            { emoji: "📝", text: "신중하게 내용을 계획한 뒤 답장한다", cell: "reason" },
+            { emoji: "⚡", text: "바로 통화하자고 제안한다", cell: "passion" },
+            { emoji: "☕", text: "여유 있게 천천히 답장을 보낸다", cell: "chill" },
+            { emoji: "🎭", text: "재밌고 독특한 방식으로 답장한다", cell: "artist" },
+          ]
+        },
+        {
+          text: "일주일간의 완전한 자유 시간이 생겼어요!",
+          options: [
+            { emoji: "👫", text: "소중한 사람들과 함께 시간을 보낸다", cell: "love" },
+            { emoji: "📖", text: "읽고 싶던 책이나 배우고 싶던 걸 공부한다", cell: "reason" },
+            { emoji: "🏃", text: "새로운 도전이나 여행을 떠난다", cell: "passion" },
+            { emoji: "🛋️", text: "아무것도 안 하고 완전히 쉰다", cell: "chill" },
+            { emoji: "🎵", text: "그림·음악·글쓰기 등 창작 활동을 한다", cell: "artist" },
+          ]
+        },
+        {
+          text: "지금 내 마음 상태를 색으로 표현한다면?",
+          options: [
+            { emoji: "🌸", text: "따뜻하고 부드러운 핑크", cell: "love" },
+            { emoji: "💙", text: "차분하고 집중된 블루", cell: "reason" },
+            { emoji: "🔴", text: "활기차고 강렬한 레드", cell: "passion" },
+            { emoji: "💚", text: "포근하고 여유로운 그린", cell: "chill" },
+            { emoji: "🌈", text: "다채롭고 독창적인 무지개색", cell: "artist" },
+          ]
+        }
+      ];
+
+      /* ── 세포 결과 데이터 ──────────────────────────────── */
+      const CELLS = {
+        love: {
+          name: "사랑세포",
+          img: "./assets/images/cells/cell-love.png",
+          color: "#FF6B9D",
+          badge: "💗 감정형",
+          keywords: ["따뜻함", "공감", "설렘", "감수성"],
+          desc: "당신의 마음속에는 사랑세포가 가장 활발하게 움직이고 있어요! 따뜻한 감정을 솔직하게 표현하고 소중한 사람들과의 관계에서 행복을 찾는 당신. 공감 능력이 뛰어나 주변 사람들에게 언제나 따뜻한 위로가 됩니다. 가끔 감정에 솔직한 나머지 상처받을 때도 있지만, 그 순수한 마음이 당신의 가장 큰 매력이에요."
+        },
+        reason: {
+          name: "이성세포",
+          img: "./assets/images/cells/cell-reading.png",
+          color: "#4A90E2",
+          badge: "📚 분석형",
+          keywords: ["논리", "신중함", "계획", "분석"],
+          desc: "당신의 마음속에는 이성세포가 활발하게 움직이고 있어요. 감정에 휩쓸리지 않고 논리적으로 생각하며 판단하는 당신. 매사에 신중하고 계획적이라 주변 사람들이 믿고 의지합니다. 이성과 감정 사이에서 고민할 때도 있지만, 그 균형 잡힌 시각이 당신만의 강점이에요."
+        },
+        passion: {
+          name: "열정세포",
+          img: "./assets/images/cells/cell-angry.png",
+          color: "#FF4F4F",
+          badge: "🔥 열정형",
+          keywords: ["에너지", "도전", "열정", "추진력"],
+          desc: "당신의 마음속에는 열정세포가 활활 타오르고 있어요! 무엇이든 열정적으로 임하고 에너지가 넘치는 당신. 도전을 두려워하지 않고 목표를 향해 달려가는 모습이 정말 매력적입니다. 가끔은 그 열정이 너무 강해 지칠 때도 있으니, 잠깐 멈춰 스스로를 돌보는 시간도 가져보세요!"
+        },
+        chill: {
+          name: "편안세포",
+          img: "./assets/images/cells/cell-chill.png",
+          color: "#38C172",
+          badge: "🌿 여유형",
+          keywords: ["평화", "여유", "안정", "행복"],
+          desc: "당신의 마음속에는 편안세포가 포근하게 자리잡고 있어요. 일상의 소소한 행복을 발견하고 여유로운 마음으로 삶을 즐기는 당신. 함께 있으면 마음이 차분해지고 편안해지는 분위기를 만들어냅니다. 그 평화로운 에너지가 주변 사람들에게도 큰 위안이 돼요."
+        },
+        artist: {
+          name: "예술세포",
+          img: "./assets/images/cells/cell-artist.png",
+          color: "#FFB347",
+          badge: "🎨 창의형",
+          keywords: ["창의성", "감성", "표현", "독창성"],
+          desc: "당신의 마음속에는 예술세포가 창의적으로 빛나고 있어요! 독특한 감성과 풍부한 상상력을 가진 당신. 일상 속에서도 아름다움을 발견하고 자신만의 방식으로 세상을 표현합니다. 남들과 다른 시각으로 세상을 바라보는 그 특별함이 당신의 가장 큰 매력이에요."
+        }
+      };
+
+      /* ── 상태 ─────────────────────────────────────────── */
+      let scores = { love: 0, reason: 0, passion: 0, chill: 0, artist: 0 };
+      let currentQ = 0;
+      let selectedCell = null;
+
+      /* ── 화면 전환 ────────────────────────────────────── */
+      function showScreen(id) {
+        document.querySelectorAll('.et-screen').forEach(s => s.classList.remove('is-active'));
+        document.getElementById(id).classList.add('is-active');
+      }
+
+      /* ── 질문 렌더링 ──────────────────────────────────── */
+      function renderQuestion(index) {
+        const q = QUESTIONS[index];
+        selectedCell = null;
+
+        document.getElementById('et-q-num').textContent = index + 1;
+        document.getElementById('et-q-text').textContent = q.text;
+        document.getElementById('et-q-counter').textContent = `${index + 1} / ${QUESTIONS.length}`;
+        document.getElementById('et-progress-fill').style.width = `${(index / QUESTIONS.length) * 100}%`;
+
+        const nextBtn = document.getElementById('et-next-btn');
+        nextBtn.classList.remove('is-ready');
+
+        const container = document.getElementById('et-options');
+        container.innerHTML = '';
+        q.options.forEach(opt => {
+          const btn = document.createElement('button');
+          btn.className = 'et-option';
+          btn.type = 'button';
+          btn.innerHTML = `<span class="et-option-emoji" aria-hidden="true">${opt.emoji}</span><span class="et-option-text">${opt.text}</span>`;
+          btn.addEventListener('click', () => {
+            container.querySelectorAll('.et-option').forEach(b => b.classList.remove('is-selected'));
+            btn.classList.add('is-selected');
+            selectedCell = opt.cell;
+            nextBtn.classList.add('is-ready');
+            if (window.gsap) gsap.from(btn, { scale: .95, duration: .28, ease: 'back.out(2)' });
+          });
+          container.appendChild(btn);
+        });
+
+        if (window.gsap) {
+          gsap.fromTo('#et-question-card',
+            { opacity: 0, y: 22, scale: .97 },
+            { opacity: 1, y: 0, scale: 1, duration: .38, ease: 'power3.out' }
+          );
+        }
+      }
+
+      /* ── 다음 버튼 ────────────────────────────────────── */
+      function handleNext() {
+        if (!selectedCell) return;
+        scores[selectedCell]++;
+
+        if (currentQ < QUESTIONS.length - 1) {
+          currentQ++;
+          renderQuestion(currentQ);
+        } else {
+          document.getElementById('et-progress-fill').style.width = '100%';
+          showScreen('et-loading');
+          setTimeout(showResult, 2200);
+        }
+      }
+
+      /* ── 결과 표시 ────────────────────────────────────── */
+      function showResult() {
+        const [winner] = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+        const data = CELLS[winner[0]];
+
+        const badge = document.getElementById('et-result-badge');
+        badge.textContent = data.badge;
+        badge.style.background = data.color;
+
+        const img = document.getElementById('et-result-img');
+        img.src = data.img;
+        img.alt = data.name;
+
+        document.getElementById('et-result-name').innerHTML =
+          `당신의 세포는<br><em style="color:${data.color}">${data.name}</em>`;
+
+        document.getElementById('et-result-keywords').innerHTML =
+          data.keywords.map(k =>
+            `<span class="et-kw" style="background:${data.color}18;color:${data.color}">${k}</span>`
+          ).join('');
+
+        document.getElementById('et-result-desc').textContent = data.desc;
+
+        // ring color
+        document.querySelector('.et-result-ring').style.borderColor =
+          data.color.replace(')', ', .28)').replace('rgb', 'rgba');
+
+        showScreen('et-result');
+        launchConfetti(data.color);
+      }
+
+      /* ── 컨페티 ───────────────────────────────────────── */
+      function launchConfetti(baseColor) {
+        const wrap = document.getElementById('et-confetti');
+        wrap.innerHTML = '';
+        const palette = [baseColor, '#FF6B9D', '#4A90E2', '#FFB347', '#38C172', '#fff'];
+        for (let i = 0; i < 72; i++) {
+          const el = document.createElement('div');
+          el.className = 'et-confetti-bit';
+          const size = Math.random() * 9 + 4;
+          el.style.cssText = [
+            `left:${Math.random() * 100}%`,
+            `background:${palette[Math.floor(Math.random() * palette.length)]}`,
+            `width:${size}px`,
+            `height:${size}px`,
+            `border-radius:${Math.random() > .5 ? '50%' : '3px'}`,
+            `--drift:${(Math.random() - .5) * 120}px`,
+            `animation-delay:${Math.random() * 1.8}s`,
+            `animation-duration:${Math.random() * 2.4 + 2}s`,
+          ].join(';');
+          wrap.appendChild(el);
+        }
+        setTimeout(() => { wrap.innerHTML = ''; }, 5000);
+      }
+
+      /* ── 다시하기 ────────────────────────────────────── */
+      function resetTest() {
+        scores = { love: 0, reason: 0, passion: 0, chill: 0, artist: 0 };
+        currentQ = 0;
+        selectedCell = null;
+        document.getElementById('et-progress-fill').style.width = '0%';
+        renderQuestion(0);
+        showScreen('et-quiz');
+      }
+
+      /* ── 공유하기 ────────────────────────────────────── */
+      function shareResult() {
+        const [winner] = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+        const data = CELLS[winner[0]];
+        const text = `나의 대표 세포는 ${data.name}! ✨\n${data.keywords.join(' · ')} 타입이에요.\n유미의 세포들 팬페이지에서 나의 감정 세포를 찾아보세요!`;
+        if (navigator.share) {
+          navigator.share({ title: '나의 감정 세포 찾기', text });
+        } else {
+          navigator.clipboard.writeText(text)
+            .then(() => alert('결과가 클립보드에 복사되었어요! 🎉'))
+            .catch(() => alert(text));
+        }
+      }
+
+      /* ── 이벤트 바인딩 ────────────────────────────────── */
+      document.getElementById('et-start-btn').addEventListener('click', () => {
+        showScreen('et-quiz');
+        renderQuestion(0);
+      });
+      document.getElementById('et-next-btn').addEventListener('click', handleNext);
+      document.getElementById('et-retry-btn').addEventListener('click', resetTest);
+      document.getElementById('et-share-btn').addEventListener('click', shareResult);
+    </script>
+  </body>
+</html>
