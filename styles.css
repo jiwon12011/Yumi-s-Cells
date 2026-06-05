@@ -46,6 +46,12 @@
   box-sizing: border-box;
 }
 
+/* width/height 속성이 가로세로비(CLS 방지)는 잡되, 실제 크기는 CSS 폭에 맞춰
+   비율대로 스케일되도록 한다 (height 속성이 세로로 늘리는 문제 방지) */
+img {
+  height: auto;
+}
+
 html {
   min-width: 320px;
 }
