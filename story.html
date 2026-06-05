@@ -371,6 +371,43 @@
         border-top: 8px solid #fff;
       }
 
+      /* ── Scene 세포 반응 (hover 시 관련 세포가 아래에서 올라와 한마디) ── */
+      .st-react {
+        position: absolute;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        pointer-events: none;
+        z-index: 3;
+        opacity: 0;
+        transform: translateY(118%);
+        transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+      }
+      .st-react-a { left: 6%; }
+      .st-react-b { right: 6%; }
+      .st-scene-card:hover .st-react { opacity: 1; transform: translateY(0); }
+      .st-scene-card:hover .st-react-b { transition-delay: 0.09s; }
+
+      .st-react img {
+        width: clamp(52px, 6vw, 74px);
+        height: auto;
+        filter: drop-shadow(0 6px 14px rgba(36, 36, 84, 0.28));
+      }
+      .st-react-bubble {
+        background: #fff;
+        border-radius: 10px 10px 10px 3px;
+        padding: 5px 9px;
+        font-size: 11px;
+        font-weight: 800;
+        color: var(--navy);
+        line-height: 1.3;
+        white-space: nowrap;
+        box-shadow: 0 4px 14px rgba(36, 36, 84, 0.18);
+      }
+      .st-react-b .st-react-bubble { border-radius: 10px 10px 3px 10px; }
+
       /* ── People / Relationship ─────────────────────────────────── */
       .st-people-map {
         display: grid;
@@ -863,16 +900,40 @@
             <article class="st-scene-card" aria-label="장면 — 사랑은 타이밍이야">
               <img src="./assets/images/story/scene-love-timing.webp" alt="유미와 남자가 마주보는 장면"  loading="lazy" decoding="async" width="445" height="334" />
               <div class="st-speech" aria-hidden="true">사랑은&#10;타이밍이야</div>
+              <div class="st-react st-react-a" aria-hidden="true">
+                <span class="st-react-bubble">두근두근…💗</span>
+                <img src="./assets/images/relationship/love-cell.webp" alt="" loading="lazy" decoding="async" />
+              </div>
+              <div class="st-react st-react-b" aria-hidden="true">
+                <span class="st-react-bubble">타이밍이 중요해!</span>
+                <img src="./assets/images/relationship/logic-cell.webp" alt="" loading="lazy" decoding="async" />
+              </div>
             </article>
 
             <article class="st-scene-card" aria-label="장면 — 오늘도 유미는 성장 중">
               <img src="./assets/images/story/timeline-growing.webp" alt="유미 밤에 생각하는 장면"  loading="lazy" decoding="async" width="445" height="343" />
               <div class="st-speech" aria-hidden="true">오늘도&#10;유미는&#10;성장 중</div>
+              <div class="st-react st-react-a" aria-hidden="true">
+                <span class="st-react-bubble">오늘도 파이팅!</span>
+                <img src="./assets/images/relationship/passion-cell.webp" alt="" loading="lazy" decoding="async" />
+              </div>
+              <div class="st-react st-react-b" aria-hidden="true">
+                <span class="st-react-bubble">다 추억이 될 거야</span>
+                <img src="./assets/images/relationship/memory-cell.webp" alt="" loading="lazy" decoding="async" />
+              </div>
             </article>
 
             <article class="st-scene-card" aria-label="장면 — 괜찮아 너답게 하면 돼">
               <img src="./assets/images/story/timeline-wavering.webp" alt="유미 혼자 글 쓰는 장면"  loading="lazy" decoding="async" width="445" height="332" />
               <div class="st-speech" aria-hidden="true">괜찮아,&#10;너답게 하면 돼</div>
+              <div class="st-react st-react-a" aria-hidden="true">
+                <span class="st-react-bubble">괜찮아 괜찮아~</span>
+                <img src="./assets/images/relationship/love-cell.webp" alt="" loading="lazy" decoding="async" />
+              </div>
+              <div class="st-react st-react-b" aria-hidden="true">
+                <span class="st-react-bubble">…정말 괜찮을까?</span>
+                <img src="./assets/images/relationship/anxiety-cell.webp" alt="" loading="lazy" decoding="async" />
+              </div>
             </article>
           </div>
         </section>
