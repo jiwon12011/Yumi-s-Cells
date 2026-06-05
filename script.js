@@ -17,13 +17,25 @@ if (finePointer) {
   let targetCursorX = cursorX;
   let targetCursorY = cursorY;
 
+  let cursorRafId = null;
+
   const moveCursor = () => {
     cursorX += (targetCursorX - cursorX) * 0.32;
     cursorY += (targetCursorY - cursorY) * 0.32;
     cursor.style.left = `${cursorX}px`;
     cursor.style.top = `${cursorY}px`;
-    requestAnimationFrame(moveCursor);
+    cursorRafId = requestAnimationFrame(moveCursor);
   };
+
+  // 탭 비활성화 시 rAF 정지 → 복귀 시 재개
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      cancelAnimationFrame(cursorRafId);
+      cursorRafId = null;
+    } else if (cursorRafId === null) {
+      cursorRafId = requestAnimationFrame(moveCursor);
+    }
+  });
 
   window.addEventListener("pointermove", (event) => {
     targetCursorX = event.clientX;
@@ -47,7 +59,7 @@ if (finePointer) {
     cursor.classList.remove("is-visible");
   });
 
-  moveCursor();
+  cursorRafId = requestAnimationFrame(moveCursor);
 }
 
 if (hero && motionLayers.length) {
@@ -62,6 +74,8 @@ if (hero && motionLayers.length) {
     targetY = ((event.clientY - bounds.top) / bounds.height - 0.5) * 2;
   };
 
+  let driftRafId = null;
+
   const drift = () => {
     pointerX += (targetX - pointerX) * 0.06;
     pointerY += (targetY - pointerY) * 0.06;
@@ -72,7 +86,7 @@ if (hero && motionLayers.length) {
       layer.style.setProperty("--my", `${pointerY * depth}px`);
     });
 
-    requestAnimationFrame(drift);
+    driftRafId = requestAnimationFrame(drift);
   };
 
   hero.addEventListener("pointermove", updatePointer);
@@ -81,7 +95,21 @@ if (hero && motionLayers.length) {
     targetY = 0;
   });
 
-  drift();
+  // hero가 뷰포트 밖으로 나가면 lerp 연산 중단, 다시 보이면 재개
+  const driftObserver = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) {
+        if (driftRafId === null) driftRafId = requestAnimationFrame(drift);
+      } else {
+        cancelAnimationFrame(driftRafId);
+        driftRafId = null;
+      }
+    },
+    { threshold: 0 }
+  );
+  driftObserver.observe(hero);
+
+  driftRafId = requestAnimationFrame(drift);
 }
 
 if (window.gsap && canAnimate) {
@@ -578,8 +606,14 @@ if (window.gsap && canAnimate) {
 (function () {
   const header = document.querySelector(".site-header");
   if (!header) return;
+  let ticking = false;
   const onScroll = () => {
-    header.classList.toggle("is-scrolled", window.scrollY > 40);
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      header.classList.toggle("is-scrolled", window.scrollY > 40);
+      ticking = false;
+    });
   };
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
@@ -646,6 +680,7 @@ document.querySelectorAll("a[href]").forEach((a) => {
     e.preventDefault();
     const shell = document.querySelector(".site-shell");
     if (shell) shell.classList.add("page-exit");
-    setTimeout(() => { window.location.href = href; }, 270);
+    // reduced-motion 사용자는 대기 없이 즉시 전환
+    setTimeout(() => { window.location.href = href; }, canAnimate ? 270 : 0);
   });
 });

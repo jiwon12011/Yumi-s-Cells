@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>관리자 | 유미의 세포들</title>
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+
     <style>
       *, *::before, *::after { box-sizing: border-box; }
 
@@ -541,7 +542,7 @@
       <!-- Sidebar -->
       <aside class="adm-sidebar" id="adm-sidebar" aria-label="관리자 메뉴">
         <div class="adm-sidebar-logo">
-          <img src="./assets/images/logo/yumi-cells-logo.png" alt="유미의 세포들" />
+          <img src="./assets/images/logo/yumi-cells-logo.webp" alt="유미의 세포들"  fetchpriority="high" decoding="async" width="144" height="79" />
           <div>
             <span class="adm-sidebar-badge">ADMIN</span>
           </div>
@@ -633,7 +634,7 @@
                 <div class="adm-activity-item" role="listitem">
                   <div class="adm-activity-dot" style="background:#FF6B9D" aria-hidden="true"></div>
                   <div>
-                    <div class="adm-activity-text">갤러리에 새 이미지 <strong>bedtime-cells.png</strong> 업로드됨</div>
+                    <div class="adm-activity-text">갤러리에 새 이미지 <strong>bedtime-cells.webp</strong> 업로드됨</div>
                     <div class="adm-activity-time">5분 전</div>
                   </div>
                 </div>
@@ -813,11 +814,11 @@
 
       /* ── 초기 데이터 ───────────────────────────────────── */
       const galleryData = [
-        { file: 'cell-character-pink.png', category: '캐릭터', status: 'published', date: '2024.11.20' },
-        { file: 'emotion-joy.png', category: '감정', status: 'published', date: '2024.11.18' },
-        { file: 'cafe-date-cells.png', category: '장면', status: 'published', date: '2024.11.15' },
-        { file: 'bedtime-cells.png', category: '장면', status: 'draft', date: '2024.11.12' },
-        { file: 'yumi-daydream.png', category: '캐릭터', status: 'hidden', date: '2024.11.10' },
+        { file: 'cell-character-pink.webp', category: '캐릭터', status: 'published', date: '2024.11.20' },
+        { file: 'emotion-joy.webp', category: '감정', status: 'published', date: '2024.11.18' },
+        { file: 'cafe-date-cells.webp', category: '장면', status: 'published', date: '2024.11.15' },
+        { file: 'bedtime-cells.webp', category: '장면', status: 'draft', date: '2024.11.12' },
+        { file: 'yumi-daydream.webp', category: '캐릭터', status: 'hidden', date: '2024.11.10' },
       ];
 
       const newsData = [
@@ -933,7 +934,7 @@
       /* ── 모달 ──────────────────────────────────────────── */
       const MODAL_FORMS = {
         gallery: `
-          <div class="adm-form-group"><label>파일명</label><input type="text" placeholder="예: cell-new.png" /></div>
+          <div class="adm-form-group"><label>파일명</label><input type="text" placeholder="예: cell-new.webp" /></div>
           <div class="adm-form-group"><label>카테고리</label>
             <select><option>캐릭터</option><option>감정</option><option>장면</option></select>
           </div>
@@ -962,15 +963,35 @@
 
       const MODAL_TITLES = { gallery: '이미지 추가', news: '뉴스 작성', events: '이벤트 추가' };
 
+      /* 포커스 트랩: 열기 전 트리거 요소 저장 후 닫을 때 복귀 */
+      let modalTrigger = null;
+      const FOCUSABLE_SEL =
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+      function getModalFocusables() {
+        return Array.from(
+          document.getElementById('adm-modal').querySelectorAll(FOCUSABLE_SEL)
+        ).filter(el => el.offsetParent !== null);
+      }
+
       function openModal(type) {
+        modalTrigger = document.activeElement; // 닫을 때 돌아갈 트리거 저장
         document.getElementById('modal-title').textContent = MODAL_TITLES[type] || '추가';
         document.getElementById('modal-body').innerHTML = MODAL_FORMS[type] || '';
         document.getElementById('adm-modal').classList.add('open');
         document.getElementById('adm-modal').dataset.type = type;
+        // 첫 input(없으면 첫 포커서블)에 포커스
+        const focusables = getModalFocusables();
+        const firstInput = document.querySelector('#modal-body input, #modal-body textarea, #modal-body select');
+        (firstInput || focusables[0])?.focus();
       }
 
       function closeModal() {
-        document.getElementById('adm-modal').classList.remove('open');
+        const modal = document.getElementById('adm-modal');
+        if (!modal.classList.contains('open')) return;
+        modal.classList.remove('open');
+        modalTrigger?.focus(); // 트리거로 포커스 복귀
+        modalTrigger = null;
       }
 
       function saveModal() {
@@ -983,7 +1004,25 @@
       });
 
       document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') closeModal();
+        const modalOpen = document.getElementById('adm-modal').classList.contains('open');
+        if (e.key === 'Escape') {
+          closeModal();
+          return;
+        }
+        // 열린 동안 Tab/Shift+Tab을 모달 내부로 순환
+        if (e.key === 'Tab' && modalOpen) {
+          const focusables = getModalFocusables();
+          if (!focusables.length) return;
+          const first = focusables[0];
+          const last = focusables[focusables.length - 1];
+          if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
       });
 
       /* ── 토스트 ─────────────────────────────────────────── */

@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>유미의 세포들</title>
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="preload" as="image" href="./assets/images/hero/hero-bg.webp" fetchpriority="high" />
+    <link rel="preload" as="image" href="./assets/images/hero/yumi-main.webp" fetchpriority="high" />
+
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
@@ -12,7 +15,7 @@
     <div class="site-shell">
       <header class="site-header" aria-label="주요 메뉴">
         <a class="brand" href="./index.html" aria-label="유미의 세포들 홈">
-          <img src="./assets/images/logo/yumi-cells-logo.png" alt="유미의 세포들" />
+          <img src="./assets/images/logo/yumi-cells-logo.webp" alt="유미의 세포들"  fetchpriority="high" decoding="async" width="144" height="79" />
         </a>
 
         <nav class="main-nav" aria-label="페이지 메뉴">
@@ -64,7 +67,7 @@
             <p class="eyebrow">세포들과 함께하는</p>
             <h1 id="hero-title">
               <span>유미의</span>
-              <span>모든 <strong>순간</strong><img class="title-heart" src="./assets/images/decor/logo-heart.png" alt="" aria-hidden="true" /></span>
+              <span>모든 <strong>순간</strong><img class="title-heart" src="./assets/images/decor/logo-heart.webp" alt="" aria-hidden="true"  loading="lazy" decoding="async" width="145" height="158" /></span>
             </h1>
             <p class="hero-description">
               사랑하고, 고민하고, 성장하는<br />
@@ -81,13 +84,13 @@
           </div>
 
           <div class="hero-stage" aria-hidden="true">
-            <img class="yumi-main motion-layer" data-depth="24" src="./assets/images/hero/yumi-main.png" alt="" />
-            <img class="cell cell-love motion-layer" data-depth="36" data-speech="사랑해요! 💕" src="./assets/images/cells/cell-love.png" alt="" />
-            <img class="cell cell-angry motion-layer" data-depth="28" data-speech="참을 수 없어! 😤" src="./assets/images/cells/cell-angry.png" alt="" />
-            <img class="cell cell-reading motion-layer" data-depth="18" data-speech="공부 중이에요 📖" src="./assets/images/cells/cell-reading.png" alt="" />
-            <img class="cell cell-chill motion-layer" data-depth="30" data-speech="여유롭게~ 😌" src="./assets/images/cells/cell-chill.png" alt="" />
-            <img class="cell cell-artist motion-layer" data-depth="22" data-speech="예술혼 폭발✨" src="./assets/images/cells/cell-artist.png" alt="" />
-            <img class="cell-panels motion-layer" data-depth="14" src="./assets/images/hero/cell-info-panels.png" alt="" />
+            <img class="yumi-main motion-layer" data-depth="24" src="./assets/images/hero/yumi-main.webp" alt=""  fetchpriority="high" decoding="async" width="630" height="779" />
+            <img class="cell cell-love motion-layer" data-depth="36" data-speech="사랑해요! 💕" src="./assets/images/cells/cell-love.webp" alt=""  loading="lazy" decoding="async" width="213" height="203" />
+            <img class="cell cell-angry motion-layer" data-depth="28" data-speech="참을 수 없어! 😤" src="./assets/images/cells/cell-angry.webp" alt=""  loading="lazy" decoding="async" width="310" height="291" />
+            <img class="cell cell-reading motion-layer" data-depth="18" data-speech="공부 중이에요 📖" src="./assets/images/cells/cell-reading.webp" alt=""  loading="lazy" decoding="async" width="287" height="234" />
+            <img class="cell cell-chill motion-layer" data-depth="30" data-speech="여유롭게~ 😌" src="./assets/images/cells/cell-chill.webp" alt=""  loading="lazy" decoding="async" width="292" height="255" />
+            <img class="cell cell-artist motion-layer" data-depth="22" data-speech="예술혼 폭발✨" src="./assets/images/cells/cell-artist.webp" alt=""  loading="lazy" decoding="async" width="308" height="250" />
+            <img class="cell-panels motion-layer" data-depth="14" src="./assets/images/hero/cell-info-panels.webp" alt=""  loading="lazy" decoding="async" width="481" height="406" />
           </div>
 
           <div class="scroll-hint" aria-hidden="true">
@@ -95,7 +98,7 @@
             <small>Scroll Down</small>
           </div>
 
-          <img class="hero-table" src="./assets/images/hero/hero-table.png" alt="" aria-hidden="true" />
+          <img class="hero-table" src="./assets/images/hero/hero-table.webp" alt="" aria-hidden="true"  loading="lazy" decoding="async" width="1800" height="124" />
           <svg class="hero-wave" viewBox="0 0 1440 178" preserveAspectRatio="none" aria-hidden="true">
             <path d="M0 62 C172 18 355 22 535 64 C748 113 930 126 1125 76 C1256 42 1365 36 1440 54 L1440 178 L0 178 Z"></path>
           </svg>
@@ -120,32 +123,32 @@
               <h3>유미의 세포들</h3>
               <div class="mini-grid">
                 <div class="mini-profile">
-                  <img src="./assets/images/relationship/love-cell.png" alt="사랑 세포" />
+                  <img src="./assets/images/relationship/love-cell.webp" alt="사랑 세포"  loading="lazy" decoding="async" width="215" height="215" />
                   <strong>사랑 세포</strong>
                   <p>사랑을 꿈꾸는 로맨티스트</p>
                 </div>
                 <div class="mini-profile">
-                  <img src="./assets/images/relationship/logic-cell.png" alt="이성 세포" />
+                  <img src="./assets/images/relationship/logic-cell.webp" alt="이성 세포"  loading="lazy" decoding="async" width="215" height="215" />
                   <strong>이성 세포</strong>
                   <p>냉철한 판단 담당</p>
                 </div>
                 <div class="mini-profile">
-                  <img src="./assets/images/relationship/passion-cell.png" alt="열정 세포" />
+                  <img src="./assets/images/relationship/passion-cell.webp" alt="열정 세포"  loading="lazy" decoding="async" width="215" height="215" />
                   <strong>열정 세포</strong>
                   <p>뜨겁게 밀어붙이는 추진력</p>
                 </div>
                 <div class="mini-profile">
-                  <img src="./assets/images/relationship/food-cell.png" alt="먹방 세포" />
+                  <img src="./assets/images/relationship/food-cell.webp" alt="먹방 세포"  loading="lazy" decoding="async" width="241" height="241" />
                   <strong>먹방 세포</strong>
                   <p>맛있는 순간을 책임져요</p>
                 </div>
                 <div class="mini-profile">
-                  <img src="./assets/images/relationship/anxiety-cell.png" alt="걱정 세포" />
+                  <img src="./assets/images/relationship/anxiety-cell.webp" alt="걱정 세포"  loading="lazy" decoding="async" width="262" height="262" />
                   <strong>걱정 세포</strong>
                   <p>작은 일도 먼저 대비해요</p>
                 </div>
                 <div class="mini-profile">
-                  <img src="./assets/images/relationship/sense-cell.png" alt="센스 세포" />
+                  <img src="./assets/images/relationship/sense-cell.webp" alt="센스 세포"  loading="lazy" decoding="async" width="238" height="238" />
                   <strong>센스 세포</strong>
                   <p>유미의 감각을 담당해요</p>
                 </div>
@@ -158,7 +161,7 @@
               <div class="connection-line line-cell-right"></div>
               <strong>유미</strong>
               <div class="yumi-orbit">
-                <img src="./assets/images/relationship/yumi-profile.png" alt="유미" />
+                <img src="./assets/images/relationship/yumi-profile.webp" alt="유미"  loading="lazy" decoding="async" width="273" height="273" />
               </div>
               <p>평범한 일상을 살아가는<br />우리들의 이야기</p>
             </div>
@@ -168,17 +171,17 @@
                 <h3>유미의 주변 인물</h3>
                 <div class="people-row">
                   <div class="mini-profile">
-                    <img src="./assets/images/relationship/gu-woong.png" alt="구웅" />
+                    <img src="./assets/images/relationship/gu-woong.webp" alt="구웅"  loading="lazy" decoding="async" width="176" height="187" />
                     <strong>구웅</strong>
                     <p>웹툰 작가이자 유미의 인연</p>
                   </div>
                   <div class="mini-profile">
-                    <img src="./assets/images/relationship/yoo-babi.png" alt="유바비" />
+                    <img src="./assets/images/relationship/yoo-babi.webp" alt="유바비"  loading="lazy" decoding="async" width="189" height="196" />
                     <strong>유바비</strong>
                     <p>다정한 매력의 동료</p>
                   </div>
                   <div class="mini-profile">
-                    <img src="./assets/images/relationship/control-z.png" alt="신순록" />
+                    <img src="./assets/images/relationship/control-z.webp" alt="신순록"  loading="lazy" decoding="async" width="201" height="193" />
                     <strong>신순록</strong>
                     <p>다정다감한 댄디남</p>
                   </div>
@@ -189,12 +192,12 @@
                 <h3>세포 마을</h3>
                 <div class="people-row">
                   <div class="mini-profile">
-                    <img src="./assets/images/relationship/heart-wish-cell.png" alt="마음 의상 세포" />
+                    <img src="./assets/images/relationship/heart-wish-cell.webp" alt="마음 의상 세포"  loading="lazy" decoding="async" width="215" height="215" />
                     <strong>마음 의상 세포</strong>
                     <p>마음의 옷을 고르는 세포</p>
                   </div>
                   <div class="mini-profile">
-                    <img src="./assets/images/relationship/memory-cell.png" alt="기억 저장 세포" />
+                    <img src="./assets/images/relationship/memory-cell.webp" alt="기억 저장 세포"  loading="lazy" decoding="async" width="258" height="258" />
                     <strong>기억 저장 세포</strong>
                     <p>모든 기억을 차곡차곡 저장</p>
                   </div>
@@ -219,9 +222,9 @@
           </div>
 
           <section class="season-replay" id="seasons" aria-labelledby="season-title">
-            <img class="season-float-cell season-float-love" src="./assets/images/seasons/season-love-cell.png" alt="" aria-hidden="true" />
-            <img class="season-float-cell season-float-happy" src="./assets/images/seasons/season-happy-cell.png" alt="" aria-hidden="true" />
-            <img class="season-decor-heart" src="./assets/images/decor/heart-line.png" alt="" aria-hidden="true" />
+            <img class="season-float-cell season-float-love" src="./assets/images/seasons/season-love-cell.webp" alt="" aria-hidden="true"  loading="lazy" decoding="async" width="243" height="324" />
+            <img class="season-float-cell season-float-happy" src="./assets/images/seasons/season-happy-cell.webp" alt="" aria-hidden="true"  loading="lazy" decoding="async" width="201" height="255" />
+            <img class="season-decor-heart" src="./assets/images/decor/heart-line.webp" alt="" aria-hidden="true"  loading="lazy" decoding="async" width="160" height="144" />
 
             <div class="section-heading section-heading-season">
               <span>Yumi's Cells Season</span>
@@ -230,21 +233,21 @@
 
             <div class="season-grid">
               <article class="season-card season-card-pink">
-                <img src="./assets/images/seasons/season-1-card.png" alt="유미의 세포들 시즌 1" />
+                <img src="./assets/images/seasons/season-1-card.webp" alt="유미의 세포들 시즌 1"  loading="lazy" decoding="async" width="508" height="338" />
                 <a href="#" aria-label="시즌 1 보러가기">
                   시즌1 보러가기
                   <span class="play-icon" aria-hidden="true"></span>
                 </a>
               </article>
               <article class="season-card season-card-blue">
-                <img src="./assets/images/seasons/season-2-card.png" alt="유미의 세포들 시즌 2" />
+                <img src="./assets/images/seasons/season-2-card.webp" alt="유미의 세포들 시즌 2"  loading="lazy" decoding="async" width="508" height="338" />
                 <a href="#" aria-label="시즌 2 보러가기">
                   시즌2 보러가기
                   <span class="play-icon" aria-hidden="true"></span>
                 </a>
               </article>
               <article class="season-card season-card-purple">
-                <img src="./assets/images/seasons/season-3-card.png" alt="유미의 세포들 시즌 3" />
+                <img src="./assets/images/seasons/season-3-card.webp" alt="유미의 세포들 시즌 3"  loading="lazy" decoding="async" width="508" height="338" />
                 <a href="#" aria-label="시즌 3 보러가기">
                   시즌3 보러가기
                   <span class="play-icon" aria-hidden="true"></span>
@@ -271,9 +274,9 @@
               </div>
 
               <div class="webtoon-art" aria-hidden="true">
-                <img class="webtoon-phone" src="./assets/images/webtoon/webtoon-phone.png" alt="" />
+                <img class="webtoon-phone" src="./assets/images/webtoon/webtoon-phone.webp" alt=""  loading="lazy" decoding="async" width="389" height="584" />
                 <div class="webtoon-panels">
-                  <img class="webtoon-panel-strip" src="./assets/images/webtoon/webtoon-panels.png" alt="" />
+                  <img class="webtoon-panel-strip" src="./assets/images/webtoon/webtoon-panels.webp" alt=""  loading="lazy" decoding="async" width="999" height="395" />
                 </div>
               </div>
             </div>
@@ -291,21 +294,21 @@
 
               <div class="news-layout">
                 <article class="featured-news">
-                  <img src="./assets/images/promo/yumi-couple-poster.png" alt="유미와 구웅 일러스트" />
+                  <img src="./assets/images/promo/yumi-couple-poster.webp" alt="유미와 구웅 일러스트"  loading="lazy" decoding="async" width="289" height="387" />
                 </article>
                 <div class="news-list">
                   <a href="#">
-                    <img src="./assets/images/promo/drawing-cells-thumb.png" alt="" />
+                    <img src="./assets/images/promo/drawing-cells-thumb.webp" alt=""  loading="lazy" decoding="async" width="185" height="148" />
                     <strong>새로운 팝아트 꾸밈컷 공개!</strong>
                     <time datetime="2024-05-20">2024.05.20</time>
                   </a>
                   <a href="#">
-                    <img src="./assets/images/promo/teaser-coming-thumb.png" alt="" />
+                    <img src="./assets/images/promo/teaser-coming-thumb.webp" alt=""  loading="lazy" decoding="async" width="185" height="148" />
                     <strong>유미의 세포들3 티저 공개</strong>
                     <time datetime="2024-04-28">2024.04.28</time>
                   </a>
                   <a href="#">
-                    <img src="./assets/images/promo/merch-cells-thumb.png" alt="" />
+                    <img src="./assets/images/promo/merch-cells-thumb.webp" alt=""  loading="lazy" decoding="async" width="185" height="148" />
                     <strong>스페셜 굿즈 출시 소식</strong>
                     <time datetime="2024-04-15">2024.04.15</time>
                   </a>
@@ -322,19 +325,19 @@
 
               <div class="gallery-strip">
                 <figure class="gallery-card">
-                  <img src="./assets/images/gallery/bedtime-cells.png" alt="침대 위 유미와 세포들" />
+                  <img src="./assets/images/gallery/bedtime-cells.webp" alt="침대 위 유미와 세포들"  loading="lazy" decoding="async" width="243" height="243" />
                   <figcaption>침대 위 유미와 세포들 🌙</figcaption>
                 </figure>
                 <figure class="gallery-card">
-                  <img src="./assets/images/gallery/family-evening.png" alt="유미와 세포의 따뜻한 저녁" />
+                  <img src="./assets/images/gallery/family-evening.webp" alt="유미와 세포의 따뜻한 저녁"  loading="lazy" decoding="async" width="243" height="243" />
                   <figcaption>유미와 세포의 따뜻한 저녁 ✨</figcaption>
                 </figure>
                 <figure class="gallery-card">
-                  <img src="./assets/images/gallery/cafe-date-cells.png" alt="카페에 모인 캐릭터들" />
+                  <img src="./assets/images/gallery/cafe-date-cells.webp" alt="카페에 모인 캐릭터들"  loading="lazy" decoding="async" width="243" height="243" />
                   <figcaption>카페에 모인 캐릭터들 ☕</figcaption>
                 </figure>
                 <figure class="gallery-card">
-                  <img src="./assets/images/gallery/yumi-blue-cardigan.png" alt="파란 가디건을 입은 유미" />
+                  <img src="./assets/images/gallery/yumi-blue-cardigan.webp" alt="파란 가디건을 입은 유미"  loading="lazy" decoding="async" width="243" height="243" />
                   <figcaption>파란 가디건을 입은 유미 💙</figcaption>
                 </figure>
               </div>
@@ -343,7 +346,7 @@
         </section>
 
         <section class="support-banner" aria-label="공식 채널">
-          <img class="support-cells-left" src="./assets/images/gallery/support-cells-group.png" alt="" aria-hidden="true" />
+          <img class="support-cells-left" src="./assets/images/gallery/support-cells-group.webp" alt="" aria-hidden="true"  loading="lazy" decoding="async" width="492" height="328" />
           <div class="support-copy">
             <h2>유미와 세포들의 이야기를<br />함께 응원해 주세요!</h2>
             <div class="support-buttons">
@@ -352,12 +355,12 @@
               <a href="https://comic.naver.com/webtoon/list?titleId=651673" target="_blank" rel="noopener"><span class="support-icon naver-dot"></span>팬카페 바로가기</a>
             </div>
           </div>
-          <img class="support-cells-right" src="./assets/images/gallery/three-happy-cells.png" alt="" aria-hidden="true" />
+          <img class="support-cells-right" src="./assets/images/gallery/three-happy-cells.webp" alt="" aria-hidden="true"  loading="lazy" decoding="async" width="440" height="293" />
         </section>
 
         <footer class="site-footer">
           <a class="footer-brand" href="./index.html">
-            <img src="./assets/images/logo/yumi-cells-logo.png" alt="유미의 세포들" />
+            <img src="./assets/images/logo/yumi-cells-logo.webp" alt="유미의 세포들"  fetchpriority="high" decoding="async" width="144" height="79" />
           </a>
           <nav aria-label="푸터 메뉴">
             <a href="#">이용약관</a>

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>나의 감정 세포 찾기 | 유미의 세포들</title>
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+
     <link rel="stylesheet" href="./styles.css" />
     <style>
       /* ── Emotion Test Page ──────────────────────────────── */
@@ -233,7 +234,8 @@
         transform: translateY(0);
       }
 
-      .et-next-btn:hover { transform: translateY(-3px); box-shadow: 0 20px 38px rgba(255, 107, 157, .36); }
+      .et-next-btn:disabled { cursor: default; }
+      .et-next-btn:not(:disabled):hover { transform: translateY(-3px); box-shadow: 0 20px 38px rgba(255, 107, 157, .36); }
 
       /* ── Loading ────────────────────────────────────────── */
       .et-loading {
@@ -407,7 +409,9 @@
         padding: 4px 12px;
         border-radius: 999px;
         font-size: 12px;
-        font-weight: 700;
+        font-weight: 800;
+        /* 옅은 색(노랑·초록) 키워드도 흰 카드 위에서 또렷하게: 글자 자체를 살짝 어둡게 */
+        text-shadow: 0 0 1px currentColor;
       }
 
       .et-result-desc {
@@ -491,7 +495,7 @@
 
       <header class="site-header" aria-label="주요 메뉴">
         <a class="brand" href="./index.html" aria-label="유미의 세포들 홈">
-          <img src="./assets/images/logo/yumi-cells-logo.png" alt="유미의 세포들" />
+          <img src="./assets/images/logo/yumi-cells-logo.webp" alt="유미의 세포들"  fetchpriority="high" decoding="async" width="144" height="79" />
         </a>
         <nav class="main-nav" aria-label="페이지 메뉴">
           <a href="./index.html">Home</a>
@@ -522,11 +526,11 @@
             지금 당신 마음속에서 가장 활발하게 움직이는 세포를 찾아드릴게요!
           </p>
           <div class="et-cells-preview" aria-hidden="true">
-            <img src="./assets/images/cells/cell-love.png" alt="" />
-            <img src="./assets/images/cells/cell-reading.png" alt="" />
-            <img src="./assets/images/cells/cell-angry.png" alt="" />
-            <img src="./assets/images/cells/cell-chill.png" alt="" />
-            <img src="./assets/images/cells/cell-artist.png" alt="" />
+            <img src="./assets/images/cells/cell-love.webp" alt=""  loading="lazy" decoding="async" width="213" height="203" />
+            <img src="./assets/images/cells/cell-reading.webp" alt=""  loading="lazy" decoding="async" width="287" height="234" />
+            <img src="./assets/images/cells/cell-angry.webp" alt=""  loading="lazy" decoding="async" width="310" height="291" />
+            <img src="./assets/images/cells/cell-chill.webp" alt=""  loading="lazy" decoding="async" width="292" height="255" />
+            <img src="./assets/images/cells/cell-artist.webp" alt=""  loading="lazy" decoding="async" width="308" height="250" />
           </div>
           <button class="et-start-btn" id="et-start-btn" type="button">
             테스트 시작하기 →
@@ -549,7 +553,7 @@
             <p class="et-q-text" id="et-q-text"></p>
             <div class="et-options" id="et-options" role="group" aria-labelledby="et-q-text"></div>
           </div>
-          <button class="et-next-btn" id="et-next-btn" type="button">
+          <button class="et-next-btn" id="et-next-btn" type="button" disabled>
             다음 →
           </button>
         </section>
@@ -557,10 +561,10 @@
         <!-- ── LOADING ───────────────────────────────── -->
         <section class="et-screen et-loading" id="et-loading" aria-live="polite" aria-label="결과 분석 중">
           <div class="et-loading-orbit" aria-hidden="true">
-            <img src="./assets/images/cells/cell-love.png" alt="" />
-            <img src="./assets/images/cells/cell-reading.png" alt="" />
-            <img src="./assets/images/cells/cell-chill.png" alt="" />
-            <img src="./assets/images/cells/cell-angry.png" alt="" />
+            <img src="./assets/images/cells/cell-love.webp" alt=""  loading="lazy" decoding="async" width="213" height="203" />
+            <img src="./assets/images/cells/cell-reading.webp" alt=""  loading="lazy" decoding="async" width="287" height="234" />
+            <img src="./assets/images/cells/cell-chill.webp" alt=""  loading="lazy" decoding="async" width="292" height="255" />
+            <img src="./assets/images/cells/cell-angry.webp" alt=""  loading="lazy" decoding="async" width="310" height="291" />
           </div>
           <p class="et-loading-text">
             세포들이 분석 중이에요
@@ -576,7 +580,7 @@
             <span class="et-result-badge" id="et-result-badge">결과</span>
             <div class="et-result-cell-wrap" aria-hidden="true">
               <div class="et-result-ring"></div>
-              <img class="et-result-cell" id="et-result-img" src="" alt="" />
+              <img class="et-result-cell" id="et-result-img" src="" alt=""  loading="lazy" decoding="async" />
             </div>
             <h2 class="et-result-name" id="et-result-name"></h2>
             <div class="et-result-card">
@@ -595,7 +599,7 @@
 
       <footer class="site-footer">
         <a class="footer-brand" href="./index.html">
-          <img src="./assets/images/logo/yumi-cells-logo.png" alt="유미의 세포들" />
+          <img src="./assets/images/logo/yumi-cells-logo.webp" alt="유미의 세포들"  fetchpriority="high" decoding="async" width="144" height="79" />
         </a>
         <nav aria-label="푸터 메뉴">
           <a href="#">이용약관</a>
@@ -669,7 +673,7 @@
       const CELLS = {
         love: {
           name: "사랑세포",
-          img: "./assets/images/cells/cell-love.png",
+          img: "./assets/images/cells/cell-love.webp",
           color: "#FF6B9D",
           badge: "💗 감정형",
           keywords: ["따뜻함", "공감", "설렘", "감수성"],
@@ -677,7 +681,7 @@
         },
         reason: {
           name: "이성세포",
-          img: "./assets/images/cells/cell-reading.png",
+          img: "./assets/images/cells/cell-reading.webp",
           color: "#4A90E2",
           badge: "📚 분석형",
           keywords: ["논리", "신중함", "계획", "분석"],
@@ -685,7 +689,7 @@
         },
         passion: {
           name: "열정세포",
-          img: "./assets/images/cells/cell-angry.png",
+          img: "./assets/images/cells/cell-angry.webp",
           color: "#FF4F4F",
           badge: "🔥 열정형",
           keywords: ["에너지", "도전", "열정", "추진력"],
@@ -693,7 +697,7 @@
         },
         chill: {
           name: "편안세포",
-          img: "./assets/images/cells/cell-chill.png",
+          img: "./assets/images/cells/cell-chill.webp",
           color: "#38C172",
           badge: "🌿 여유형",
           keywords: ["평화", "여유", "안정", "행복"],
@@ -701,7 +705,7 @@
         },
         artist: {
           name: "예술세포",
-          img: "./assets/images/cells/cell-artist.png",
+          img: "./assets/images/cells/cell-artist.webp",
           color: "#FFB347",
           badge: "🎨 창의형",
           keywords: ["창의성", "감성", "표현", "독창성"],
@@ -728,10 +732,12 @@
         document.getElementById('et-q-num').textContent = index + 1;
         document.getElementById('et-q-text').textContent = q.text;
         document.getElementById('et-q-counter').textContent = `${index + 1} / ${QUESTIONS.length}`;
-        document.getElementById('et-progress-fill').style.width = `${(index / QUESTIONS.length) * 100}%`;
+        // 첫 문항도 진행감이 보이도록 (index+1)/length 기준
+        document.getElementById('et-progress-fill').style.width = `${((index + 1) / QUESTIONS.length) * 100}%`;
 
         const nextBtn = document.getElementById('et-next-btn');
         nextBtn.classList.remove('is-ready');
+        nextBtn.disabled = true;
 
         const container = document.getElementById('et-options');
         container.innerHTML = '';
@@ -739,12 +745,18 @@
           const btn = document.createElement('button');
           btn.className = 'et-option';
           btn.type = 'button';
+          btn.setAttribute('aria-pressed', 'false');
           btn.innerHTML = `<span class="et-option-emoji" aria-hidden="true">${opt.emoji}</span><span class="et-option-text">${opt.text}</span>`;
           btn.addEventListener('click', () => {
-            container.querySelectorAll('.et-option').forEach(b => b.classList.remove('is-selected'));
+            container.querySelectorAll('.et-option').forEach(b => {
+              b.classList.remove('is-selected');
+              b.setAttribute('aria-pressed', 'false');
+            });
             btn.classList.add('is-selected');
+            btn.setAttribute('aria-pressed', 'true');
             selectedCell = opt.cell;
             nextBtn.classList.add('is-ready');
+            nextBtn.disabled = false;
             if (window.gsap) gsap.from(btn, { scale: .95, duration: .28, ease: 'back.out(2)' });
           });
           container.appendChild(btn);
@@ -791,14 +803,13 @@
 
         document.getElementById('et-result-keywords').innerHTML =
           data.keywords.map(k =>
-            `<span class="et-kw" style="background:${data.color}18;color:${data.color}">${k}</span>`
+            `<span class="et-kw" style="background:${data.color}26;color:${data.color}">${k}</span>`
           ).join('');
 
         document.getElementById('et-result-desc').textContent = data.desc;
 
-        // ring color
-        document.querySelector('.et-result-ring').style.borderColor =
-          data.color.replace(')', ', .28)').replace('rgb', 'rgba');
+        // ring color — data.color는 HEX라 8자리 alpha로 통일 (47 ≈ 28%)
+        document.querySelector('.et-result-ring').style.borderColor = data.color + '47';
 
         showScreen('et-result');
         launchConfetti(data.color);

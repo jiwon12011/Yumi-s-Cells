@@ -21,10 +21,25 @@
   --lh-body:    1.6;
   --ls-heading: -0.02em;
 
-  /* Card system */
-  --card-radius: 24px;
+  /* Radius scale (기존 8/16/20/24/28/999 혼재를 정규화) */
+  --radius-sm:   8px;
+  --radius-md:   16px;
+  --radius-lg:   24px;
+  --radius-pill: 999px;
+
+  /* Elevation — 카드 그림자 3단계 (핑크/피치 틴트 유지) */
+  --shadow-1: 0 12px 28px rgba(63, 72, 132, .12);                /* 얕음 */
+  --shadow-2: 0 24px 54px rgba(69, 68, 140, .16);                /* 중간 */
+  --shadow-3: 0 24px 60px rgba(232, 141, 124, .13);              /* 깊음(피치 틴트) */
+  --shadow-hover: 0 16px 48px rgba(255, 107, 157, .20);          /* 핑크 호버 */
+
+  /* Section rhythm — 섹션 수직 패딩 정규화 스케일 */
+  --section-pad-y:    clamp(68px, 7vw, 110px);
+
+  /* Card system (backward compat aliases) */
+  --card-radius: var(--radius-lg);
   --card-shadow: 0 8px 32px rgba(0, 0, 0, .10);
-  --card-shadow-hover: 0 16px 48px rgba(255, 107, 157, .20);
+  --card-shadow-hover: var(--shadow-hover);
 }
 
 * {
@@ -128,7 +143,8 @@ button {
   font-size: 14px;
   font-weight: 900;
   text-transform: uppercase;
-  color: rgba(31, 28, 63, .82);
+  /* WCAG AA 확보: .82 → 불투명 진한 잉크 (글래스 헤더 위 가독성) */
+  color: #1f1c3f;
 }
 
 .main-nav a {
@@ -287,7 +303,7 @@ button {
   z-index: -4;
   background:
     linear-gradient(90deg, rgba(255,255,255,.52) 0%, rgba(255,255,255,.08) 42%, rgba(255,236,244,.32) 100%),
-    url("./assets/images/hero/hero-bg.png") center / cover no-repeat;
+    url("./assets/images/hero/hero-bg.webp") center / cover no-repeat;
   transform: scale(1.035);
   animation: bgBreathe 9s ease-in-out infinite alternate;
 }
@@ -366,7 +382,8 @@ button {
   position: relative;
   margin: 0;
   color: var(--navy);
-  font-size: clamp(58px, 6.1vw, 118px);
+  /* 범위를 좁혀 중간화면에서 급격한 크기 점프 완화 (58~118 → 70~112) */
+  font-size: clamp(70px, 6.1vw, 112px);
   font-weight: 1000;
   line-height: .96;
   letter-spacing: 0;
@@ -492,6 +509,8 @@ button {
 .gsap-ready .hero h1,
 .gsap-ready .hero-description,
 .gsap-ready .hero-cta,
+.gsap-ready .hero-bg,
+.gsap-ready .sparkles span,
 .gsap-ready .yumi-main,
 .gsap-ready .cell,
 .gsap-ready .cell-panels,
@@ -502,6 +521,7 @@ button {
 .gsap-ready .webtoon-panels,
 .gsap-ready .support-cells-left,
 .gsap-ready .support-cells-right {
+  /* GSAP가 transform을 직접 구동할 때 CSS keyframe과의 이중 구동 충돌 방지 */
   animation: none;
 }
 
@@ -608,7 +628,8 @@ button {
   position: relative;
   z-index: 8;
   margin-top: -1px;
-  padding: clamp(56px, 6vw, 96px) clamp(18px, 5vw, 72px) clamp(56px, 6vw, 96px);
+  /* 섹션 수직 리듬 정규화 (--section-pad-y) */
+  padding: var(--section-pad-y) clamp(18px, 5vw, 72px);
   overflow: hidden;
   background:
     radial-gradient(circle at 18% 12%, rgba(255, 227, 150, .2), transparent 28%),
@@ -679,9 +700,10 @@ button {
   position: relative;
   z-index: 2;
   border: 1px solid rgba(248, 148, 159, .32);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, .78);
-  box-shadow: 0 24px 60px rgba(232, 141, 124, .13);
+  border-radius: var(--radius-sm, 8px);
+  /* 글래스 위 본문 대비 보완: .78 → .84 (블러 느낌 유지) */
+  background: rgba(255, 255, 255, .84);
+  box-shadow: var(--shadow-3, 0 24px 60px rgba(232, 141, 124, .13));
   backdrop-filter: blur(10px);
   animation: relationshipFloat 5s ease-in-out infinite;
 }
@@ -748,7 +770,8 @@ button {
 
 .mini-profile strong {
   display: block;
-  color: var(--hot-pink);
+  /* rel-card 글래스 위 이름 라벨 — 브랜드 핑크 톤 유지하며 AA 확보 */
+  color: #d61f6b;
   font-size: 14px;
   font-weight: 1000;
 }
@@ -965,7 +988,7 @@ button {
   border: 0;
   border-radius: 0;
   opacity: .72;
-  background: url("./assets/images/decor/heart-bubble.png") center / contain no-repeat;
+  background: url("./assets/images/decor/heart-bubble.webp") center / contain no-repeat;
   transform: none;
   animation: relHeartDrift 4s ease-in-out infinite;
 }
@@ -1099,7 +1122,7 @@ button {
     radial-gradient(circle at 16% 20%, rgba(255, 155, 202, .25), transparent 28%),
     radial-gradient(circle at 80% 18%, rgba(135, 186, 255, .23), transparent 28%),
     linear-gradient(rgba(248, 230, 255, .58), rgba(222, 240, 255, .7)),
-    url("./assets/images/seasons/season-cloud-bg.png") center / cover no-repeat;
+    url("./assets/images/seasons/season-cloud-bg.webp") center / cover no-repeat;
 }
 
 .section-heading-season {
@@ -1135,7 +1158,7 @@ button {
   width: 44px;
   height: 40px;
   content: "";
-  background: url("./assets/images/decor/logo-heart.png") center / contain no-repeat;
+  background: url("./assets/images/decor/logo-heart.webp") center / contain no-repeat;
   filter: drop-shadow(0 10px 16px rgba(255, 99, 151, .18));
   transform: translateY(-50%);
 }
@@ -1157,10 +1180,11 @@ button {
   z-index: 3;
   height: clamp(194px, 15.6vw, 224px);
   min-height: 0;
-  border: 2px solid rgba(255, 255, 255, .72);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, .58);
-  box-shadow: 0 24px 54px rgba(69, 68, 140, .16);
+  border: 2px solid rgba(255, 255, 255, .78);
+  border-radius: var(--radius-sm, 8px);
+  /* 글래스 위 라벨 대비 보완: .58 → .66 */
+  background: rgba(255, 255, 255, .66);
+  box-shadow: var(--shadow-2, 0 24px 54px rgba(69, 68, 140, .16));
   transition: transform .28s ease, box-shadow .28s ease;
 }
 
@@ -1199,24 +1223,26 @@ button {
   gap: 10px;
   min-height: 46px;
   padding: 0 18px 0 22px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill, 999px);
   font-size: 14px;
   font-weight: 950;
-  background: rgba(255, 255, 255, .9);
-  box-shadow: 0 12px 28px rgba(63, 72, 132, .12);
+  /* 라벨 칩 가독성: .9 → .94 */
+  background: rgba(255, 255, 255, .94);
+  box-shadow: var(--shadow-1, 0 12px 28px rgba(63, 72, 132, .12));
   backdrop-filter: blur(8px);
 }
 
+/* 글래스 칩 위 링크 라벨 — 색조는 유지하되 AA(4.5:1) 충족하도록 약간 진하게 */
 .season-card-pink a {
-  color: #ff5f98;
+  color: #d61f6b;
 }
 
 .season-card-blue a {
-  color: #1574e9;
+  color: #1366cf;
 }
 
 .season-card-purple a {
-  color: #8963d8;
+  color: #6f44c4;
 }
 
 .season-card .play-icon {
@@ -1298,7 +1324,7 @@ button {
 .webtoon-meet {
   position: relative;
   min-height: 430px;
-  padding: clamp(68px, 7vw, 98px) clamp(18px, 5vw, 72px) clamp(68px, 7vw, 96px);
+  padding: var(--section-pad-y) clamp(18px, 5vw, 72px);
   background:
     radial-gradient(circle at 5% 70%, rgba(255, 255, 255, .64), transparent 16%),
     radial-gradient(circle at 88% 28%, rgba(255, 255, 255, .78), transparent 20%),
@@ -1457,7 +1483,7 @@ button {
   bottom: 16%;
   width: clamp(42px, 5vw, 72px);
   aspect-ratio: 1;
-  background: url("./assets/images/decor/sparkle-gold.png") center / contain no-repeat;
+  background: url("./assets/images/decor/sparkle-gold.webp") center / contain no-repeat;
   opacity: .42;
   filter: drop-shadow(0 12px 18px rgba(255, 190, 70, .18));
   animation: twinkle 2.8s ease-in-out infinite;
@@ -1810,8 +1836,8 @@ button {
   inset: 0;
   content: "";
   background-image:
-    url("./assets/images/decor/heart-bubble.png"),
-    url("./assets/images/decor/sparkle-gold.png"),
+    url("./assets/images/decor/heart-bubble.webp"),
+    url("./assets/images/decor/sparkle-gold.webp"),
     radial-gradient(circle, rgba(255, 255, 255, .42) 1px, transparent 1.5px);
   background-position: 17% 22%, 82% 20%, 0 0;
   background-repeat: no-repeat, no-repeat, repeat;
@@ -2139,7 +2165,7 @@ button {
     radial-gradient(circle at 16% 22%, rgba(255, 116, 166, .22), transparent 24%),
     radial-gradient(circle at 82% 16%, rgba(121, 187, 255, .23), transparent 28%),
     linear-gradient(135deg, rgba(242, 249, 255, .86), rgba(255, 239, 247, .78)),
-    url("./assets/images/hero/hero-bg.png") center / cover no-repeat;
+    url("./assets/images/hero/hero-bg.webp") center / cover no-repeat;
 }
 
 .sub-hero::before {
@@ -2555,7 +2581,7 @@ button {
 
 .sub-section {
   position: relative;
-  padding: clamp(72px, 7vw, 110px) clamp(18px, 5vw, 74px);
+  padding: var(--section-pad-y) clamp(18px, 5vw, 74px);
   background: #fffaf6;
 }
 
@@ -2898,7 +2924,7 @@ button {
 
 .sub-info-band {
   position: relative;
-  padding: clamp(66px, 6vw, 96px) clamp(18px, 5vw, 74px);
+  padding: var(--section-pad-y) clamp(18px, 5vw, 74px);
   overflow: hidden;
   background:
     linear-gradient(90deg, rgba(255, 244, 249, .96), rgba(243, 250, 255, .96)),
@@ -4318,8 +4344,9 @@ button {
   *::before,
   *::after {
     scroll-behavior: auto !important;
-    animation-duration: .001ms !important;
-    animation-iteration-count: 1 !important;
+    /* .001ms 방식은 fill-mode:both 요소를 최종 키프레임으로 점프시켜 번쩍임을 유발.
+       animation을 완전히 끄면 요소가 기본(정적) 상태로 남아 flash가 없다. */
+    animation: none !important;
     transition-duration: .001ms !important;
   }
 }
