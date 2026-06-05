@@ -466,6 +466,258 @@
 
       .et-share-btn:hover { transform: translateY(-3px); box-shadow: 0 18px 36px rgba(255, 107, 157, .38); }
 
+      /* ── Share Modal ────────────────────────────────────── */
+      .et-share-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 1200;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px 18px;
+        background: rgba(40, 12, 30, .42);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity .3s ease, visibility .3s ease;
+        overflow-y: auto;
+      }
+
+      .et-share-modal.is-open { opacity: 1; visibility: visible; }
+      /* display:flex가 hidden 속성을 덮지 않도록 보장 */
+      .et-share-modal[hidden] { display: none; }
+
+      .et-share-dialog {
+        position: relative;
+        width: 100%;
+        max-width: 380px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 18px;
+        margin: auto;
+        transform: translateY(18px) scale(.96);
+        transition: transform .38s cubic-bezier(.2, .9, .2, 1);
+      }
+
+      .et-share-modal.is-open .et-share-dialog { transform: translateY(0) scale(1); }
+
+      .et-share-close {
+        position: absolute;
+        top: -8px;
+        right: -2px;
+        width: 38px;
+        height: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, .9);
+        border: none;
+        border-radius: 50%;
+        font-size: 18px;
+        color: #1a1a2e;
+        cursor: pointer;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, .18);
+        transition: transform .2s ease;
+        z-index: 2;
+      }
+
+      .et-share-close:hover { transform: rotate(90deg) scale(1.08); }
+
+      /* 캡처 대상 카드 — 다운로드 이미지 = 화면에 보이는 그대로 */
+      .et-card {
+        position: relative;
+        width: 320px;
+        padding: 30px 26px 26px;
+        border-radius: 28px;
+        overflow: hidden;
+        background:
+          radial-gradient(130% 90% at 15% 0%, rgba(255, 255, 255, .55) 0%, rgba(255, 255, 255, 0) 55%),
+          linear-gradient(160deg, #ffd9ea 0%, #fff0f7 48%, #ffe7d6 100%);
+        box-shadow: 0 30px 70px rgba(255, 79, 143, .34);
+        text-align: center;
+        font-family: inherit;
+      }
+
+      /* 카드 배경 장식 (캡처에 함께 담김) */
+      .et-card-blob {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(2px);
+        opacity: .55;
+        pointer-events: none;
+      }
+
+      .et-card-blob.b1 { width: 150px; height: 150px; top: -54px; right: -40px; background: radial-gradient(circle, rgba(255, 107, 157, .6), rgba(255, 107, 157, 0)); }
+      .et-card-blob.b2 { width: 120px; height: 120px; bottom: -40px; left: -36px; background: radial-gradient(circle, rgba(255, 179, 71, .55), rgba(255, 179, 71, 0)); }
+
+      .et-card-head {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 14px;
+      }
+
+      .et-card-brand {
+        font-size: 11px;
+        font-weight: 900;
+        letter-spacing: 0.04em;
+        color: #ff4f8f;
+      }
+
+      .et-card-tag {
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #b9748f;
+      }
+
+      .et-card-cell-wrap {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        margin: 2px auto 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .et-card-disc {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, .55);
+        box-shadow: inset 0 2px 10px rgba(255, 255, 255, .8);
+      }
+
+      .et-card-cell {
+        position: relative;
+        width: 124px;
+        height: 124px;
+        object-fit: contain;
+        filter: drop-shadow(0 14px 24px rgba(255, 107, 157, .3));
+      }
+
+      .et-card-badge {
+        display: inline-block;
+        padding: 5px 16px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        color: #fff;
+        margin-bottom: 10px;
+      }
+
+      .et-card-name {
+        font-size: 25px;
+        font-weight: 900;
+        color: #1a1a2e;
+        line-height: 1.25;
+        margin: 0 0 12px;
+      }
+
+      .et-card-name span { display: block; font-size: 13px; font-weight: 700; color: #8a6a78; }
+
+      .et-card-keywords {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        justify-content: center;
+        margin-bottom: 16px;
+      }
+
+      .et-card-kw {
+        padding: 4px 11px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 800;
+        background: rgba(255, 255, 255, .65);
+      }
+
+      .et-card-foot {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        color: #b07a8c;
+        border-top: 1px dashed rgba(176, 122, 140, .4);
+        padding-top: 12px;
+      }
+
+      /* 공유 액션 버튼들 */
+      .et-share-actions {
+        display: flex;
+        gap: 10px;
+        width: 320px;
+        max-width: 100%;
+      }
+
+      .et-share-action {
+        flex: 1;
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        padding: 13px 8px;
+        background: rgba(255, 255, 255, .82);
+        border: 1.5px solid rgba(255, 107, 157, .28);
+        border-radius: 16px;
+        font-size: 12px;
+        font-weight: 800;
+        color: #1a1a2e;
+        cursor: pointer;
+        font-family: inherit;
+        transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+      }
+
+      .et-share-action:hover {
+        transform: translateY(-3px);
+        background: #fff;
+        box-shadow: 0 12px 24px rgba(255, 107, 157, .22);
+      }
+
+      .et-share-action:disabled { opacity: .5; cursor: default; transform: none; box-shadow: none; }
+      .et-share-action[hidden] { display: none; }
+      .et-share-action span[aria-hidden] { font-size: 19px; }
+
+      /* 토스트 */
+      .et-toast {
+        position: fixed;
+        left: 50%;
+        bottom: 36px;
+        transform: translateX(-50%) translateY(20px);
+        z-index: 1400;
+        padding: 13px 24px;
+        background: rgba(26, 26, 46, .94);
+        color: #fff;
+        font-size: 13px;
+        font-weight: 700;
+        border-radius: 999px;
+        box-shadow: 0 14px 34px rgba(0, 0, 0, .3);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .3s ease, transform .3s ease;
+      }
+
+      .et-toast.is-show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+      @media (max-width: 380px) {
+        .et-card, .et-share-actions { width: 100%; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .et-share-modal,
+        .et-share-dialog,
+        .et-share-close,
+        .et-share-action,
+        .et-toast { transition: none; }
+        .et-share-dialog { transform: none; }
+        .et-card-cell-wrap, .et-card-blob { animation: none; }
+      }
+
       /* ── Confetti ───────────────────────────────────────── */
       .et-confetti {
         position: fixed;
@@ -595,6 +847,45 @@
         </section>
 
         <div class="et-confetti" id="et-confetti" aria-hidden="true"></div>
+
+        <!-- ── SHARE MODAL ───────────────────────────── -->
+        <div class="et-share-modal" id="et-share-modal" role="dialog" aria-modal="true" aria-labelledby="et-card-name" hidden>
+          <div class="et-share-dialog">
+            <button class="et-share-close" id="et-share-close" type="button" aria-label="공유 카드 닫기">✕</button>
+
+            <!-- 캡처 대상: 이 카드가 그대로 이미지로 저장됨 -->
+            <div class="et-card" id="et-card">
+              <div class="et-card-blob b1" aria-hidden="true"></div>
+              <div class="et-card-blob b2" aria-hidden="true"></div>
+              <div class="et-card-head">
+                <span class="et-card-brand">유미의 세포들</span>
+                <span class="et-card-tag">Emotion Test</span>
+              </div>
+              <div class="et-card-cell-wrap">
+                <div class="et-card-disc" aria-hidden="true"></div>
+                <img class="et-card-cell" id="et-card-cell" src="" alt="" crossorigin="anonymous" />
+              </div>
+              <span class="et-card-badge" id="et-card-badge"></span>
+              <h3 class="et-card-name" id="et-card-name"><span>나의 대표 감정 세포는</span></h3>
+              <div class="et-card-keywords" id="et-card-keywords"></div>
+              <p class="et-card-foot">yumis-cells fanpage · 나도 테스트하러 가기</p>
+            </div>
+
+            <div class="et-share-actions">
+              <button class="et-share-action" id="et-act-save" type="button" aria-label="결과 카드를 이미지로 저장">
+                <span aria-hidden="true">🖼️</span> 이미지 저장
+              </button>
+              <button class="et-share-action" id="et-act-copy" type="button" aria-label="결과 문구와 링크 복사하기">
+                <span aria-hidden="true">🔗</span> 결과 복사
+              </button>
+              <button class="et-share-action" id="et-act-share" type="button" aria-label="공유하기" hidden>
+                <span aria-hidden="true">📤</span> 공유하기
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="et-toast" id="et-toast" role="status" aria-live="polite"></div>
       </main>
 
       <footer class="site-footer">
@@ -849,17 +1140,304 @@
         showScreen('et-quiz');
       }
 
-      /* ── 공유하기 ────────────────────────────────────── */
-      function shareResult() {
+      /* ── 공유 카드 ────────────────────────────────────── */
+      let lastFocusedEl = null;       // 모달 닫을 때 포커스 복원용
+      let cellImgDataUrl = null;       // 세포 이미지 dataURL 캐시(캡처 taint 방지)
+
+      function currentWinner() {
         const [winner] = Object.entries(scores).sort((a, b) => b[1] - a[1]);
-        const data = CELLS[winner[0]];
-        const text = `나의 대표 세포는 ${data.name}! ✨\n${data.keywords.join(' · ')} 타입이에요.\n유미의 세포들 팬페이지에서 나의 감정 세포를 찾아보세요!`;
-        if (navigator.share) {
-          navigator.share({ title: '나의 감정 세포 찾기', text });
-        } else {
-          navigator.clipboard.writeText(text)
-            .then(() => alert('결과가 클립보드에 복사되었어요! 🎉'))
-            .catch(() => alert(text));
+        return CELLS[winner[0]];
+      }
+
+      // 배포 도메인이 확정되면 아래에 입력 (예: 'https://yumis-cells.com/emotion-test.html').
+      // 비워두면 현재 주소를 사용 → 로컬에서는 localhost가 뜨지만 배포 시 해당 도메인이 자동 적용됨.
+      const CANONICAL_URL = '';
+      function shareText(data) {
+        const url = CANONICAL_URL || (location.origin + location.pathname);
+        return `나의 대표 감정 세포는 「${data.name}」! ✨\n${data.keywords.join(' · ')} 타입이에요.\n나도 유미의 세포들에서 감정 세포 찾기 👉 ${url}`;
+      }
+
+      /* 외부 이미지(webp)를 dataURL로 인라인 → canvas 캡처 시 taint 방지 */
+      async function toDataUrl(src) {
+        try {
+          const res = await fetch(src);
+          const blob = await res.blob();
+          return await new Promise((resolve, reject) => {
+            const r = new FileReader();
+            r.onload = () => resolve(r.result);
+            r.onerror = reject;
+            r.readAsDataURL(blob);
+          });
+        } catch {
+          return src; // 실패 시 원본 경로 (이미지 저장만 제약, 카드 표시는 정상)
+        }
+      }
+
+      /* 결과 데이터를 공유 카드에 채움 */
+      async function fillShareCard(data) {
+        document.getElementById('et-card-badge').textContent = data.badge;
+        document.getElementById('et-card-badge').style.background = data.color;
+
+        const nameEl = document.getElementById('et-card-name');
+        nameEl.innerHTML = `<span>나의 대표 감정 세포는</span>${data.name}`;
+        nameEl.style.color = data.color;
+
+        document.getElementById('et-card-keywords').innerHTML = data.keywords.map(k =>
+          `<span class="et-card-kw" style="color:${data.color}">#${k}</span>`
+        ).join('');
+
+        cellImgDataUrl = await toDataUrl(data.img);
+        const cellEl = document.getElementById('et-card-cell');
+        cellEl.src = cellImgDataUrl;
+        cellEl.alt = data.name;
+      }
+
+      /* 토스트 피드백 */
+      let toastTimer = null;
+      function showToast(msg) {
+        const t = document.getElementById('et-toast');
+        t.textContent = msg;
+        t.classList.add('is-show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => t.classList.remove('is-show'), 2600);
+      }
+
+      /* ── 모달 열기/닫기 (+ 포커스 관리) ───────────────── */
+      function openShareModal() {
+        const data = currentWinner();
+        fillShareCard(data);
+
+        const shareBtn = document.getElementById('et-act-share');
+        shareBtn.hidden = !navigator.share; // Web Share 지원 시에만 노출
+
+        lastFocusedEl = document.activeElement;
+        const modal = document.getElementById('et-share-modal');
+        modal.hidden = false;
+        requestAnimationFrame(() => modal.classList.add('is-open'));
+        document.body.style.overflow = 'hidden';
+        document.getElementById('et-share-close').focus();
+      }
+
+      function closeShareModal() {
+        const modal = document.getElementById('et-share-modal');
+        modal.classList.remove('is-open');
+        document.body.style.overflow = '';
+        const onEnd = () => {
+          modal.hidden = true;
+          modal.removeEventListener('transitionend', onEnd);
+        };
+        // reduced-motion 등 트랜지션이 없을 때를 대비한 폴백
+        modal.addEventListener('transitionend', onEnd);
+        setTimeout(onEnd, 360);
+        if (lastFocusedEl) lastFocusedEl.focus();
+      }
+
+      /* ── (1) 카드 이미지로 저장 — canvas에 직접 렌더(의존성 없음, 화면과 동일) ── */
+      async function saveCardImage() {
+        const data = currentWinner();
+        try {
+          if (document.fonts && document.fonts.ready) await document.fonts.ready;
+          const blob = await drawShareCardBlob(data);
+          if (!blob) throw new Error('blob-null');
+          const link = document.createElement('a');
+          link.href = URL.createObjectURL(blob);
+          link.download = `유미의세포들_${data.name}.png`;
+          link.click();
+          setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+          showToast('카드를 이미지로 저장했어요! 🖼️');
+        } catch (e) {
+          // 캔버스 렌더 실패(이미지 taint 등) → 텍스트 복사로 폴백
+          copyResult(true);
+        }
+      }
+
+      /* 둥근 사각형 path */
+      function roundRectPath(ctx, x, y, w, h, r) {
+        ctx.beginPath();
+        ctx.moveTo(x + r, y);
+        ctx.arcTo(x + w, y, x + w, y + h, r);
+        ctx.arcTo(x + w, y + h, x, y + h, r);
+        ctx.arcTo(x, y + h, x, y, r);
+        ctx.arcTo(x, y, x + w, y, r);
+        ctx.closePath();
+      }
+      function loadImg(src) {
+        return new Promise((resolve, reject) => {
+          const im = new Image();
+          im.crossOrigin = 'anonymous';
+          im.onload = () => resolve(im);
+          im.onerror = reject;
+          im.src = src;
+        });
+      }
+      function drawImgContain(ctx, img, x, y, w, h) {
+        if (!img || !img.width) return;
+        const r = Math.min(w / img.width, h / img.height);
+        const dw = img.width * r, dh = img.height * r;
+        ctx.drawImage(img, x + (w - dw) / 2, y + (h - dh) / 2, dw, dh);
+      }
+      function drawBlob(ctx, x, y, r, c0, c1) {
+        const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+        g.addColorStop(0, c0); g.addColorStop(1, c1);
+        ctx.save(); ctx.globalAlpha = 0.55;
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+        ctx.restore();
+      }
+
+      /* 공유 카드를 캔버스에 그대로 그려 PNG blob 반환 — CSS .et-card 스펙과 1:1 */
+      async function drawShareCardBlob(data) {
+        const S = 3;                                   // 레티나 스케일
+        const CARD_W = 320, PAD_X = 26, PAD_TOP = 30, PAD_BOT = 26, OUT = 30;
+        const contentW = CARD_W - PAD_X * 2;
+        const cx = OUT + CARD_W / 2;
+        const fam = "'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif";
+
+        const cellImg = await loadImg(cellImgDataUrl || data.img);
+
+        // 키워드 칩 줄바꿈 계산
+        const meas = document.createElement('canvas').getContext('2d');
+        meas.font = `800 11px ${fam}`;
+        const kwRows = [];
+        let row = [], rw = 0;
+        data.keywords.map(k => '#' + k).forEach(t => {
+          const w = meas.measureText(t).width + 22;
+          const add = (row.length ? 6 : 0) + w;
+          if (rw + add > contentW && row.length) { kwRows.push({ items: row, w: rw }); row = []; rw = 0; }
+          row.push({ t, w }); rw += (row.length > 1 ? 6 : 0) + w;
+        });
+        if (row.length) kwRows.push({ items: row, w: rw });
+
+        // 세로 레이아웃 누적 (카드 로컬 좌표)
+        let y = PAD_TOP;
+        y += 14 + 14;
+        const discTop = y + 2; y += 2 + 150 + 12;
+        const badgeY = y; y += 22 + 10;
+        const nameSpanY = y; y += 13 + 6;
+        const nameY = y; y += 31 + 12;
+        const kwTop = y; y += kwRows.length * 19 + (kwRows.length - 1) * 6 + 16;
+        const footTop = y; y += 1 + 12 + 13;
+        const CARD_H = y + PAD_BOT;
+        const W = CARD_W + OUT * 2, H = CARD_H + OUT * 2;
+
+        const canvas = document.createElement('canvas');
+        canvas.width = W * S; canvas.height = H * S;
+        const ctx = canvas.getContext('2d');
+        ctx.scale(S, S);
+
+        // 바깥 프레임 배경
+        const bg = ctx.createLinearGradient(0, 0, 0, H);
+        bg.addColorStop(0, '#ffeaf4'); bg.addColorStop(1, '#fff6fb');
+        ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+
+        // 카드 그림자
+        ctx.save();
+        ctx.shadowColor = 'rgba(255,79,143,.34)';
+        ctx.shadowBlur = 50; ctx.shadowOffsetY = 26;
+        roundRectPath(ctx, OUT, OUT, CARD_W, CARD_H, 28);
+        ctx.fillStyle = '#ffe7ef'; ctx.fill();
+        ctx.restore();
+
+        // 카드 클립 + 배경
+        ctx.save();
+        roundRectPath(ctx, OUT, OUT, CARD_W, CARD_H, 28);
+        ctx.clip();
+        const cg = ctx.createLinearGradient(OUT, OUT, OUT + CARD_W * 0.5, OUT + CARD_H);
+        cg.addColorStop(0, '#ffd9ea'); cg.addColorStop(0.48, '#fff0f7'); cg.addColorStop(1, '#ffe7d6');
+        ctx.fillStyle = cg; ctx.fillRect(OUT, OUT, CARD_W, CARD_H);
+        const hl = ctx.createRadialGradient(OUT + CARD_W * 0.15, OUT, 0, OUT + CARD_W * 0.15, OUT, CARD_W * 0.9);
+        hl.addColorStop(0, 'rgba(255,255,255,.55)'); hl.addColorStop(0.55, 'rgba(255,255,255,0)');
+        ctx.fillStyle = hl; ctx.fillRect(OUT, OUT, CARD_W, CARD_H);
+        drawBlob(ctx, OUT + CARD_W + 40 - 75, OUT - 54 + 75, 75, 'rgba(255,107,157,.6)', 'rgba(255,107,157,0)');
+        drawBlob(ctx, OUT - 36 + 60, OUT + CARD_H + 40 - 60, 60, 'rgba(255,179,71,.55)', 'rgba(255,179,71,0)');
+
+        // head
+        ctx.textBaseline = 'alphabetic';
+        ctx.textAlign = 'left'; ctx.font = `900 11px ${fam}`; ctx.fillStyle = '#ff4f8f';
+        ctx.fillText('유미의 세포들', OUT + PAD_X, OUT + PAD_TOP + 11);
+        ctx.textAlign = 'right'; ctx.font = `800 10px ${fam}`; ctx.fillStyle = '#b9748f';
+        ctx.fillText('EMOTION TEST', OUT + CARD_W - PAD_X, OUT + PAD_TOP + 11);
+
+        // cell disc + image
+        const discCY = OUT + discTop + 75;
+        ctx.beginPath(); ctx.arc(cx, discCY, 75, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255,255,255,.55)'; ctx.fill();
+        ctx.save();
+        ctx.shadowColor = 'rgba(255,107,157,.3)'; ctx.shadowBlur = 24; ctx.shadowOffsetY = 14;
+        drawImgContain(ctx, cellImg, cx - 62, discCY - 62, 124, 124);
+        ctx.restore();
+
+        // badge
+        ctx.font = `800 11px ${fam}`;
+        const bw = ctx.measureText(data.badge).width + 32;
+        const by = OUT + badgeY;
+        roundRectPath(ctx, cx - bw / 2, by, bw, 22, 11);
+        ctx.fillStyle = data.color; ctx.fill();
+        ctx.fillStyle = '#fff'; ctx.textAlign = 'center';
+        ctx.fillText(data.badge, cx, by + 15);
+
+        // name
+        ctx.fillStyle = '#8a6a78'; ctx.font = `700 13px ${fam}`;
+        ctx.fillText('나의 대표 감정 세포는', cx, OUT + nameSpanY + 11);
+        ctx.fillStyle = data.color; ctx.font = `900 25px ${fam}`;
+        ctx.fillText(data.name, cx, OUT + nameY + 24);
+
+        // keywords
+        ctx.font = `800 11px ${fam}`;
+        let ky = OUT + kwTop;
+        kwRows.forEach(r => {
+          let kx = cx - r.w / 2;
+          r.items.forEach(chip => {
+            roundRectPath(ctx, kx, ky, chip.w, 19, 9.5);
+            ctx.fillStyle = 'rgba(255,255,255,.65)'; ctx.fill();
+            ctx.fillStyle = data.color;
+            ctx.fillText(chip.t, kx + chip.w / 2, ky + 13.5);
+            kx += chip.w + 6;
+          });
+          ky += 19 + 6;
+        });
+
+        // foot
+        const fy = OUT + footTop;
+        ctx.strokeStyle = 'rgba(176,122,140,.4)'; ctx.lineWidth = 1; ctx.setLineDash([4, 4]);
+        ctx.beginPath(); ctx.moveTo(OUT + PAD_X, fy + 0.5); ctx.lineTo(OUT + CARD_W - PAD_X, fy + 0.5); ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = '#b07a8c'; ctx.font = `700 10px ${fam}`;
+        ctx.fillText('yumis-cells fanpage · 나도 테스트하러 가기', cx, fy + 21);
+
+        ctx.restore();
+        return await new Promise(r => canvas.toBlob(r, 'image/png'));
+      }
+
+      /* ── (2) 결과 문구 + 링크 클립보드 복사 ──────────── */
+      async function copyResult(isFallback) {
+        const text = shareText(currentWinner());
+        try {
+          await navigator.clipboard.writeText(text);
+          showToast(isFallback
+            ? '이미지 저장이 지원되지 않아 결과를 복사했어요! 🔗'
+            : '결과와 링크를 복사했어요! 🔗');
+        } catch {
+          // clipboard API 미지원/거부 → 임시 textarea 폴백
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          ta.style.cssText = 'position:fixed;top:-9999px';
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand('copy'); showToast('결과를 복사했어요! 🔗'); }
+          catch { showToast('복사에 실패했어요. 길게 눌러 복사해 주세요.'); }
+          document.body.removeChild(ta);
+        }
+      }
+
+      /* ── (3) Web Share API ───────────────────────────── */
+      async function nativeShare() {
+        const data = currentWinner();
+        if (!navigator.share) return copyResult();
+        try {
+          await navigator.share({ title: '나의 감정 세포 찾기', text: shareText(data) });
+        } catch (e) {
+          if (e && e.name === 'AbortError') return; // 사용자가 취소
+          copyResult();
         }
       }
 
@@ -870,7 +1448,32 @@
       });
       document.getElementById('et-next-btn').addEventListener('click', handleNext);
       document.getElementById('et-retry-btn').addEventListener('click', resetTest);
-      document.getElementById('et-share-btn').addEventListener('click', shareResult);
+
+      // 공유 카드
+      document.getElementById('et-share-btn').addEventListener('click', openShareModal);
+      document.getElementById('et-share-close').addEventListener('click', closeShareModal);
+      document.getElementById('et-act-save').addEventListener('click', saveCardImage);
+      document.getElementById('et-act-copy').addEventListener('click', () => copyResult(false));
+      document.getElementById('et-act-share').addEventListener('click', nativeShare);
+
+      // 배경 클릭으로 닫기
+      document.getElementById('et-share-modal').addEventListener('click', (e) => {
+        if (e.target === e.currentTarget) closeShareModal();
+      });
+
+      // ESC 닫기 + 포커스 트랩(Tab)
+      document.addEventListener('keydown', (e) => {
+        const modal = document.getElementById('et-share-modal');
+        if (modal.hidden) return;
+        if (e.key === 'Escape') { closeShareModal(); return; }
+        if (e.key !== 'Tab') return;
+        const focusables = modal.querySelectorAll('button:not([hidden])');
+        if (!focusables.length) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      });
     </script>
   </body>
 </html>
