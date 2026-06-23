@@ -318,7 +318,10 @@
       .st-scenes-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 18px;
+        gap: 34px;
+        perspective: 1000px;
+        max-width: 1120px;
+        margin: 0 auto;
       }
 
       .st-scene-card {
@@ -328,18 +331,45 @@
         cursor: pointer;
         transform-style: preserve-3d;
         aspect-ratio: 3 / 4;
+        box-shadow: 0 16px 34px rgba(36, 36, 84, 0.14);
+        transition: transform 0.12s ease-out, box-shadow 0.28s ease;
+        will-change: transform;
       }
 
-      .st-scene-card img {
+      .st-scene-card > img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         display: block;
-        transition: transform 0.4s ease;
+        transform: scale(1.22);
+        transition: transform 0.18s ease-out;
+        will-change: transform;
       }
 
-      .st-scene-card:hover img {
-        transform: scale(1.07);
+      .st-scene-card:hover {
+        box-shadow: 0 26px 54px rgba(36, 36, 84, 0.24);
+      }
+
+      /* Cursor-following light sheen — adds the 3D "glossy card" pop */
+      .st-scene-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 3;
+        pointer-events: none;
+        border-radius: inherit;
+        background: radial-gradient(
+          circle at var(--mx, 50%) var(--my, 50%),
+          rgba(255, 255, 255, 0.25),
+          rgba(255, 255, 255, 0) 42%
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        mix-blend-mode: soft-light;
+      }
+
+      .st-scene-card:hover::before {
+        opacity: 1;
       }
 
       .st-speech {
@@ -370,43 +400,6 @@
         border-right: 4px solid transparent;
         border-top: 8px solid #fff;
       }
-
-      /* ── Scene 세포 반응 (hover 시 관련 세포가 아래에서 올라와 한마디) ── */
-      .st-react {
-        position: absolute;
-        bottom: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 5px;
-        pointer-events: none;
-        z-index: 3;
-        opacity: 0;
-        transform: translateY(118%);
-        transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
-      }
-      .st-react-a { left: 6%; }
-      .st-react-b { right: 6%; }
-      .st-scene-card:hover .st-react { opacity: 1; transform: translateY(0); }
-      .st-scene-card:hover .st-react-b { transition-delay: 0.09s; }
-
-      .st-react img {
-        width: clamp(52px, 6vw, 74px);
-        height: auto;
-        filter: drop-shadow(0 6px 14px rgba(36, 36, 84, 0.28));
-      }
-      .st-react-bubble {
-        background: #fff;
-        border-radius: 10px 10px 10px 3px;
-        padding: 5px 9px;
-        font-size: 11px;
-        font-weight: 800;
-        color: var(--navy);
-        line-height: 1.3;
-        white-space: nowrap;
-        box-shadow: 0 4px 14px rgba(36, 36, 84, 0.18);
-      }
-      .st-react-b .st-react-bubble { border-radius: 10px 10px 3px 10px; }
 
       /* ── People / Relationship ─────────────────────────────────── */
       .st-people-map {
@@ -790,7 +783,7 @@
         ══════════════════════════════════════════════════════════ -->
         <section class="st-hero" aria-labelledby="st-hero-title">
           <div class="st-hero-bg" aria-hidden="true">
-            <img src="./assets/images/story/story-hero-main.webp" alt=""  fetchpriority="high" decoding="async" width="1672" height="941" />
+            <img src="./assets/images/story/story-hero-main.webp?v=story-hero-balanced-20260623" alt=""  fetchpriority="high" decoding="async" width="1920" height="1080" />
           </div>
           <div class="st-hero-overlay" aria-hidden="true"></div>
 
@@ -877,7 +870,7 @@
                   <p>또 다른 이야기의 시작</p>
                 </div>
                 <div class="st-tl-img">
-                  <img src="./assets/images/story/scene-love-timing.webp" alt="유미와 남자가 마주보는 장면"  loading="lazy" decoding="async" width="445" height="334" />
+                  <img src="./assets/images/story/scene-love-timing.webp?v=scene-handfix-20260623" alt="유미와 남자가 마주보는 장면"  loading="lazy" decoding="async" width="1200" height="1600" />
                 </div>
               </article>
             </div>
@@ -898,42 +891,18 @@
 
           <div class="st-scenes-grid" aria-label="명장면 카드 목록">
             <article class="st-scene-card" aria-label="장면 — 사랑은 타이밍이야">
-              <img src="./assets/images/story/scene-love-timing.webp" alt="유미와 남자가 마주보는 장면"  loading="lazy" decoding="async" width="445" height="334" />
+              <img src="./assets/images/story/scene-love-timing.webp?v=scene-handfix-20260623" alt="유미와 남자가 마주보는 장면"  loading="lazy" decoding="async" width="1200" height="1600" />
               <div class="st-speech" aria-hidden="true">사랑은&#10;타이밍이야</div>
-              <div class="st-react st-react-a" aria-hidden="true">
-                <span class="st-react-bubble">두근두근…💗</span>
-                <img src="./assets/images/relationship/love-cell.webp" alt="" loading="lazy" decoding="async" />
-              </div>
-              <div class="st-react st-react-b" aria-hidden="true">
-                <span class="st-react-bubble">타이밍이 중요해!</span>
-                <img src="./assets/images/relationship/logic-cell.webp" alt="" loading="lazy" decoding="async" />
-              </div>
             </article>
 
             <article class="st-scene-card" aria-label="장면 — 오늘도 유미는 성장 중">
-              <img src="./assets/images/story/timeline-growing.webp" alt="유미 밤에 생각하는 장면"  loading="lazy" decoding="async" width="445" height="343" />
+              <img src="./assets/images/story/timeline-growing.webp?v=scene-large-20260623" alt="유미 밤에 생각하는 장면"  loading="lazy" decoding="async" width="1200" height="1600" />
               <div class="st-speech" aria-hidden="true">오늘도&#10;유미는&#10;성장 중</div>
-              <div class="st-react st-react-a" aria-hidden="true">
-                <span class="st-react-bubble">오늘도 파이팅!</span>
-                <img src="./assets/images/relationship/passion-cell.webp" alt="" loading="lazy" decoding="async" />
-              </div>
-              <div class="st-react st-react-b" aria-hidden="true">
-                <span class="st-react-bubble">다 추억이 될 거야</span>
-                <img src="./assets/images/relationship/memory-cell.webp" alt="" loading="lazy" decoding="async" />
-              </div>
             </article>
 
             <article class="st-scene-card" aria-label="장면 — 괜찮아 너답게 하면 돼">
-              <img src="./assets/images/story/timeline-wavering.webp" alt="유미 혼자 글 쓰는 장면"  loading="lazy" decoding="async" width="445" height="332" />
+              <img src="./assets/images/story/timeline-wavering.webp?v=scene-large-20260623" alt="유미 혼자 글 쓰는 장면"  loading="lazy" decoding="async" width="1200" height="1600" />
               <div class="st-speech" aria-hidden="true">괜찮아,&#10;너답게 하면 돼</div>
-              <div class="st-react st-react-a" aria-hidden="true">
-                <span class="st-react-bubble">괜찮아 괜찮아~</span>
-                <img src="./assets/images/relationship/love-cell.webp" alt="" loading="lazy" decoding="async" />
-              </div>
-              <div class="st-react st-react-b" aria-hidden="true">
-                <span class="st-react-bubble">…정말 괜찮을까?</span>
-                <img src="./assets/images/relationship/anxiety-cell.webp" alt="" loading="lazy" decoding="async" />
-              </div>
             </article>
           </div>
         </section>
@@ -1145,9 +1114,9 @@
 
           /* ── Scene cards fade-up reveal ────────────────────── */
           gsap.from(".st-scene-card", {
-            scrollTrigger: { trigger: ".st-scenes-grid", start: "top 80%" },
+            scrollTrigger: { trigger: ".st-scenes-grid", start: "top 85%" },
             y: 36, autoAlpha: 0, duration: 0.55, stagger: 0.1,
-            ease: "power2.out"
+            ease: "power2.out", clearProps: "transform"
           });
           gsap.from(".st-speech", {
             scrollTrigger: { trigger: ".st-scenes-grid", start: "top 76%" },
@@ -1197,24 +1166,8 @@
             y: -12, duration: 3.5, ease: "sine.inOut", repeat: -1, yoyo: true
           });
 
-          /* ── Scene card 3D hover tilt ───────────────────────── */
-          document.querySelectorAll(".st-scene-card").forEach(function (card) {
-            card.addEventListener("mousemove", function (e) {
-              var r = card.getBoundingClientRect();
-              var cx = (e.clientX - r.left) / r.width - 0.5;
-              var cy = (e.clientY - r.top) / r.height - 0.5;
-              gsap.to(card, {
-                rotateY: cx * 14, rotateX: -cy * 10, scale: 1.04,
-                duration: 0.3, ease: "power2.out", transformPerspective: 700
-              });
-            });
-            card.addEventListener("mouseleave", function () {
-              gsap.to(card, {
-                rotateY: 0, rotateX: 0, scale: 1,
-                duration: 0.35, ease: "back.out(2.2)"
-              });
-            });
-          });
+          /* (Scene card 3D tilt is wired up separately below, outside the
+             GSAP guard, so it works even when the GSAP CDN fails to load.) */
 
           /* ── Cell hover squash & stretch ────────────────────── */
           document.querySelectorAll(".st-cell-item").forEach(function (cell) {
@@ -1398,6 +1351,44 @@
             });
           }());
         }
+
+        /* ── Scene card 3D hover tilt (no GSAP dependency) ─────────
+           Runs regardless of whether the GSAP CDN loaded, so the
+           입체 효과 keeps working even offline. */
+        (function () {
+          var canTilt = window.matchMedia("(hover: hover) and (pointer: fine)").matches &&
+            !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (!canTilt) return;
+
+          document.querySelectorAll(".st-scene-card").forEach(function (card) {
+            var img = card.querySelector("img");
+            if (!img) return;
+
+            card.addEventListener("mousemove", function (e) {
+              var r = card.getBoundingClientRect();
+              var px = (e.clientX - r.left) / r.width;
+              var py = (e.clientY - r.top) / r.height;
+              var rotateY = (px - 0.5) * 12;
+              var rotateX = -(py - 0.5) * 10;
+
+              card.style.transform =
+                "perspective(900px) rotateY(" + rotateY + "deg) rotateX(" + rotateX +
+                "deg) scale(1.02)";
+              img.style.transform =
+                "scale(1.26) translate(" + (-rotateY * 0.7).toFixed(1) + "px," +
+                (-rotateX * 0.7).toFixed(1) + "px)";
+
+              card.style.setProperty("--mx", (px * 100).toFixed(1) + "%");
+              card.style.setProperty("--my", (py * 100).toFixed(1) + "%");
+            });
+
+            card.addEventListener("mouseleave", function () {
+              card.style.transform =
+                "perspective(900px) rotateY(0deg) rotateX(0deg) scale(1)";
+              img.style.transform = "scale(1.22)";
+            });
+          });
+        }());
       })();
     </script>
   </body>
